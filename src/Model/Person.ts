@@ -13,8 +13,8 @@ export class Person {
     @Column('varchar', { length: 255, nullable: true, name: 'full_name' })
     fullName: string | null;
 
-    @Column('boolean', { nullable: true, name: 'gender' })
-    gender: boolean | null;
+    @Column('varchar', { nullable: true, name: 'gender' })
+    gender: string | null;
 
     @CreateDateColumn({ nullable: true, name: 'date_of_birth' })
     dateOfBirth: Date | null;
