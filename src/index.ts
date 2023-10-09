@@ -1,16 +1,29 @@
 import 'dotenv/config';
 import express from 'express';
 import "reflect-metadata"
+import personRouter from './Routes/personRoute';
+import { appDataSource } from './Repositories/data-source';
 
 const app = express();
+app.use(express.json());
 
+appDataSource.initialize().then(() => {
+console.log('Database connection established');
+	// Handling '/' Request
+	app.get('/', (req, res) => {
+		res.send('TypeScript With Express');
+	});
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+	app.use(personRouter);
 
-const PORT = process.env.PORT || 3000;
+	// Take a port 8080 for running server.
+	const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log('Server is running on port', PORT);
+	// Server setup
+	app.listen(PORT, () => {
+		console.log(`App: http://localhost:${PORT}/`);
+	});
+
+}).catch((error) => {
+	console.log(error);
 });
