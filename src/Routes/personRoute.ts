@@ -16,6 +16,6 @@ const validateId = (req: Request, res: Response, next: NextFunction) => {
     next();
 };
 
-personRouter.get('/getNameGender:id', validateId, personController.getNameGender)
+personRouter.get('/getNameGender/:id', validateId, personController.getNameGender)
 
 export default personRouter;
