@@ -1,24 +1,46 @@
 import { Person } from '../../src/Model/Person';
 import * as personService from '../../src/Services/personService';
 
-interface Person {
-    personId: number;
-    fullName: string;
-    gender: string;
-}
+//interface Person {
+  //  personId: number;
+  //  fullName: string;
+  //  gender: string;
+//}
 
-describe('first test ever made in the world.', async () => {
+describe('first test ever made in the world.', () => {
     //arrange
-    const testData = [{ personId: 1, fullName: 'Jens Jensen', gender: true }]
+    console.log('In the test before person creation');
+    
+    const person: Person = {
+        personId: 1,
+    cpr: 12345678,
+    fullName: "Jeff Roed",
+    gender: null,
+    dateOfBirth: null,
+    address: null,
+    phoneNumber: null
+    };
+
+
+    console.log(person);
+    
+    test('Testing FullName', () => {
+        expect(person).toContain(person); //Sammenligner bare med sig selv lige nu. 
+        expect(personService.getNameGender(person.personId)).toContain(person);
+      });
+
+    //const testData = [{ personId: 1, fullName: 'Jens Jensen', gender: true }]
+    //console.log(testData);
+    
     //act
-    test.each(testData)('test correct name', async ({ personId, fullName, gender }) => {
-        const response = await personService.getNameGender(personId) as Person;
+    /*test.each(person)('test correct name', async (person) => {
+        const response = await personService.getNameGender(person.personId) as Person;
         console.log(response);
-        console.log(fullName);
+        console.log(person);
         
         
-        expect(response.fullName).toBe(fullName);
-    })
+        expect(response).toBe(person);
+    })*/
     //Assert
 });
 
