@@ -1,6 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-
 @Entity()
 export class Person {
 
@@ -19,8 +18,8 @@ export class Person {
     @CreateDateColumn({ nullable: true, name: 'date_of_birth' })
     dateOfBirth: Date | null;
 
-    @Column('varchar', { length: 255, nullable: true, name: 'last_login' })
-    address: Date | null;
+    @Column('varchar', { length: 255, nullable: true, name: 'address' })
+    address: string | null;
 
     @Column('int', { nullable: true, name: 'phone_number' })
     phoneNumber: number | null;
