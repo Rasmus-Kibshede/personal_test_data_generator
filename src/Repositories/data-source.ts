@@ -27,3 +27,11 @@ export const connection = mysql.createPool({
   enableKeepAlive: true,
   keepAliveInitialDelay: 0
 });
+
+console.log('accesed .env file. ');
+console.log(process.env.DB_USERNAME);
+console.log(process.env.DB_DATABASE);
+console.log(process.env.DB_HOST);
+
+
+

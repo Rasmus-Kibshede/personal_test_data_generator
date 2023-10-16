@@ -1,5 +1,5 @@
-import {getNameGender} from '../../src/Services/personService'
 import 'dotenv/config';
+import {getNameGender} from '../../src/Services/personService'
 
     //Assert
 
