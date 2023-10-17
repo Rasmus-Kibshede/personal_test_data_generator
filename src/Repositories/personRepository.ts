@@ -1,4 +1,3 @@
-//import { appDataSource } from './data-source';
 import { RowDataPacket } from 'mysql2';
 import { PersonDTO } from '../Model/PersonDTO';
 import { connection } from './data-source';
@@ -14,14 +13,3 @@ export const getNameGender = async (id: number) => {
     
     return personDto
 };
-
-/*export const personRepo = appDataSource.getRepository(Person).extend({
-    findOneByID(id: number) {
-         return personRepo.findOne({
-            relations: {},
-            where: {
-                personId: id
-            },
-        });
-    }
-});*/

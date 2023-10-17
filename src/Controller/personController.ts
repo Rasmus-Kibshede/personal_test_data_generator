@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import * as personService from '../Services/personService'; 	
-import { Person } from '../Model/Person';
 import { PersonDTO } from '../Model/PersonDTO';
 
 export const getNameGender = async (req: Request, res: Response) => {
