@@ -14,6 +14,12 @@ jobs:
 
     runs-on: ubuntu-latest
     environment: secrets
+    env: 
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_PORT: ${{ secrets.DB_PORT }}
 
     strategy:
       matrix:
@@ -27,12 +33,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      env: 
-        DB_HOST: ${{ secrets.DB_HOST }}
-        DB_USERNAME: ${{ secrets.DB_USERNAME }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        DB_DATABASE: ${{ secrets.DB_DATABASE }}
-        DB_PORT: ${{ secrets.DB_PORT }}
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
