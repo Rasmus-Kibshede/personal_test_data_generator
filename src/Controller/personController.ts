@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import * as personService from '../Services/personService';
 import { PersonDTO } from '../Model/PersonDTO';
 
-export const getNameGender = async (req: Request, res: Response) => {
-	const response = await personService.getNameGender(Number(req.params.id));
+export const getRandomNameAndGender = async (req: Request, res: Response) => {
+	const response = await personService.getRandomNameAndGender();
 
 	if (!response) {
 		res.status(404).send({ err: response });

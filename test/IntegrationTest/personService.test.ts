@@ -7,8 +7,7 @@ test('Testing FullName', async () => {
     expect(personOne).not.toBe(null);
 });
 
-
 afterAll(() => {
     // Closing the DB connection allows Jest to exit successfully.
     connection.end
-})
+});
