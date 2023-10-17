@@ -24,7 +24,5 @@ import { getNameGender as repoGetNameGender } from '../Repositories/personReposi
 }*/
 
 export const getNameGender = async (id: number) => {
-    console.log('IN SERVICE!!!!');
     return repoGetNameGender(id);
-
 };
