@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { getNameGender as repoGetNameGender } from '../Repositories/personRepository';
+import { getPersonById as repoGetNameGender } from '../Repositories/personRepository';
 
 export const getNameGender = async (id: number) => {
 

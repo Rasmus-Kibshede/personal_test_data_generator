@@ -2,7 +2,7 @@ import { RowDataPacket } from 'mysql2';
 import { PersonDTO } from '../Model/PersonDTO';
 import { connection } from './data-source';
 
-export const getNameGender = async (id: number) => {
+export const getPersonById = async (id: number) => {
     const [rows] = await connection.query<RowDataPacket[]>('select * from person where person_id = ?', [id])
     const personDto: PersonDTO = {
         personId: rows[0].person_id,

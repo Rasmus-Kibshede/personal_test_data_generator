@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { connection } from '../../src/Repositories/data-source';
-import { getNameGender } from '../../src/Services/personService'
+import { getNameGender } from '../../src/Services/personService';
 
 test('Testing FullName', async () => {
     const test = await getNameGender(1);
@@ -11,5 +11,5 @@ test('Testing FullName', async () => {
 
 afterAll(() => {
     // Closing the DB connection allows Jest to exit successfully.
-    connection.end();
+    connection.end
 })
