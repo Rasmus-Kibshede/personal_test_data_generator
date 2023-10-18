@@ -1,4 +1,4 @@
-export type PersonDTO = PersonResponseDTO | PersonRequestDTO | Person;
+export type PersonDTO = PersonResponseDTO | PersonRequestDTO | PersonDTO2;
 
 interface PersonResponseDTO {
     personId: number;
@@ -7,7 +7,7 @@ interface PersonResponseDTO {
     gender: string | null;
 }
 
-interface Person {
+interface PersonDTO2 {
     name: string,
     surname: string,
     gender: string,
