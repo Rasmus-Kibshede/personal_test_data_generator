@@ -5,14 +5,14 @@ interface PersonResponseDTO {
   cpr: number | null;
   fullName: string | null;
   gender: string | null;
-  dateOfBirth: Date | null;
+  dateOfBirth: string | null;
 }
 
 interface Person {
   name: string;
   surname: string;
   gender: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
 }
 
 interface PersonRequestDTO {
