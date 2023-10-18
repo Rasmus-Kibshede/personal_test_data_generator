@@ -13,6 +13,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: secrets
+    env: 
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_PORT: ${{ secrets.DB_PORT }}
 
     strategy:
       matrix:
