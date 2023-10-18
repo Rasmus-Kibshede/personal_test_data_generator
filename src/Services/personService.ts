@@ -1,4 +1,4 @@
-import { PersonDTO } from "../Model/PersonDTO";
+import { PersonDTO1, PersonDTO2 } from "../Model/PersonDTO";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 import { Person } from "../Model/Person";
 
@@ -10,16 +10,18 @@ export const getRandomNameAndGender = async () => {
         throw new Error('No persons found');
     }
 
-
     Math.random();
     const randomNumber = Math.floor(Math.random() * allPersons.length);
 
-    const randomPerson = allPersons[randomNumber] as PersonDTO;
+    const randomPerson = allPersons[randomNumber];
 
-    console.log(randomPerson.);
-    
+    const fullname = randomPerson.name + ' ' + randomPerson.surname;
+    // const person = new Person(12345678, fullname, 'male', '18-10-2023', 'address', 87654321);
 
-    // const person = new Person(02, 'rasmus kibshede', ):
+    const person: PersonDTO2 = {
+        fullname: fullname,
+        gender: randomPerson.gender
+    }
 
-    return allPersons[randomNumber];
+    return person;
 };

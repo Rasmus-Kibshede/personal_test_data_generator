@@ -2,11 +2,11 @@ export class Person {
     private _cpr: number;
     private _fullName: string;
     private _gender: string;
-    private _dateOfBirth: Date;
+    private _dateOfBirth: string;
     private _address: string;
     private _phoneNumber: number;
 
-    constructor(cpr: number, fullname: string, gender: string, dateOfBirth: Date, address: string, phoneNumber: number) {
+    constructor(cpr: number, fullname: string, gender: string, dateOfBirth: string, address: string, phoneNumber: number) {
         this._cpr = cpr;
         this._fullName = fullname;
         this._address = address;
@@ -39,11 +39,11 @@ export class Person {
         this._gender = value;
     }
 
-    get dateOfBirth(): Date {
+    get dateOfBirth(): string {
         return this._dateOfBirth;
     }
 
-    set dateOfBirth(value: Date) {
+    set dateOfBirth(value: string) {
         this._dateOfBirth = value;
     }
 
