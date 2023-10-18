@@ -12,6 +12,16 @@ export const getRandomNameAndGender = async (req: Request, res: Response) => {
 	}
 };
 
+export const getRandomBirthday = async (req: Request, res: Response) => {
+	const response = await personService.setRandomBirthday();
+
+	if (!response) {
+		res.status(404).send({ err: response });
+	} else {
+		personResponse(response ? response : { err: response }, res, 200);
+	}
+}
+
 const personResponse = (response: PersonDTO | { err: string }, res: Response, statusCode: number) => {
 	if (!response) {
 		res.status(404).send({ err: response });

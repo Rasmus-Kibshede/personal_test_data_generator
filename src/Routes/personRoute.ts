@@ -18,5 +18,6 @@ const validateId = (req: Request, res: Response, next: NextFunction) => {
 
 //Endpoints
 personRouter.get('/person/', personController.getRandomNameAndGender)
+personRouter.get('/birthday/', personController.getRandomBirthday)
 
 export default personRouter;
