@@ -14,6 +14,6 @@ interface Person {
 }
 
 interface PersonRequestDTO {
-	email: string;
-	password: string;
+    email: string;
+    password: string;
 }
