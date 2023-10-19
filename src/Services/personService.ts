@@ -1,4 +1,3 @@
-import { PersonDTO } from "../Model/PersonDTO";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 
 export const getRandomNameAndGender = async () => {
@@ -17,20 +16,25 @@ export const getRandomNameAndGender = async () => {
     return allPersons[randomNumber];
 };
 
-export const setRandomBirthday = () => {
-    const start = new Date(1900, 0, 1);
+export const setRandomBirthday = async () => {
+    const start = new Date(1908, 5, 8); // Oldest verified living person
     const end = new Date();
     const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 
-    const day = randomDate.getDate().toString().padStart(2, '0');
-    const month = (randomDate.getMonth() + 1).toString().padStart(2, '0');
-    const year = randomDate.getFullYear().toString().substr(-2);
+    const allPersons = await getAllPersonsFromFile();
 
-    const data: PersonDTO = {
-        name: '',
-        surname: '',
-        gender: '',
-        dateOfBirth: `${day}${month}${year}`
+    if (!allPersons) {
+        throw new Error('No persons found');
+    }
+
+    const randomNumber = Math.floor(Math.random() * allPersons.length);
+
+    const { name, surname, gender } = allPersons[randomNumber];
+
+    const data = {
+        fullname: `${name} ${surname}`,
+        gender: gender,
+        dateOfBirth: randomDate.toLocaleDateString('en-GB')
     }
 
     return data;
