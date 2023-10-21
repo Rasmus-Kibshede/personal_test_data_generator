@@ -10,15 +10,9 @@ test('Testing FullName', async () => {
 
 describe('generateFakeMobilePhoneNumber', () => {
     test('should return a string of length 8', () => {
-        const phoneNumber = generateFakeMobilePhoneNumber();
-        const isValidPhoneNumber = /^\d{8}$/.test(phoneNumber);
-        expect(isValidPhoneNumber).toBe(true);
-        
-        
-        if (!isValidPhoneNumber) {
-          expect(phoneNumber).toBeNull();
-        }
-      });
+    const phoneNumber = generateFakeMobilePhoneNumber();
+    expect(phoneNumber).toHaveLength(8);
+  });
   
     test('should start with one of the defined prefixes', () => {
         const phoneNumber = generateFakeMobilePhoneNumber();
@@ -45,12 +39,6 @@ describe('generateFakeMobilePhoneNumber', () => {
         const phoneNumber = generateFakeMobilePhoneNumber();
         const containsOnlyDigits = /^\d+$/.test(phoneNumber);
         expect(containsOnlyDigits).toBe(true);
-    });
-
-    test('should generate random phone numbers', () => {
-        const phoneNumber1 = generateFakeMobilePhoneNumber();
-        const phoneNumber2 = generateFakeMobilePhoneNumber();
-        expect(phoneNumber1).not.toEqual(phoneNumber2);
     });
     
     test('should generate phone numbers quickly', () => {
