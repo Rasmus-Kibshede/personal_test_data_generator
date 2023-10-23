@@ -21,21 +21,7 @@ export const setRandomBirthday = async () => {
     const end = new Date();
     const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 
-    const allPersons = await getAllPersonsFromFile();
+    const randomDateFormatted = randomDate.toLocaleDateString('en-GB')
 
-    if (!allPersons) {
-        throw new Error('No persons found');
-    }
-
-    const randomNumber = Math.floor(Math.random() * allPersons.length);
-
-    const { name, surname, gender } = allPersons[randomNumber];
-
-    const data = {
-        fullname: `${name} ${surname}`,
-        gender: gender,
-        dateOfBirth: randomDate.toLocaleDateString('en-GB')
-    }
-
-    return data;
+    return randomDateFormatted;
 }
