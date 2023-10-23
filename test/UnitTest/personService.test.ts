@@ -4,35 +4,74 @@ import { PersonDTO1, PersonDTO2 } from '../../src/Model/PersonDTO';
 let persons: PersonDTO1[];
 
 jest.mock("../../src/Repositories/fileHandler", () => {
-    const originalModule = jest.requireActual("../../src/Repositories/fileHandler");
+    // const originalModule = jest.requireActual("../../src/Repositories/fileHandler");
     return {
-        getAllPersonsFromFile: jest.fn(originalModule).mockImplementation(() => Promise.resolve(
-            persons
+        __esModule: true,
+        getAllPersonsFromFile: jest.fn().mockImplementation(() => Promise.resolve(
+            [
+                {
+                    name: 'Annemette P.',
+                    surname: 'Nilsson',
+                    gender: 'female'
+                },
+                {
+                    name: "Lucas M.",
+                    surname: "Kjær",
+                    gender: "male"
+                }
+            ]
         ))
     };
 });
 
 let person: PersonDTO2;
 
-
 beforeEach(async () => {
     person = await getRandomNameAndGender();
+
 });
 
-describe('', () => {
-    persons = [
-        {
-            name: 'Annemette P.',
-            surname: 'Nilsson',
-            gender: 'female'
-        },
-        {
-            name: "Lucas M.",
-            surname: "Kjær",
-            gender: "male"
-        }
-    ];
+afterAll(() => {
+    jest.clearAllMocks();
+});
 
+// const t = (isValidtData: boolean) => {
+//     if (isValidtData) {
+//         persons = [
+//             {
+//                 name: 'Annemette P.',
+//                 surname: 'Nilsson',
+//                 gender: 'female'
+//             },
+//             {
+//                 name: "Lucas M.",
+//                 surname: "Kjær",
+//                 gender: "male"
+//             }
+//         ];
+//     } else {
+//         persons = [
+//             {
+//                 name: 'Anneme9tte P.',
+//                 surname: 'Nilsson',
+//                 gender: 'female'
+//             },
+//             {
+//                 name: "Lucas M,",
+//                 surname: "Kj2ær",
+//                 gender: "male"
+//             },
+//             {
+//                 name: "LucÅs M.",
+//                 surname: "Kj2ær",
+//                 gender: "mal10e"
+//             }
+//         ];
+//     };
+// };
+
+
+describe('', () => {
 
     describe('Fullname length passes', () => {
         test('length is less then max string length', async () => {
@@ -77,21 +116,12 @@ describe('', () => {
 });
 
 // describe('', () => {
-//     persons = [
-//         {
-//             name: 'Anneme9tte P.',
-//             surname: 'Nilsson',
-//             gender: 'female'
-//         },
-//         {
-//             name: "Lucas M,",
-//             surname: "Kj2ær",
-//             gender: "male"
-//         },
-//         {
-//             name: "LucÅs M.",
-//             surname: "Kj2ær",
-//             gender: "mal10e"
-//         }
-//     ];
+
+//     describe('Fullname length fails', () => {
+//         test('length is less then max string length', async () => {
+//             expect(person.fullname.length).not.toBeLessThan(2147483647);
+//         });
+
+
+//     });
 // });
