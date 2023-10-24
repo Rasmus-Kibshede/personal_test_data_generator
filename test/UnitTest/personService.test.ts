@@ -2,16 +2,6 @@ import 'dotenv/config';
 import { getRandomNameAndGender } from '../../src/Services/personService';
 import { PersonDTO2 } from '../../src/Model/PersonDTO';
 
-/*jest.mock("../../src/Repositories/fileHandler", () => {
-    const originalModule = jest.requireActual("../../src/Repositories/fileHandler");
-    return {
-        getAllPersonsFromFile: jest.fn(originalModule).mockImplementation(() => Promise.resolve(
-            persons
-        ))
-    };
-});
-*/
-
 jest.mock("../../src/Repositories/fileHandler", () => {
     return {
         __esModule: true,
@@ -87,24 +77,20 @@ describe('', () => {
 
     describe('Fullname length passes', () => {
         test('length is less then max string length', async () => {
-            console.log(person);
             expect(person.fullname.length).toBeLessThan(2147483647);
         });
 
         test('length is greater then 0', async () => {
-            console.log(person);
             expect(person.fullname.length).toBeGreaterThan(0);
         });
     });
 
     describe('Gender length passes', () => {
         test('length is less then max string length', async () => {
-            console.log(person);
             expect(person.gender.length).toBeLessThan(2147483647);
         });
 
         test('length is greater then 0', async () => {
-            console.log(person);
             expect(person.gender.length).toBeGreaterThan(0);
         });
     });
@@ -115,7 +101,6 @@ describe('', () => {
         });
 
         test('Fullname matches alphabet chars with space', async () => {
-            person = await getRandomNameAndGender();
             expect(person.fullname).toMatch(/^[a-æA-Æ\sa.c]*$/);
         });
     });
