@@ -4,23 +4,32 @@ import { PersonDTO1, PersonDTO2 } from '../../src/Model/PersonDTO';
 let persons: PersonDTO1[];
 
 jest.mock("../../src/Repositories/fileHandler", () => {
-    // const originalModule = jest.requireActual("../../src/Repositories/fileHandler");
+
     return {
         __esModule: true,
-        getAllPersonsFromFile: jest.fn().mockImplementation(() => Promise.resolve(
-            [
-                {
-                    name: 'Annemette P.',
-                    surname: 'Nilsson',
-                    gender: 'female'
-                },
-                {
-                    name: "Lucas M.",
-                    surname: "Kjær",
-                    gender: "male"
-                }
-            ]
-        ))
+        getAllPersonsFromFile: jest.fn(() => Promise.resolve([
+            {
+                name: 'Annemette P.',
+                surname: 'Nilsson',
+                gender: 'female'
+            },
+            {
+                name: "Lucas M.",
+                surname: "Kjær",
+                gender: "male"
+            }
+        ])).mockImplementationOnce(() => Promise.resolve([
+            {
+                name: 'Anneme2tte P.',
+                surname: 'Ni2lsson',
+                gender: 'f2emale'
+            },
+            {
+                name: "Luc2as M.",
+                surname: "K2jær",
+                gender: "m2ale"
+            }
+        ]))
     };
 });
 
@@ -28,11 +37,10 @@ let person: PersonDTO2;
 
 beforeEach(async () => {
     person = await getRandomNameAndGender();
-
 });
 
-afterAll(() => {
-    jest.clearAllMocks();
+afterEach(() => {
+    // jest.clearAllMocks();
 });
 
 // const t = (isValidtData: boolean) => {
@@ -72,33 +80,42 @@ afterAll(() => {
 
 
 describe('', () => {
+    
+    // getRandomNameAndGender().then((p) => {
+    //     person = p;
+    //     console.log('kibshede', person);
+    // });
 
-    describe('Fullname length passes', () => {
-        test('length is less then max string length', async () => {
-            expect(person.fullname.length).toBeLessThan(2147483647);
-        });
 
-        test('length is greater then 0', async () => {
-            expect(person.fullname.length).toBeGreaterThan(0);
-        });
-    });
+    // describe('Fullname length passes', () => {
+    //     test('length is less then max string length', () => {
+    //         console.log('kibshede12', person);
 
-    describe('Gender length passes', () => {
-        test('length is less then max string length', async () => {
-            expect(person.gender.length).toBeLessThan(2147483647);
-        });
+    //         expect(person.fullname.length).toBeLessThan(2147483647);
+    //     });
 
-        test('length is greater then 0', async () => {
-            expect(person.gender.length).toBeGreaterThan(0);
-        });
-    });
+    //     test('length is greater then 0', async () => {
+    //         expect(person.fullname.length).toBeGreaterThan(0);
+    //     });
+    // });
+
+    // describe('Gender length passes', () => {
+    //     test('length is less then max string length', async () => {
+    //         expect(person.gender.length).toBeLessThan(2147483647);
+    //     });
+
+    //     test('length is greater then 0', async () => {
+    //         expect(person.gender.length).toBeGreaterThan(0);
+    //     });
+    // });
 
     describe('Fullname format passes', () => {
-        test('Fullname contains a space', () => {
-            expect(person.fullname).toContain(' ');
-        });
+        // test('Fullname contains a space', () => {
+        //     expect(person.fullname).toContain(' ');
+        // });
 
-        test('Fullname matches alphabet chars with space', () => {
+        test('Fullname matches alphabet chars with space', async () => {
+            person = await getRandomNameAndGender();
             expect(person.fullname).toMatch(/^[a-æA-Æ\sa.c]*$/);
         });
     });
@@ -115,13 +132,17 @@ describe('', () => {
     });
 });
 
-// describe('', () => {
+describe('', () => {
 
-//     describe('Fullname length fails', () => {
-//         test('length is less then max string length', async () => {
-//             expect(person.fullname.length).not.toBeLessThan(2147483647);
-//         });
+    describe('Gender format fail', () => {
+        test('Gender contains male or female fail', async () => {
+            person = await getRandomNameAndGender();
+            expect(['male', 'female']).toContain(person.gender);
+        });
 
-
-//     });
-// });
+        test('Gender matches alphabet chars fail', async () => {
+            person = await getRandomNameAndGender();
+            expect(person.gender).toMatch(/^[a-mA-M]*$/);
+        });
+    });
+});

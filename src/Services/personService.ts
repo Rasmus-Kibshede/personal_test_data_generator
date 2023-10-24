@@ -3,23 +3,23 @@ import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 
 export const getRandomNameAndGender = async () => {
 
-    const allPersons = await getAllPersonsFromFile();
+  const allPersons = await getAllPersonsFromFile();
 
-    if (!allPersons) {
-        throw new Error('No persons found');
-    }
+  if (!allPersons) {
+    throw new Error('No persons found');
+  }
 
-    Math.random();
-    const randomNumber = Math.floor(Math.random() * allPersons.length);
+  Math.random();
+  const randomNumber = Math.floor(Math.random() * allPersons.length);
 
-    const randomPerson = allPersons[randomNumber];
+  const randomPerson = allPersons[randomNumber];
 
-    const fullname = randomPerson.name + ' ' + randomPerson.surname;
+  const fullname = randomPerson.name + ' ' + randomPerson.surname;
 
-    const person: PersonDTO2 = {
-        fullname: fullname,
-        gender: randomPerson.gender
-    }
+  const person: PersonDTO2 = {
+    fullname: fullname,
+    gender: randomPerson.gender
+  }
 
-    return person;
+  return person;
 };
