@@ -25,12 +25,9 @@ export const getRandomNameAndGender = async () => {
 };
 
 export const validateNameAndGender = (person: PersonDTO2) => {
-  console.log(person);
-
   if (validateGender(person.gender) && validateName(person.fullname)) {
     return person;
   } else {
-    console.log('error');
     throw new Error('Validation failed');
   }
 };
