@@ -1,10 +1,11 @@
 // export type PersonDTO = PersonDTO1 | PersonDTO2;
 
 export interface PersonResponseDTO {
-    personId: number;
-    cpr: number | null;
-    fullName: string | null;
-    gender: string | null;
+  personId: number;
+  cpr: number | null;
+  dateOfBirth: string | null;
+  fullName: string | null;
+  gender: string | null;
 }
 
 export interface PersonDTOFileObject {
@@ -17,7 +18,7 @@ export interface PersonDTO {
     gender: string,
 }
 
-interface PersonRequestDTO {
-    email: string;
-    password: string;
+export interface PersonRequestDTO {
+  email: string;
+  password: string;
 }
