@@ -16,7 +16,8 @@ export const getRandomNameAndGender = async () => {
     return allPersons[randomNumber];
 };
 
-export function generateFakeMobilePhoneNumber(): string {
+
+export const randomNumberPrefix = async () => {
   const phoneNumberPrefixes = [
     '2', '30', '31', '40', '41', '42', '50', '51', '52', '53',
     '60', '61', '71', '81', '91', '92', '93', '342', '344', '345',
@@ -31,10 +32,19 @@ export function generateFakeMobilePhoneNumber(): string {
     '827', '829',
   ];
 
-  const randomPhoneNumberPrefix = phoneNumberPrefixes[Math.floor(Math.random() * phoneNumberPrefixes.length)];
-
-
-  const randomDigits = Array.from({ length: 8 - randomPhoneNumberPrefix.length }, () => Math.floor(Math.random() * 10)).join('');
-
-  return randomPhoneNumberPrefix + randomDigits;
+  return phoneNumberPrefixes[Math.floor(Math.random() * phoneNumberPrefixes.length)];
 }
+
+export const generateFakeMobilePhoneNumber = async () => {
+  const prefix = await randomNumberPrefix(); 
+  
+  if(!prefix) {
+    return{err: 'not a string'}
+  }
+  const randomDigits = Array.from({ length: 8 - prefix.length }, () => Math.floor(Math.random() * 10)).join('');
+
+  return prefix + ' ' + randomDigits;
+};
+
+const fakePhoneNumber = generateFakeMobilePhoneNumber();
+console.log(fakePhoneNumber);
