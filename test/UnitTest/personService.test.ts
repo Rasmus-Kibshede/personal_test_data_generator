@@ -2,16 +2,6 @@ import 'dotenv/config';
 import { getRandomNameAndGender, validateName, validateGender } from '../../src/Services/personService';
 import { PersonDTO2 } from '../../src/Model/PersonDTO';
 
-/*jest.mock("../../src/Repositories/fileHandler", () => {
-    const originalModule = jest.requireActual("../../src/Repositories/fileHandler");
-    return {
-        getAllPersonsFromFile: jest.fn(originalModule).mockImplementation(() => Promise.resolve(
-            persons
-        ))
-    };
-});
-*/
-
 jest.mock("../../src/Repositories/fileHandler", () => {
     return {
         __esModule: true,
