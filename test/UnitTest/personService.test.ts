@@ -81,8 +81,6 @@ let person: PersonDTO2;
 
 beforeAll(async () => {
     person = await getRandomNameAndGender();
-    console.log('Her hentes Person');
-
 });
 
 
@@ -113,9 +111,9 @@ describe('', () => {
     });
 
     describe('Fullname format passes', () => {
-        // test('Fullname contains a space', () => {
-        //     expect(person.fullname).toContain(' ');
-        // });
+        test('Fullname contains a space', () => {
+            expect(person.fullname).toContain(' ');
+        });
 
         test('Fullname matches alphabet chars with space', async () => {
             person = await getRandomNameAndGender();
@@ -139,26 +137,10 @@ describe('', () => {
 describe('', () => {
     beforeAll(async () => {
         person = await getRandomNameAndGender();
-        console.log('Her hentes person ign.....');
-    });
-
-    describe('Fullname length passes', () => {
-        test('length is less then max string length', async () => {
-            console.log('Inde i andet test set', person);
-
-            expect(person.fullname.length).toBeLessThan(2147483647);
-        });
-
-        test('length is greater then 0', async () => {
-            console.log(person);
-
-            expect(person.fullname.length).toBeGreaterThan(0);
-        });
     });
 
     describe('Gender format passes', () => {
         test('Gender contains male or female passes', async () => {
-
             expect(['male', 'female']).toContain(person.gender);
         });
 
