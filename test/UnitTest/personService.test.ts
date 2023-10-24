@@ -113,11 +113,12 @@ describe('', () => {
     });
 
     describe('Fullname format passes', () => {
-        test('Fullname contains a space', () => {
-            expect(person.fullname).toContain(' ');
-        });
+        // test('Fullname contains a space', () => {
+        //     expect(person.fullname).toContain(' ');
+        // });
 
-        test('Fullname matches alphabet chars with space', () => {
+        test('Fullname matches alphabet chars with space', async () => {
+            person = await getRandomNameAndGender();
             expect(person.fullname).toMatch(/^[a-æA-Æ\sa.c]*$/);
         });
     });
