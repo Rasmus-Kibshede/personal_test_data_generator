@@ -17,9 +17,9 @@ export const getRandomNameAndGender = async () => {
 };
 
 export const setRandomBirthday = async () => {
-    const start = new Date(1908, 5, 8); // Oldest verified living person
-    const end = new Date();
-    const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    const oldestDate = new Date(1908, 5, 8); // Oldest verified living person
+    const currentDate = new Date();
+    const randomDate = new Date(oldestDate.getTime() + Math.random() * (currentDate.getTime() - oldestDate.getTime()));
 
     const randomDateFormatted = randomDate.toLocaleDateString('en-GB')
 
