@@ -35,16 +35,11 @@ export const randomNumberPrefix = async () => {
   return phoneNumberPrefixes[Math.floor(Math.random() * phoneNumberPrefixes.length)];
 }
 
-export const generateFakeMobilePhoneNumber = async () => {
-  const prefix = await randomNumberPrefix(); 
-  
-  if(!prefix) {
-    return{err: 'not a string'}
-  }
-  const randomDigits = Array.from({ length: 8 - prefix.length }, () => Math.floor(Math.random() * 10)).join('');
-
-  return prefix + ' ' + randomDigits;
+export const generateRandomDigits = async (length: number) =>  {
+  return Array.from({ length: 8 - length }, () => Math.floor(Math.random() * 10)).join('');
 };
 
-const fakePhoneNumber = generateFakeMobilePhoneNumber();
-console.log(fakePhoneNumber);
+export const generateRandomPhoneNum = async () => {
+    const prefix = await randomNumberPrefix();
+    return (prefix + ' ' + generateRandomDigits(prefix.length)) as string;
+};
