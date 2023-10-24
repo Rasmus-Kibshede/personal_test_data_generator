@@ -7,12 +7,12 @@ export interface PersonResponseDTO {
     gender: string | null;
 }
 
-export interface PersonDTO1 {
+export interface PersonDTOFileObject {
     name: string,
     surname: string,
     gender: string,
 }
-export interface PersonDTO2 {
+export interface PersonDTO {
     fullname: string,
     gender: string,
 }
