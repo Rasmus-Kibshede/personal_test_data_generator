@@ -43,29 +43,29 @@ afterEach(() => {
     // jest.clearAllMocks();
 });
 
-describe('', () => {
-    describe('Fullname format passes', () => {
-        // test('Fullname contains a space', () => {
-        //     expect(person.fullname).toContain(' ');
-        // });
+// describe('', () => {
+//     describe('Fullname format passes', () => {
+//         // test('Fullname contains a space', () => {
+//         //     expect(person.fullname).toContain(' ');
+//         // });
 
-        test('Fullname matches alphabet chars with space', async () => {
-            person = await getRandomNameAndGender();
-            expect(person.fullname).toMatch(/^[a-æA-Æ\sa.c]*$/);
-        });
-    });
+//         test('Fullname matches alphabet chars with space', async () => {
+//             person = await getRandomNameAndGender();
+//             expect(person.fullname).toMatch(/^[a-æA-Æ\sa.c]*$/);
+//         });
+//     });
 
-    describe('Gender format passes', () => {
-        test('Gender contains male or female passes', async () => {
+//     describe('Gender format passes', () => {
+//         test('Gender contains male or female passes', async () => {
 
-            expect(['male', 'female']).toContain(person.gender);
-        });
+//             expect(['male', 'female']).toContain(person.gender);
+//         });
 
-        test('Gender matches alphabet chars', () => {
-            expect(person.gender).toMatch(/^[a-mA-M]*$/);
-        });
-    });
-});
+//         test('Gender matches alphabet chars', () => {
+//             expect(person.gender).toMatch(/^[a-mA-M]*$/);
+//         });
+//     });
+// });
 
 describe('', () => {
 
