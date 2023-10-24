@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { getRandomNameAndGender } from '../../src/Services/personService';
+import { getRandomNameAndGender, validateName, validateGender } from '../../src/Services/personService';
 import { PersonDTO2 } from '../../src/Model/PersonDTO';
 
 /*jest.mock("../../src/Repositories/fileHandler", () => {
@@ -78,37 +78,28 @@ jest.mock("../../src/Repositories/fileHandler", () => {
 
 let person: PersonDTO2;
 
-
 beforeAll(async () => {
     person = await getRandomNameAndGender();
-});
-
-afterAll(() => {
-    jest.clearAllMocks();
 });
 
 describe('', () => {
 
     describe('Fullname length passes', () => {
         test('length is less then max string length', async () => {
-            console.log(person);
             expect(person.fullname.length).toBeLessThan(2147483647);
         });
 
         test('length is greater then 0', async () => {
-            console.log(person);
             expect(person.fullname.length).toBeGreaterThan(0);
         });
     });
 
     describe('Gender length passes', () => {
         test('length is less then max string length', async () => {
-            console.log(person);
             expect(person.gender.length).toBeLessThan(2147483647);
         });
 
         test('length is greater then 0', async () => {
-            console.log(person);
             expect(person.gender.length).toBeGreaterThan(0);
         });
     });
@@ -119,14 +110,11 @@ describe('', () => {
         });
 
         test('Fullname matches alphabet chars with space', async () => {
-            person = await getRandomNameAndGender();
             expect(person.fullname).toMatch(/^[a-æA-Æ\sa.c]*$/);
         });
     });
 
     describe('Gender format passes', () => {
-        console.log(person);
-
         test('Gender contains male or female passes', async () => {
 
             expect(['male', 'female']).toContain(person.gender);
@@ -139,18 +127,30 @@ describe('', () => {
 });
 
 //Skal laves om til negative test. 
-describe('', () => {
-    beforeAll(async () => {
-        person = await getRandomNameAndGender();
-    });
+describe('Validate functions passes', () => {
+    const nameData = [
+        { 'name': 'test', 'expected': true },
+        { 'name': 'Tøæå', 'expected': true },
+        { 'name': '', 'expected': false },
+        { 'name': '1213', 'expected': false },
+        { 'name': '!!!', 'expected': false },
+    ]
 
-    describe('Gender format fails', () => {
-        test('Gender format fails', async () => {
-            expect(() => person.gender).toThrowError();
-        });
+    test.each(nameData)('val', ({ name, expected }) => {
+        expect(validateName(name)).toBe(expected);
+    })
 
-        // test('Gender matches alphabet chars', () => {
-        //     expect(person.gender).toMatch(/^[a-mA-M]*$/);
-        // });
-    });
+    // const genderData = [
+    //     { 'gender': 'male', expected: true },
+    //     { 'gender': 'female', expected: true },
+    //     { 'gender': 'fem', expected: false },
+    //     { 'gender': ' ', expected: false },
+    //     { 'gender': '', expected: false },
+    //     { 'gender': '!.-', expected: false },
+    // ]
+
+    // test.each(genderData)('val', ({ gender, expected }) => {
+    //     expect(validateGender(gender)).toBe(expected);
+    // })
+
 });

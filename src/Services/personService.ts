@@ -10,9 +10,6 @@ export const getRandomNameAndGender = async () => {
     throw new Error('No persons found');
   }
 
-
-
-  Math.random();
   const randomNumber = Math.floor(Math.random() * allPersons.length);
 
   const randomPerson = allPersons[randomNumber];
@@ -22,18 +19,27 @@ export const getRandomNameAndGender = async () => {
   const person: PersonDTO2 = {
     fullname: fullname,
     gender: randomPerson.gender
-  }
+  };
 
-  // await validateNameAndGender(person);
-
-  return person;
+  return validateNameAndGender(person);
 };
 
-const validateNameAndGender = (person: PersonDTO2) => {
-  const gender = person.gender.toLowerCase();
-  if (!validator.equals(gender, 'male') || !validator.equals(gender, 'female')) {
-    throw new Error('Gender format invalid');
-  }
+export const validateNameAndGender = (person: PersonDTO2) => {
+  console.log(person);
 
-  return true;
+  if (validateGender(person.gender) && validateName(person.fullname)) {
+    return person;
+  } else {
+    console.log('error');
+    throw new Error('Validation failed');
+  }
+};
+
+export const validateName = (name: string) => {
+  const nameFormat = /^[a-æA-Æ\sa.c]*$/;
+  return name.match(nameFormat);
+};
+
+export const validateGender = (gender: string) => {
+  return (validator.equals(gender, 'male') || validator.equals(gender, 'female'));
 };
