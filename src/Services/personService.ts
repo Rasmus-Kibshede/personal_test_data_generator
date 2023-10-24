@@ -1,5 +1,6 @@
-import { PersonDTO1, PersonDTO2 } from "../Model/PersonDTO";
+import { PersonDTOFileObject, PersonDTO } from "../Model/PersonDTO";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
+import validator from 'validator';
 
 export const getRandomNameAndGender = async () => {
 
@@ -9,21 +10,36 @@ export const getRandomNameAndGender = async () => {
     throw new Error('No persons found');
   }
 
-  Math.random();
   const randomNumber = Math.floor(Math.random() * allPersons.length);
 
   const randomPerson = allPersons[randomNumber];
 
   const fullname = randomPerson.name + ' ' + randomPerson.surname;
 
-  const person: PersonDTO2 = {
+  const person: PersonDTO = {
     fullname: fullname,
     gender: randomPerson.gender
-  }
+  };
 
-  return person;
+  return validateNameAndGender(person);
 };
 
+export const validateNameAndGender = (person: PersonDTO) => {
+  if (validateGender(person.gender) && validateName(person.fullname)) {
+    return person;
+  } else {
+    throw new Error('Validation failed');
+  }
+};
+
+export const validateName = (name: string) => {
+  const nameFormat = /^(?=\S)(?!.*\d)[a-øA-Ø\sa.c]+\s[a-øA-Ø\sa.c]+$/;
+  return validator.matches(name, nameFormat);
+};
+
+export const validateGender = (gender: string) => {
+  return (validator.equals(gender, 'male') || validator.equals(gender, 'female'));
+};
 
 export const randomNumberPrefix = async () => {
   const phoneNumberPrefixes = [
