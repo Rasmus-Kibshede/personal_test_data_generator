@@ -1,26 +1,65 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity()
 export class Person {
+    private _cpr: number;
+    private _fullName: string;
+    private _gender: string;
+    private _dateOfBirth: string;
+    private _address: string;
+    private _phoneNumber: number;
 
-    @PrimaryGeneratedColumn({ name: 'person_id' })
-    personId: number;
+    constructor(cpr: number, fullname: string, gender: string, dateOfBirth: string, address: string, phoneNumber: number) {
+        this._cpr = cpr;
+        this._fullName = fullname;
+        this._address = address;
+        this._gender = gender;
+        this._dateOfBirth = dateOfBirth;
+        this._phoneNumber = phoneNumber;
+    }
 
-    @Column('int', { nullable: true, name: 'cpr_number' })
-    cpr: number | null;
+    get cpr(): number {
+        return this._cpr;
+    }
 
-    @Column('varchar', { length: 255, nullable: true, name: 'full_name' })
-    fullName: string | null;
+    set cpr(value: number) {
+        this._cpr = value;
+    }
 
-    @Column('varchar', { nullable: true, name: 'gender' })
-    gender: string | null;
+    get fullName(): string {
+        return this._fullName;
+    }
 
-    @CreateDateColumn({ nullable: true, name: 'date_of_birth' })
-    dateOfBirth: Date | null;
+    set fullName(value: string) {
+        this._fullName = value;
+    }
 
-    @Column('varchar', { length: 255, nullable: true, name: 'address' })
-    address: string | null;
+    get gender(): string {
+        return this._gender;
+    }
 
-    @Column('int', { nullable: true, name: 'phone_number' })
-    phoneNumber: number | null;
+    set gender(value: string) {
+        this._gender = value;
+    }
+
+    get dateOfBirth(): string {
+        return this._dateOfBirth;
+    }
+
+    set dateOfBirth(value: string) {
+        this._dateOfBirth = value;
+    }
+
+    get address(): string {
+        return this._address;
+    }
+
+    set address(value: string) {
+        this._address = value;
+    }
+
+    get phoneNumber(): number {
+        return this._phoneNumber;
+    }
+
+    set phoneNumber(value: number) {
+        this._phoneNumber = value;
+    }
 }

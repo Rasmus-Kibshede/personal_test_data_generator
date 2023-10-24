@@ -1,7 +1,8 @@
 import fs from 'fs';
-import { PersonDTO } from '../Model/PersonDTO';
+import { PersonDTO1 } from '../Model/PersonDTO';
 
 const personNamePath = './documents/person-names.json';
+
 
 export const getAllPersonsFromFile = async () => {
     try {
@@ -12,7 +13,7 @@ export const getAllPersonsFromFile = async () => {
             fileContent = fileContent.slice(1);
         }
 
-        const data: PersonDTO[] = JSON.parse(fileContent)[0].persons;
+        const data: PersonDTO1[] = JSON.parse(fileContent)[0].persons;
         return data;
     } catch (error) {
         console.log('filehandler error', error);
