@@ -9,5 +9,5 @@ test('Testing FullName', async () => {
 
 afterAll(() => {
     // Closing the DB connection allows Jest to exit successfully.
-    connection.end
+    connection.end()
 });
