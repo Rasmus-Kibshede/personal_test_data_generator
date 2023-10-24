@@ -3,7 +3,6 @@ import { generateRandomCpr, setRandomBirthday, setRandomGenderDigit } from '../.
 import validator from 'validator';
 
 describe('setRandomBirthday', () => {
-
     test('should generate a random date greater than or equal to a valid start date', async () => {
         const validStartDate = new Date(1908, 5, 8).getTime();
         const generatedDate = await setRandomBirthday();
