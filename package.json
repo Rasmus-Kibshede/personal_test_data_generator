@@ -7,8 +7,7 @@
     "start": "node dist/src/index.js",
     "dev": "nodemon src/index.ts",
     "build": "npx tsc",
-    "test": "jest --watch --collect-coverage",
-    "test-prod": "jest"
+    "test": "jest --watch --collect-coverage"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,3 @@
-import { connection } from '../../src/Repositories/data-source';
 import { getRandomNameAndGender } from '../../src/Services/personService';
 import { PersonDTO } from '../../src/Model/PersonDTO';
 
@@ -6,11 +5,6 @@ let person: PersonDTO;
 
 beforeAll(async () => {
     person = await getRandomNameAndGender();
-});
-
-afterAll(() => {
-    // Closing the DB connection allows Jest to exit successfully.
-    connection.end();
 });
 
 jest.mock("../../src/Repositories/fileHandler", () => {
