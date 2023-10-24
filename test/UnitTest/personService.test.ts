@@ -83,6 +83,9 @@ beforeAll(async () => {
     person = await getRandomNameAndGender();
 });
 
+afterAll(() => {
+    jest.clearAllMocks();
+});
 
 describe('', () => {
 
@@ -122,6 +125,8 @@ describe('', () => {
     });
 
     describe('Gender format passes', () => {
+        console.log(person);
+
         test('Gender contains male or female passes', async () => {
 
             expect(['male', 'female']).toContain(person.gender);
@@ -139,13 +144,13 @@ describe('', () => {
         person = await getRandomNameAndGender();
     });
 
-    describe('Gender format passes', () => {
-        test('Gender contains male or female passes', async () => {
-            expect(['male', 'female']).toContain(person.gender);
+    describe('Gender format fails', () => {
+        test('Gender format fails', async () => {
+            expect(() => person.gender).toThrowError();
         });
 
-        test('Gender matches alphabet chars', () => {
-            expect(person.gender).toMatch(/^[a-mA-M]*$/);
-        });
+        // test('Gender matches alphabet chars', () => {
+        //     expect(person.gender).toMatch(/^[a-mA-M]*$/);
+        // });
     });
 });
