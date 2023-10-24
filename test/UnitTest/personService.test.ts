@@ -1,6 +1,5 @@
 import 'dotenv/config';
-import { getRandomNameAndGender, setRandomCpr } from '../../src/Services/personService';
-import { setRandomBirthday } from '../../src/Services/personService';
+import { getRandomNameAndGender, setRandomCpr, setRandomBirthday } from '../../src/Services/personService';
 import { PersonDTO1, PersonDTO2 } from '../../src/Model/PersonDTO';
 let persons: PersonDTO1[];
 
@@ -44,72 +43,7 @@ afterEach(() => {
     // jest.clearAllMocks();
 });
 
-// const t = (isValidtData: boolean) => {
-//     if (isValidtData) {
-//         persons = [
-//             {
-//                 name: 'Annemette P.',
-//                 surname: 'Nilsson',
-//                 gender: 'female'
-//             },
-//             {
-//                 name: "Lucas M.",
-//                 surname: "Kjær",
-//                 gender: "male"
-//             }
-//         ];
-//     } else {
-//         persons = [
-//             {
-//                 name: 'Anneme9tte P.',
-//                 surname: 'Nilsson',
-//                 gender: 'female'
-//             },
-//             {
-//                 name: "Lucas M,",
-//                 surname: "Kj2ær",
-//                 gender: "male"
-//             },
-//             {
-//                 name: "LucÅs M.",
-//                 surname: "Kj2ær",
-//                 gender: "mal10e"
-//             }
-//         ];
-//     };
-// };
-
-
 describe('', () => {
-    
-    // getRandomNameAndGender().then((p) => {
-    //     person = p;
-    //     console.log('kibshede', person);
-    // });
-
-
-    // describe('Fullname length passes', () => {
-    //     test('length is less then max string length', () => {
-    //         console.log('kibshede12', person);
-
-    //         expect(person.fullname.length).toBeLessThan(2147483647);
-    //     });
-
-    //     test('length is greater then 0', async () => {
-    //         expect(person.fullname.length).toBeGreaterThan(0);
-    //     });
-    // });
-
-    // describe('Gender length passes', () => {
-    //     test('length is less then max string length', async () => {
-    //         expect(person.gender.length).toBeLessThan(2147483647);
-    //     });
-
-    //     test('length is greater then 0', async () => {
-    //         expect(person.gender.length).toBeGreaterThan(0);
-    //     });
-    // });
-
     describe('Fullname format passes', () => {
         // test('Fullname contains a space', () => {
         //     expect(person.fullname).toContain(' ');

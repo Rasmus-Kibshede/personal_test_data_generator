@@ -26,8 +26,7 @@ export const setRandomBirthday = async () => {
     return randomDateFormatted;
 };
 
-export const setRandomCpr = async () => {
-
+export const setRandomCpr = async (): Promise<string> => {
     const gender = (await getRandomNameAndGender()).gender;
     const birthday = await setRandomBirthday();
     const birthdayParts = birthday.split('/');
@@ -40,7 +39,7 @@ export const setRandomCpr = async () => {
     const month = birthdayParts[1];
     const year = birthdayParts[2].substring(2, 4);
 
-    const randomThreeDigits = Math.floor(Math.random() * 1000);
+    const randomThreeDigits = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
     const lastDigit = gender === 'female' ? getRandomEvenDigit() : getRandomOddDigit();
     
     const cpr = `${day}${month}${year}${randomThreeDigits}${lastDigit}`;
