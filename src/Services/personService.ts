@@ -1,4 +1,4 @@
-import { PersonDTO1, PersonDTO2 } from "../Model/PersonDTO";
+import { PersonDTOFileObject, PersonDTO } from "../Model/PersonDTO";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 import validator from 'validator';
 
@@ -16,7 +16,7 @@ export const getRandomNameAndGender = async () => {
 
   const fullname = randomPerson.name + ' ' + randomPerson.surname;
 
-  const person: PersonDTO2 = {
+  const person: PersonDTO = {
     fullname: fullname,
     gender: randomPerson.gender
   };
@@ -24,7 +24,7 @@ export const getRandomNameAndGender = async () => {
   return validateNameAndGender(person);
 };
 
-export const validateNameAndGender = (person: PersonDTO2) => {
+export const validateNameAndGender = (person: PersonDTO) => {
   if (validateGender(person.gender) && validateName(person.fullname)) {
     return person;
   } else {

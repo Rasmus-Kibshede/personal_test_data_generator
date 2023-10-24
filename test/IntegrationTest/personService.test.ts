@@ -1,8 +1,8 @@
 import { connection } from '../../src/Repositories/data-source';
 import { getRandomNameAndGender } from '../../src/Services/personService';
-import { PersonDTO2 } from '../../src/Model/PersonDTO';
+import { PersonDTO } from '../../src/Model/PersonDTO';
 
-let person: PersonDTO2;
+let person: PersonDTO;
 
 beforeAll(async () => {
     person = await getRandomNameAndGender();
