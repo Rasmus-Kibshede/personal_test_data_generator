@@ -36,8 +36,8 @@ export const validateNameAndGender = (person: PersonDTO2) => {
 };
 
 export const validateName = (name: string) => {
-  const nameFormat = /^[a-æA-Æ\sa.c]*$/;
-  return name.match(nameFormat);
+  const nameFormat = /^(?=\S)(?!.*\d)[a-øA-Ø\sa.c]+\s[a-øA-Ø\sa.c]+$/;
+  return validator.matches(name, nameFormat);
 };
 
 export const validateGender = (gender: string) => {

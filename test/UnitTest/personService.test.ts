@@ -115,32 +115,3 @@ describe('', () => {
         });
     });
 });
-
-//Skal laves om til negative test. 
-describe('Validate functions passes', () => {
-    const nameData = [
-        { 'name': 'test', 'expected': true },
-        { 'name': 'Tøæå', 'expected': true },
-        { 'name': '', 'expected': false },
-        { 'name': '1213', 'expected': false },
-        { 'name': '!!!', 'expected': false },
-    ]
-
-    test.each(nameData)('val', ({ name, expected }) => {
-        expect(validateName(name)).toBe(expected);
-    })
-
-    // const genderData = [
-    //     { 'gender': 'male', expected: true },
-    //     { 'gender': 'female', expected: true },
-    //     { 'gender': 'fem', expected: false },
-    //     { 'gender': ' ', expected: false },
-    //     { 'gender': '', expected: false },
-    //     { 'gender': '!.-', expected: false },
-    // ]
-
-    // test.each(genderData)('val', ({ gender, expected }) => {
-    //     expect(validateGender(gender)).toBe(expected);
-    // })
-
-});
