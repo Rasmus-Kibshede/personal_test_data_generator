@@ -108,7 +108,6 @@ describe('setRandomBirthday', () => {
     });
 });
 
-// Test on length, if it is string, if it is a number, if it is a valid date, if it is a valid cpr number
 describe('setRandomCpr', () => {
     it('should generate a random CPR number in "ddmmyyxxxx" format', async () => {
         const cprPattern = /^\d{10}$/;
