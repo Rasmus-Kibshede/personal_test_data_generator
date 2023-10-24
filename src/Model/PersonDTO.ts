@@ -1,4 +1,4 @@
-export type PersonDTO = PersonResponseDTO | PersonRequestDTO | Person | PersonBDGenderFullname;
+export type PersonDTO = PersonResponseDTO | PersonRequestDTO | Person;
 
 interface PersonResponseDTO {
   personId: number;
@@ -14,14 +14,6 @@ interface Person {
   gender: string;
   dateOfBirth: string;
 }
-
-// interface PersonBDGenderFullname {
-//   fullname: string;
-//   name: string;
-//   surname: string;
-//   gender: string;
-//   dateOfBirth: string;
-// }
 
 interface PersonRequestDTO {
   email: string;
