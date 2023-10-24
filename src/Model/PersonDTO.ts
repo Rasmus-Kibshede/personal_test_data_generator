@@ -8,21 +8,12 @@ export interface PersonResponseDTO {
   gender: string | null;
 }
 
-export interface PersonDTO1 {
-  name: string;
-  surname: string;
-  gender: string;
-  dateOfBirth: string;
+export interface PersonDTOFileObject {
+    name: string,
+    surname: string,
+    gender: string,
 }
-
-// interface PersonBDGenderFullname {
-//   fullname: string;
-//   name: string;
-//   surname: string;
-//   gender: string;
-//   dateOfBirth: string;
-// }
-export interface PersonDTO2 {
+export interface PersonDTO {
     fullname: string,
     gender: string,
 }
