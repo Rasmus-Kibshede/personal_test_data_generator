@@ -23,9 +23,6 @@ export const setRandomBirthday = async () => {
 
     const randomDateFormatted = randomDate.toLocaleDateString('en-GB')
 
-    return randomDateFormatted;
-};
-
 export const setRandomCpr = async (): Promise<string> => {
     const gender = (await getRandomNameAndGender()).gender;
     const birthday = await setRandomBirthday();
@@ -36,19 +33,22 @@ export const setRandomCpr = async (): Promise<string> => {
     const year = birthdayParts[2].substring(2, 4);
 
     const randomThreeDigits = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-    const lastDigit = gender === 'female' ? getRandomEvenDigit() : getRandomOddDigit();
+    const lastDigit = getRandomGenderDigit(gender);
     
     const cpr = `${day}${month}${year}${randomThreeDigits}${lastDigit}`;
 
     return cpr;
 };
 
-const getRandomEvenDigit = () => {
-    const randomEvenDigit = Math.floor(Math.random() * 5) * 2;
-    return randomEvenDigit;
- }
-
- const getRandomOddDigit = () => {
-    const randomOddDigit = Math.floor(Math.random() * 5) * 2 + 1;
-    return randomOddDigit;
+ const getRandomGenderDigit = (gender: string) => {'
+    switch(gender){
+        case 'female':
+            return Math.floor(Math.random() * 5) * 2;
+            break;
+        case 'male':
+            return Math.floor(Math.random() * 5) * 2 + 1;
+            break;
+        default:
+            throw new Error('Invalid gender format');
+    }
  }
