@@ -1,3 +1,4 @@
+import { log } from "console";
 import { PersonDTO1, PersonDTO2 } from "../Model/PersonDTO";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 
@@ -23,4 +24,36 @@ export const setRandomBirthday = async () => {
     const randomDateFormatted = randomDate.toLocaleDateString('en-GB')
 
     return randomDateFormatted;
-}
+};
+
+export const setRandomCpr = async () => {
+
+    const gender = (await getRandomNameAndGender()).gender;
+    const birthday = await setRandomBirthday();
+    const birthdayParts = birthday.split('/');
+
+    if (birthdayParts.length !== 3) {
+        throw new Error('Invalid birthday format');
+    }
+
+    const day = birthdayParts[0];
+    const month = birthdayParts[1];
+    const year = birthdayParts[2].substring(2, 4);
+
+    const randomThreeDigits = Math.floor(Math.random() * 1000);
+    const lastDigit = gender === 'female' ? getRandomEvenDigit() : getRandomOddDigit();
+    
+    const cpr = `${day}${month}${year}${randomThreeDigits}${lastDigit}`;
+
+    return cpr;
+};
+
+const getRandomEvenDigit = () => {
+    const randomEvenDigit = Math.floor(Math.random() * 5) * 2;
+    return randomEvenDigit;
+ }
+
+ const getRandomOddDigit = () => {
+    const randomOddDigit = Math.floor(Math.random() * 5) * 2 + 1;
+    return randomOddDigit;
+ }

@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { getRandomNameAndGender } from '../../src/Services/personService';
+import { getRandomNameAndGender, setRandomCpr } from '../../src/Services/personService';
 import { setRandomBirthday } from '../../src/Services/personService';
 import { PersonDTO1, PersonDTO2 } from '../../src/Model/PersonDTO';
 let persons: PersonDTO1[];
@@ -171,5 +171,42 @@ describe('setRandomBirthday', () => {
         const dateParts = generatedDate.split('/');
         const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
         expect(generatedDateObj.getTime()).toBeLessThanOrEqual(validEndDate);
+    });
+});
+
+// Test on length, if it is string, if it is a number, if it is a valid date, if it is a valid cpr number
+describe('setRandomCpr', () => {
+    it('should generate a random CPR number in "ddmmyyxxxx" format', async () => {
+        const cprPattern = /^\d{10}$/;
+        const generatedCpr = await setRandomCpr();
+        expect(generatedCpr).toMatch(cprPattern);
+    });
+
+    it('should generate a random CPR number with a valid day', async () => {
+        const generatedCpr = await setRandomCpr();
+        const day = generatedCpr.substring(0, 2);
+        expect(+day).toBeGreaterThanOrEqual(1);
+        expect(+day).toBeLessThanOrEqual(31);
+    });
+
+    it('should generate a random CPR number with a valid month', async () => {
+        const generatedCpr = await setRandomCpr();
+        const month = generatedCpr.substring(2, 4);
+        expect(+month).toBeGreaterThanOrEqual(1);
+        expect(+month).toBeLessThanOrEqual(12);
+    });
+
+    it('should generate a random CPR number with a valid year', async () => {
+        const generatedCpr = await setRandomCpr();
+        const year = generatedCpr.substring(4, 6);
+        expect(+year).toBeGreaterThanOrEqual(0);
+        expect(+year).toBeLessThanOrEqual(99);
+    });
+
+    it('should generate a random CPR number with a valid last digit', async () => {
+        const generatedCpr = await setRandomCpr();
+        const lastDigit = generatedCpr.substring(9, 10);
+        expect(+lastDigit).toBeGreaterThanOrEqual(0);
+        expect(+lastDigit).toBeLessThanOrEqual(9);
     });
 });
