@@ -31,10 +31,6 @@ export const setRandomCpr = async (): Promise<string> => {
     const birthday = await setRandomBirthday();
     const birthdayParts = birthday.split('/');
 
-    if (birthdayParts.length !== 3) {
-        throw new Error('Invalid birthday format');
-    }
-
     const day = birthdayParts[0];
     const month = birthdayParts[1];
     const year = birthdayParts[2].substring(2, 4);
