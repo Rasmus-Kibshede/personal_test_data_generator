@@ -2,6 +2,38 @@ import { Person } from "../Model/Person";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 import validator from "validator";
 import { el, faker } from '@faker-js/faker';
+import { setRandomAddress } from "./addressService";
+
+
+export const getPerson = async () => {
+  const person = await getRandomNameAndGender();
+  const birthday = await setRandomBirthday();
+
+  person.dateOfBirth = birthday;
+  person.cpr = generateCPR(person.gender, birthday);
+  person.phoneNumber = (await generateRandomPhoneNum()).replace(/\s/g, '');
+  person.address = await setRandomAddress();
+  // console.log(person);
+  
+
+  return person;
+}
+
+export const getPersons = async () => {
+  const persons: Person[] = [];
+  const randomNumber = faker.number.int({ min: 2, max: 100 });
+
+  for (let i = 0; i < randomNumber; i++) {
+    const person = await getPerson();
+
+    if (!persons.some(p => p.cpr === person.cpr || p.phoneNumber === person.phoneNumber)) {
+      persons.push(person);
+    } else {
+      i--;
+    }
+  }
+  return persons;
+};
 
 export const getRandomNameAndGender = async () => {
   const allPersons = await getAllPersonsFromFile();
@@ -56,16 +88,6 @@ export const getNameGenderDob = async () => {
   return person;
 };
 
-export const getPerson = async () => {
-  const person = await getRandomNameAndGender();
-  const birthday = await setRandomBirthday();
-
-  person.dateOfBirth = birthday;
-  person.cpr = generateCPR(person.gender, birthday);
-  person.phoneNumber = (await generateRandomPhoneNum()).replace(/\s/g, '');
-
-  return person;
-}
 
 export const generateCPR = (gender: string, dob: string) => {
   const randomThreeDigits = generateThreeRandomDigits();
@@ -146,21 +168,4 @@ export const generateRandomPhoneNum = async () => {
   const generateDigits = await generateRandomDigits(prefix.length);
 
   return (prefix + ' ' + generateDigits) as string;
-};
-
-export const getPersons = async () => {
-  const persons: Person[] = [];
-  const randomNumber = faker.number.int({ min: 2, max: 100 });
-
-  for (let i = 0; i < randomNumber; i++) {
-    const person = await getPerson();
-
-    if (!persons.some(p => p.cpr === person.cpr || p.phoneNumber === person.phoneNumber)) {
-      persons.push(person);
-    } else {
-      i--;
-    }
-  }
-
-  return persons;
 };

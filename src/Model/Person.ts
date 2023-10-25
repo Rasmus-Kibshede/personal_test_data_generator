@@ -1,9 +1,11 @@
+import { AddressDTO } from "./Address";
+
 export class Person {
     private _cpr: string;
     private _fullname: string;
     private _gender: string;
     private _dateOfBirth: string;
-    private _address: string;
+    private _address: AddressDTO;
     private _phoneNumber: string;
 
     constructor(fullname: string, gender: string) {
@@ -43,11 +45,11 @@ export class Person {
         this._dateOfBirth = value;
     }
 
-    get address(): string {
+    get address(): AddressDTO {
         return this._address;
     }
 
-    set address(value: string) {
+    set address(value: AddressDTO) {
         this._address = value;
     }
 
