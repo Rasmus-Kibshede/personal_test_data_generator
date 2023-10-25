@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { setRandomBirthday, randomNumberPrefix, generateRandomDigits, generateRandomCpr, setRandomGenderDigit } from '../../src/Services/personService';
+import { setRandomBirthday, randomNumberPrefix, generateRandomDigits, generateRandomCpr, setRandomGenderDigit, generateRandomFloor, generateRandomNumberForDoor } from '../../src/Services/personService';
 import validator from 'validator';
 
 let prefix: string;
@@ -42,36 +42,41 @@ const prefixes = [
           })
         })
   });
-
-  describe('setRandomBirthday', () => {
-    test('should generate a random date greater than or equal to a valid start date', async () => {
-        const validStartDate = new Date(1908, 5, 8).getTime();
-        const generatedDate = await setRandomBirthday();
-        const dateParts = generatedDate.split('/');
-        const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
-        expect(generatedDateObj.getTime()).toBeGreaterThanOrEqual(validStartDate);
-    });
-
-    test('should generate a random date less than or equal to the current date', async () => {
-        const validEndDate = new Date().getTime();
-        const generatedDate = await setRandomBirthday();
-
-        const dateParts = generatedDate.split('/');
-        const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
-        expect(generatedDateObj.getTime()).toBeLessThanOrEqual(validEndDate);
-    });
-
-    test('if the date format is correct', async () => {
-        const generatedDate = await setRandomBirthday();
-        expect(validator.isDate(generatedDate, {format: 'DD/MM/YYYY'})).toBe(true);
-    });
-
-    // TODO: Negative testies
+  /* ---------------------------------------- generateRandomCpr ---------------------------------------- */
+  
+  describe('generateRandomCpr', () => {
+    describe('setRandomBirthday', () => {
+      test('should generate a random date greater than or equal to a valid start date', async () => {
+          const validStartDate = new Date(1908, 5, 8).getTime();
+          const generatedDate = await setRandomBirthday();
+          const dateParts = generatedDate.split('/');
+          const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
+          expect(generatedDateObj.getTime()).toBeGreaterThanOrEqual(validStartDate);
+      });
+  
+      test('should generate a random date less than or equal to the current date', async () => {
+          const validEndDate = new Date().getTime();
+          const generatedDate = await setRandomBirthday();
+  
+          const dateParts = generatedDate.split('/');
+          const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
+          expect(generatedDateObj.getTime()).toBeLessThanOrEqual(validEndDate);
+      });
+  
+      test('if the date format is correct', async () => {
+          const generatedDate = await setRandomBirthday();
+          expect(validator.isDate(generatedDate, {format: 'DD/MM/YYYY'})).toBe(true);
+      });
+  
+      // TODO: Negative testies
+  });
 });
+  
 
 /* ---------------------------------------- generateRandomCpr ---------------------------------------- */
 
-describe('testing valid data in generateRandomCpr', () => {
+describe('generateRandomCpr', () => {
+  describe('testing valid data in generateRandomCpr', () => {
     test('to generate a valid CPR number', () => {
         const dob = "08/06/1998";
         const threeRandomDigits = "123";
@@ -112,47 +117,50 @@ describe('testing valid data in generateRandomCpr', () => {
     });
 });
 
-describe('testing invalid data in generateRandomCpr', () => {
-    test('to throw error for invalid date format', () => {
-        const dob = "invalid-date";
-        const threeRandomDigits = "123";
-        const lastDigit = "1";
+  describe('testing invalid data in generateRandomCpr', () => {
+      test('to throw error for invalid date format', () => {
+          const dob = "invalid-date";
+          const threeRandomDigits = "123";
+          const lastDigit = "1";
 
-        expect(() => generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid date format");
-    });
+          expect(() => generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid date format");
+      });
 
-    test('to throw error for invalid three random digits', () => {
-        const dob = "08/06/1998";
-        const threeRandomDigits = "invalid-three-random-digits";
-        const lastDigit = "1";
+      test('to throw error for invalid three random digits', () => {
+          const dob = "08/06/1998";
+          const threeRandomDigits = "invalid-three-random-digits";
+          const lastDigit = "1";
 
-        expect(() => generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid three random digits");
-    });
+          expect(() => generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid three random digits");
+      });
 
-    test('to throw error for invalid last digit', () => {
-        const dob = "08/06/1998";
-        const threeRandomDigits = "123";
-        const lastDigit = "invalid-last-digit";
+      test('to throw error for invalid last digit', () => {
+          const dob = "08/06/1998";
+          const threeRandomDigits = "123";
+          const lastDigit = "invalid-last-digit";
 
-        expect(() => generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid last digit");
-    });
+          expect(() => generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid last digit");
+      });
+  });
 });
+
 
 /* ---------------------------------------- getRandomGenderDigit ---------------------------------------- */
 
-describe('testing valid data in getRandomGenderDigit', () => {
-        const genderData = [
-            { 'gender': 'male', "expected": 1},
-            { 'gender': 'female', "expected": 2 },
-            { 'gender': 'mAle', "expected": 1},
-            { 'gender': 'fEmAlE', "expected": 2},
-        ]
-        test.each(genderData)('Gender validation on parameter passes', ({ gender, expected }) => {
-            expect(setRandomGenderDigit(gender) % 2 === 0).toBe(expected % 2 === 0);
-        });
+describe('getRandomGenderDigit', () => {
+  describe('testing valid data in getRandomGenderDigit', () => {
+    const genderData = [
+        { 'gender': 'male', "expected": 1},
+        { 'gender': 'female', "expected": 2 },
+        { 'gender': 'mAle', "expected": 1},
+        { 'gender': 'fEmAlE', "expected": 2},
+    ]
+    test.each(genderData)('Gender validation on parameter passes', ({ gender, expected }) => {
+        expect(setRandomGenderDigit(gender) % 2 === 0).toBe(expected % 2 === 0);
     });
-    
-describe('testing invalid data in getRandomGenderDigit', () => {
+});
+
+  describe('testing invalid data in getRandomGenderDigit', () => {
     const invalidError = new Error("Invalid gender format");
         const genderData = [
             { 'gender': 'fem', "expected": invalidError },
@@ -162,5 +170,53 @@ describe('testing invalid data in getRandomGenderDigit', () => {
         ]
         test.each(genderData)('Gender validation on parameter passes', ({ gender, expected }) => {
             expect(() => setRandomGenderDigit(gender)).toThrowError(expected);
-        });
     });
+  });
+});
+
+    /* ---------------------------------------- generateRandomFloor ---------------------------------------- */
+
+describe('generateRandomFloor', () => {
+  describe('testing valid data in generateRandomFloor', () => {
+    test('to generate a valid floor number', async () => {
+      const result = await generateRandomFloor();
+      expect(typeof result).toBe('string');
+    });
+
+    test('to see if it\s a number or st', async () => {
+      const result = await generateRandomFloor();
+      expect((result)).toMatch(/^(st|\d+)$/);
+    });
+
+    test('to see if it\'s greater than or equal to 0', async () => {
+      const result = await generateRandomFloor();
+      expect(result.length).toBeGreaterThanOrEqual(1);
+    });
+
+    test('to see if it\'s greater than or equal to 0', async () => {
+      const result = await generateRandomFloor();
+      expect(result.length).toBeLessThanOrEqual(2);
+    });
+  });
+});
+
+    /* ---------------------------------------- generateRandomNumberForDoor ---------------------------------------- */
+
+describe('generateRandomNumberForDoor', () => {
+  describe('testing valid data in generateRandomNumberForDoor', () => {
+    test('to generate a valid door number', async () => {
+      const result = await generateRandomNumberForDoor();
+      expect(typeof result).toBe('string');
+    });
+
+    test('to generate a valid door number', async () => {
+      const result = await generateRandomNumberForDoor();
+      expect(result.length).toBeGreaterThanOrEqual(1);
+    });
+
+    test('to generate a valid door number', async () => {
+      const result = await generateRandomNumberForDoor();
+      expect(result.length).toBeLessThanOrEqual(4);
+    });
+  });
+});
