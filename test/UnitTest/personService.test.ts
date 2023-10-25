@@ -62,8 +62,7 @@ const prefixes = [
             {'number': 8, 'expected': invalidPrefixError},
         ];
         test.each(digits)('Number invalid data fails', async ({ number, expected }) => {
-            const randomDigit = await generateRandomDigits(number);
-            expect(randomDigit).toThrowError(expected);
+            expect(() => generateRandomDigits(number)).toThrowError(expected);
         });
       })
 });

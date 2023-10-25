@@ -127,10 +127,10 @@ export const randomNumberPrefix = async () => {
 }
 // TODO Valider length 
 export const generateRandomDigits = async (length: number) =>  {
-  if(length > 3) {
-    throw new Error('Invalid prefix')
+  if(length <= 3) {
+    return Array.from({ length: 8 - length }, () => Math.floor(Math.random() * 10)).join('');
   }
-  return Array.from({ length: 8 - length }, () => Math.floor(Math.random() * 10)).join('');
+  throw new Error('Invalid prefix')
 
 };
 // TODO valider prefix is numeric
