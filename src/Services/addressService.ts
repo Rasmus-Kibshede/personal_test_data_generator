@@ -11,7 +11,7 @@ export const getAddress = async (postalCode: number) => {
     console.log("Service Lag: " + address);
 
     return address;
-}
+};
 
 // TODO: Integration testies
 export const setRandomAddress = async () => {
@@ -108,6 +108,7 @@ export const generateRandomFloor = async () => {
       "Sørens",
       "Mikkels",
       "Kristians",
+      'Strand'
     ];
     return streetNames[Math.floor(Math.random() * streetNames.length)];;
   };
