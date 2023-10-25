@@ -1,34 +1,30 @@
 export class Person {
-    private _cpr: number;
-    private _fullName: string;
+    private _cpr: string;
+    private _fullname: string;
     private _gender: string;
     private _dateOfBirth: string;
     private _address: string;
     private _phoneNumber: number;
 
-    constructor(cpr: number, fullname: string, gender: string, dateOfBirth: string, address: string, phoneNumber: number) {
-        this._cpr = cpr;
-        this._fullName = fullname;
-        this._address = address;
+    constructor(fullname: string, gender: string) {
+        this._fullname = fullname;
         this._gender = gender;
-        this._dateOfBirth = dateOfBirth;
-        this._phoneNumber = phoneNumber;
     }
 
-    get cpr(): number {
+    get cpr(): string {
         return this._cpr;
     }
 
-    set cpr(value: number) {
+    set cpr(value: string) {
         this._cpr = value;
     }
 
-    get fullName(): string {
-        return this._fullName;
+    get fullname(): string {
+        return this._fullname;
     }
 
-    set fullName(value: string) {
-        this._fullName = value;
+    set fullname(value: string) {
+        this._fullname = value;
     }
 
     get gender(): string {

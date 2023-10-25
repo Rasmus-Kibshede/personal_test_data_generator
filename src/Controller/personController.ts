@@ -1,19 +1,31 @@
 import { Request, Response } from 'express';
 import * as personService from '../Services/personService';
-import { PersonDTO } from '../Model/PersonDTO';
 
 export const getRandomNameAndGender = async (req: Request, res: Response) => {
-
 	try {
 		const response = await personService.getRandomNameAndGender();
-
-		if (!response) {
-			res.status(404).send({ err: response });
-		} else {
-			personResponse(response ? response : { err: response }, res, 200);
-		}
+		// personResponse(response ? response : { err: response }, res, 200);
+		res.status(200).send({ data: response });
 	} catch (err) {
-		res.status(404).send({ err: 'Error' });
+		res.status(404).send({ err: (err as Error).message });
+	}
+};
+
+export const getNameGenderDob = async (req: Request, res: Response) => {
+	try {
+		const response = await personService.getNameGenderDob();
+		personResponse(response ? response : { err: response }, res, 200);
+	} catch (err) {
+		res.status(404).send({ err: (err as Error).message });
+	}
+};
+
+export const getNameGenderCPR = async (req: Request, res: Response) => {
+	try {
+		const response = await personService.getNameGenderCPR();
+		personResponse(response ? response : { err: response }, res, 200);
+	} catch (err) {
+		res.status(404).send({ err: (err as Error).message });
 	}
 };
 
@@ -29,17 +41,11 @@ export const getRandomBirthday = async (req: Request, res: Response) => {
 };
 
 export const getRandomCpr = async (req: Request, res: Response) => {
-    const response = await personService.setRandomCpr();
-
-	if (!response) {
-		res.status(404).send({ err: response });
-	} else {
-		// personResponse(response ? response : { err: response }, res, 200);
-		res.status(200).send({ data: response });
-	}
+	const response = await personService.setRandomCpr();
+	res.status(200).send({ cpr: response.cpr });
 };
 
-const personResponse = (response: PersonDTO | { err: string }, res: Response, statusCode: number) => {
+const personResponse = (response: any | { err: string }, res: Response, statusCode: number) => {
 	if (!response) {
 		res.status(404).send({ err: response });
 	} else {

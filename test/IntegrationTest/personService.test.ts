@@ -1,7 +1,7 @@
-import { getRandomNameAndGender } from '../../src/Services/personService';
-import { PersonDTO } from '../../src/Model/PersonDTO';
+import { getRandomNameAndGender, getNameGenderDob } from '../../src/Services/personService';
+import { Person } from '../../src/Model/Person';
 
-let person: PersonDTO;
+let person: Person;
 
 beforeAll(async () => {
     person = await getRandomNameAndGender();
@@ -114,3 +114,17 @@ describe('', () => {
         });
     });
 });
+
+
+
+
+
+
+
+//mock
+
+// describe('name gender and dob', () => {
+//     test('name gender and dob', async () => {
+//         expect((await nameGenderDob()).dateOfBirth).not.toBe(null);
+//     });
+// });

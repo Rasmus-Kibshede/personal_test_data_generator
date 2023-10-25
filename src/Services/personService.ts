@@ -1,4 +1,4 @@
-import { PersonDTO } from "../Model/PersonDTO";
+import { Person } from "../Model/Person";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 import validator from "validator";
 
@@ -10,20 +10,15 @@ export const getRandomNameAndGender = async () => {
   }
 
   const randomNumber = Math.floor(Math.random() * allPersons.length);
-
   const randomPerson = allPersons[randomNumber];
-
   const fullname = randomPerson.name + " " + randomPerson.surname;
 
-  const person: PersonDTO = {
-    fullname: fullname,
-    gender: randomPerson.gender,
-  };
+  const person = new Person(fullname, randomPerson.gender);
 
   return validateNameAndGender(person);
 };
 
-export const validateNameAndGender = (person: PersonDTO) => {
+export const validateNameAndGender = (person: Person) => {
   if (validateGender(person.gender) && validateName(person.fullname)) {
     return person;
   } else {
@@ -51,14 +46,53 @@ export const setRandomBirthday = async () => {
   return randomDateFormatted;
 };
 
-export const setRandomCpr = async () => {
-  const gender = (await getRandomNameAndGender()).gender;
+export const getNameGenderDob = async () => {
+  const person = await getRandomNameAndGender();
   const birthday = await setRandomBirthday();
+
+  const personWithDob: any = {
+    fullname: person.fullname,
+    gender: person.gender,
+    dateOfBirth: birthday,
+  };
+
+  return personWithDob;
+};
+
+export const getNameGenderCPR = async () => {
+  const person = await getRandomNameAndGender();
+  const cpr = await setRandomCpr();
+
+  const personWithDob: any = {
+    fullname: person.fullname,
+    gender: person.gender,
+    cpr: cpr,
+  };
+
+  return personWithDob;
+};
+
+
+export const setRandomCpr = async () => {
+  const person = await getRandomNameAndGender();
+  const birthday = await setRandomBirthday();
+  const gender = person.gender;
 
   const randomThreeDigits = generateThreeRandomDigits();
   const lastDigit = setRandomGenderDigit(gender).toString();
 
-  return generateRandomCpr(birthday, randomThreeDigits, lastDigit);
+  const cpr = generateRandomCpr(birthday, randomThreeDigits, lastDigit);
+
+  person.dateOfBirth = birthday;
+  person.cpr = cpr;
+
+  // const personWithCpr: PersonWithCpr = {
+  //   fullname: person.fullname,
+  //   gender: person.gender,
+  //   cpr: cpr,
+  // };
+
+  return person;
 };
 
 // TODO: Unit tests
@@ -125,11 +159,11 @@ export const randomNumberPrefix = async () => {
   return phoneNumberPrefixes[Math.floor(Math.random() * phoneNumberPrefixes.length)];
 }
 
-export const generateRandomDigits = async (length: number) =>  {
+export const generateRandomDigits = async (length: number) => {
   return Array.from({ length: 8 - length }, () => Math.floor(Math.random() * 10)).join('');
 };
 
 export const generateRandomPhoneNum = async () => {
-    const prefix = await randomNumberPrefix();
-    return (prefix + ' ' + generateRandomDigits(prefix.length)) as string;
+  const prefix = await randomNumberPrefix();
+  return (prefix + ' ' + generateRandomDigits(prefix.length)) as string;
 };

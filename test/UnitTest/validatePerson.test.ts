@@ -1,3 +1,4 @@
+import { Person } from '../../src/Model/Person';
 import { validateName, validateGender, validateNameAndGender } from '../../src/Services/personService';
 
 describe('Name validator passes', () => {
@@ -60,10 +61,8 @@ describe('Gender validator fails', () => {
 describe('validateNameAndGender validator passes', () => {
     const personData = [
         {
-            'person': {
-                fullname: 'Tom mikkelsen',
-                gender: 'male'
-            },
+            'fullname': 'Tom mikkelsen',
+            'gender': 'male',
             'expected': {
                 fullname: 'Tom mikkelsen',
                 gender: 'male'
@@ -71,7 +70,8 @@ describe('validateNameAndGender validator passes', () => {
         }
     ]
 
-    test.each(personData)('Gender & name valid person data passes', ({ person, expected }) => {
+    test.each(personData)('Gender & name valid person data passes', ({ fullname, gender, expected }) => {
+        const person = new Person(fullname, gender);
         expect(validateNameAndGender(person).fullname).toBe(expected.fullname);
         expect(validateNameAndGender(person).gender).toBe(expected.gender);
     });
@@ -82,29 +82,24 @@ describe('validateNameAndGender validator fails', () => {
     const validateError = new Error('Validation failed');
     const personData = [
         {
-            'person': {
-                fullname: 'T1m mikkelsen',
-                gender: 'male'
-            },
+            'fullname': 'T1m mikkelsen',
+            'gender': 'male',
             'expected': validateError
         },
         {
-            'person': {
-                fullname: 'Tom mikkelsen',
-                gender: 'mle'
-            },
+            'fullname': 'Tom mikkelsen',
+            'gender': 'mle',
             'expected': validateError
         },
         {
-            'person': {
-                fullname: 'ads24',
-                gender: 'ma132e'
-            },
+            'fullname': 'ads24',
+            'gender': 'ma132e',
             'expected': validateError
         }
     ]
 
-    test.each(personData)('Gender valid person data passes', ({ person, expected }) => {
+    test.each(personData)('Gender valid person data passes', ({ fullname, gender, expected }) => {
+        const person = new Person(fullname, gender);
         expect(() => validateNameAndGender(person)).toThrowError(expected);
     });
 });
