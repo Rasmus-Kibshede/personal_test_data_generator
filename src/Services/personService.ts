@@ -98,7 +98,6 @@ export const generateRandomCpr = (
   const day = birthdayParts[0];
   const month = birthdayParts[1];
   const year = birthdayParts[2].substring(2, 4);
-
   return `${day}${month}${year}-${threeRandomDigits}${lastDigit}`;
 };
 
