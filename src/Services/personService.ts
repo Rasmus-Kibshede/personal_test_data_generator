@@ -73,7 +73,7 @@ export const generateCPR = (gender: string, dob: string) => {
 
 // TODO: Unit tests
 export const generateThreeRandomDigits = () => {
-  return faker.number.int({ min: 0, max: 9 }).toString();
+  return faker.string.numeric({ length: 3 });
 };
 
 export const generateRandomCpr = (
@@ -99,7 +99,7 @@ export const generateRandomCpr = (
   const month = birthdayParts[1];
   const year = birthdayParts[2].substring(2, 4);
 
-  return `${day}${month}${year}${threeRandomDigits}${lastDigit}`;
+  return `${day}${month}${year}-${threeRandomDigits}${lastDigit}`;
 };
 
 // -------------------------------------------------------- Phone number logic
