@@ -1,4 +1,4 @@
-import { getRandomNameAndGender, getNameGenderDob } from '../../src/Services/personService';
+import { getRandomNameAndGender } from '../../src/Services/personService';
 import { Person } from '../../src/Model/Person';
 
 let person: Person;

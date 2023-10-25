@@ -17,7 +17,7 @@ const validateId = (req: Request, res: Response, next: NextFunction) => {
 };
 
 //Endpoints
-personRouter.get('/person/namegender', personController.getRandomNameAndGender)
+personRouter.get('/person/namegender', personController.generateNameAndGender)
 personRouter.get('/person/namegenderdob', personController.getNameGenderDob)
 personRouter.get('/person/namegendercpr', personController.getNameGenderCPR)
 personRouter.get('/person/birthday/', personController.getRandomBirthday)

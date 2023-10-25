@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as personService from '../Services/personService';
 
-export const getRandomNameAndGender = async (req: Request, res: Response) => {
+export const generateNameAndGender = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPerson();
 		const data = {

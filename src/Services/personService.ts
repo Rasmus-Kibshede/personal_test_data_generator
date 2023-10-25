@@ -1,10 +1,11 @@
 import { Person } from "../Model/Person";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 import validator from "validator";
-import { el, faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { setRandomAddress } from "./addressService";
+import { validateNameAndGender } from "../util/validation/personValidation";
 
-
+// -------------------------------------------------------- Person wrapper
 export const getPerson = async () => {
   const person = await getRandomNameAndGender();
   const birthday = await setRandomBirthday();
@@ -13,8 +14,6 @@ export const getPerson = async () => {
   person.cpr = generateCPR(person.gender, birthday);
   person.phoneNumber = (await generateRandomPhoneNum()).replace(/\s/g, '');
   person.address = await setRandomAddress();
-  // console.log(person);
-  
 
   return person;
 }
@@ -35,6 +34,7 @@ export const getPersons = async () => {
   return persons;
 };
 
+// -------------------------------------------------------- Person logic
 export const getRandomNameAndGender = async () => {
   const allPersons = await getAllPersonsFromFile();
 
@@ -50,24 +50,7 @@ export const getRandomNameAndGender = async () => {
   return validateNameAndGender(person);
 };
 
-export const validateNameAndGender = (person: Person) => {
-  if (validateGender(person.gender) && validateName(person.fullname)) {
-    return person;
-  } else {
-    console.log("Validation failed", person);
-    throw new Error("Validation failed");
-  }
-};
-
-export const validateName = (name: string) => {
-  const nameFormat = /^(?=\S)(?!.*\d)[a-øA-Ø\sa.c-]+\s[a-øA-Ø\sa.c-]+$/;
-  return validator.matches(name, nameFormat);
-};
-
-export const validateGender = (gender: string) => {
-  return validator.equals(gender, "male") || validator.equals(gender, "female");
-};
-
+// -------------------------------------------------------- Birthday logic
 export const setRandomBirthday = async () => {
   const start = new Date(1908, 5, 8); // Oldest verified living person
   const end = new Date();
@@ -80,15 +63,7 @@ export const setRandomBirthday = async () => {
   return randomDateFormatted;
 };
 
-export const getNameGenderDob = async () => {
-  const person = await getRandomNameAndGender();
-  const birthday = await setRandomBirthday();
-  person.dateOfBirth = birthday;
-
-  return person;
-};
-
-
+// -------------------------------------------------------- CPR logic
 export const generateCPR = (gender: string, dob: string) => {
   const randomThreeDigits = generateThreeRandomDigits();
   const lastDigit = setRandomGenderDigit(gender).toString();
@@ -127,7 +102,7 @@ export const generateRandomCpr = (
   return `${day}${month}${year}${threeRandomDigits}${lastDigit}`;
 };
 
-// Unit
+// -------------------------------------------------------- Phone number logic
 export const setRandomGenderDigit = (gender: string) => {
   switch (gender.toLowerCase()) {
     case "female":
