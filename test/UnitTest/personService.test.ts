@@ -6,12 +6,6 @@ import {
   generateRandomCpr,
   setRandomGenderDigit,
 } from "../../src/Services/personService";
-import { 
-  generateRandomFloor,
-  generateRandomNumberForDoor,
-  generateRandomStreet,
-  generateStreetName,
-  generateStreetVariation, } from "../../src/Services/addressService";
 import validator from "validator";
 
 let prefix: string;
@@ -62,11 +56,8 @@ describe("setRandomBirthday", () => {
       const validStartDate = new Date(1908, 5, 8).getTime();
       const generatedDate = await setRandomBirthday();
       const dateParts = generatedDate.split("/");
-      const generatedDateObj = new Date(
-        +dateParts[2],
-        +dateParts[1] - 1,
-        +dateParts[0]
-      );
+      const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
+
       expect(generatedDateObj.getTime()).toBeGreaterThanOrEqual(validStartDate);
     });
 
@@ -75,22 +66,14 @@ describe("setRandomBirthday", () => {
       const generatedDate = await setRandomBirthday();
 
       const dateParts = generatedDate.split("/");
-      const generatedDateObj = new Date(
-        +dateParts[2],
-        +dateParts[1] - 1,
-        +dateParts[0]
-      );
+      const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
       expect(generatedDateObj.getTime()).toBeLessThanOrEqual(validEndDate);
     });
 
     test("if the date format is correct", async () => {
       const generatedDate = await setRandomBirthday();
-      expect(validator.isDate(generatedDate, { format: "DD/MM/YYYY" })).toBe(
-        true
-      );
+      expect(validator.isDate(generatedDate, { format: "DD/MM/YYYY" })).toBe(true);
     });
-
-    // TODO: Negative testies
   });
 });
 
@@ -98,15 +81,22 @@ describe("setRandomBirthday", () => {
 
 describe("generateRandomCpr", () => {
   describe("testing valid data in generateRandomCpr", () => {
-    test("to generate a valid CPR number", () => {
+    test("to generate a valid CPR number with correct format", () => {
       const dob = "08/06/1998";
       const threeRandomDigits = "123";
       const lastDigit = "1";
+      const result = generateRandomCpr(dob, threeRandomDigits, lastDigit);
 
+      expect(result).toMatch(/^\d{10}$/);
+    });
+
+    test("to generate a valid CPR as string", () => {
+      const dob = "08/06/1998";
+      const threeRandomDigits = "123";
+      const lastDigit = "1";
       const result = generateRandomCpr(dob, threeRandomDigits, lastDigit);
 
       expect(typeof result).toBe("string");
-      expect(result).toMatch(/^\d{10}$/);
     });
 
     test("to generate a CPR with correct date", () => {
@@ -140,41 +130,47 @@ describe("generateRandomCpr", () => {
 
   describe("testing invalid data in generateRandomCpr", () => {
     test("to throw error for invalid date format", () => {
-      const dob = "invalid-date";
+      const dob = "111/12/28";
       const threeRandomDigits = "123";
       const lastDigit = "1";
 
       expect(() =>
-        generateRandomCpr(dob, threeRandomDigits, lastDigit)
-      ).toThrowError("Invalid date format");
+        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid date format");
     });
 
     test("to throw error for invalid three random digits", () => {
       const dob = "08/06/1998";
-      const threeRandomDigits = "invalid-three-random-digits";
+      const threeRandomDigits = "1111";
       const lastDigit = "1";
 
       expect(() =>
-        generateRandomCpr(dob, threeRandomDigits, lastDigit)
-      ).toThrowError("Invalid three random digits");
+        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid three random digits");
     });
 
     test("to throw error for invalid last digit", () => {
       const dob = "08/06/1998";
       const threeRandomDigits = "123";
-      const lastDigit = "invalid-last-digit";
+      const lastDigit = "12";
 
       expect(() =>
-        generateRandomCpr(dob, threeRandomDigits, lastDigit)
-      ).toThrowError("Invalid last digit");
+        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid last digit");
+    });
+
+    test("to throw error if all values are invalid", () => {
+      const dob = "08/067/1998";
+      const threeRandomDigits = "1234";
+      const lastDigit = "122";
+
+      expect(() =>
+        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid date format");
     });
   });
 });
 
-/* ---------------------------------------- getRandomGenderDigit ---------------------------------------- */
+/* ---------------------------------------- setRandomGenderDigit ---------------------------------------- */
 
 describe("getRandomGenderDigit", () => {
-  describe("testing valid data in getRandomGenderDigit", () => {
+  describe("testing valid data in setRandomGenderDigit", () => {
     const genderData = [
       { gender: "male", expected: 1 },
       { gender: "female", expected: 2 },
