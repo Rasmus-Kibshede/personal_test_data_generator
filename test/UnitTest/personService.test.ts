@@ -1,4 +1,4 @@
-import "dotenv/config";
+import 'dotenv/config';
 import {
   setRandomBirthday,
   randomNumberPrefix,
@@ -12,9 +12,9 @@ import { faker } from "@faker-js/faker";
 let prefix: string;
 let randomDigits: string;
 const prefixes = [
-  { number: "2", expected: 7 },
-  { number: "30", expected: 6 },
-  { number: "342", expected: 5 },
+  { number: '2', expected: 7 },
+  { number: '30', expected: 6 },
+  { number: '342', expected: 5 },
 ];
 
 beforeAll(async () => {
@@ -22,25 +22,25 @@ beforeAll(async () => {
   randomDigits = await generateRandomDigits(prefix.length);
 });
 
-describe("testing prefix", () => {
-  describe("testing valid prefix", () => {
-    test("should be bigger than 0", () => {
+describe('Testing prefix', () => {
+  describe('Testing valid prefix', () => {
+    test('should be bigger than 0', () => {
       expect(prefix.length).toBeGreaterThan(0);
     });
 
-    test("should be less than 9", () => {
+    test('Should be less than 9', () => {
       expect(prefix.length).toBeLessThanOrEqual(3);
     });
 
-    test("should be a number", () => {
+    test('Should be a number', () => {
       expect(validator.isNumeric(prefix)).toBe(true);
     });
   });
 });
 
-describe("testing generateDigtits", () => {
-  describe("Testing length of randomDigits", () => {
-    test.each(prefixes)("testing length", async ({ number, expected }) => {
+describe('Testing generateDigtits', () => {
+  describe('Testing length of randomDigits', () => {
+    test.each(prefixes)('Testing length', async ({ number, expected }) => {
       let randomDigits = await generateRandomDigits(number.length);
       expect(randomDigits.length).toBe(expected);
     });
@@ -49,29 +49,29 @@ describe("testing generateDigtits", () => {
 
 /* ---------------------------------------- setRandomBirthday ---------------------------------------- */
 
-describe("setRandomBirthday", () => {
-  describe("testing valid data in setRandomBirthday", () => {
-    test("should generate a random date greater than or equal to a valid start date", async () => {
+describe('setRandomBirthday', () => {
+  describe('Valid data in setRandomBirthday', () => {
+    test('Generate a random date greater than or equal to a valid start date', async () => {
       const validStartDate = new Date(1908, 5, 8).getTime();
-      const generatedDate = await setRandomBirthday();
-      const dateParts = generatedDate.split("/");
+      const generatedDate = setRandomBirthday();
+      const dateParts = generatedDate.split('/');
       const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
 
       expect(generatedDateObj.getTime()).toBeGreaterThanOrEqual(validStartDate);
     });
 
-    test("should generate a random date less than or equal to the current date", async () => {
+    test('Generate a random date less than or equal to the current date', () => {
       const validEndDate = new Date().getTime();
-      const generatedDate = await setRandomBirthday();
+      const generatedDate = setRandomBirthday();
 
       const dateParts = generatedDate.split("/");
       const generatedDateObj = new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
       expect(generatedDateObj.getTime()).toBeLessThanOrEqual(validEndDate);
     });
 
-    test("if the date format is correct", async () => {
-      const generatedDate = await setRandomBirthday();
-      expect(validator.isDate(generatedDate, { format: "DD/MM/YYYY" })).toBe(true);
+    test('Date format is valid', () => {
+      const generatedDate = setRandomBirthday();
+      expect(validator.isDate(generatedDate, { format: 'DD/MM/YYYY' })).toBe(true);
     });
   });
 });
@@ -93,20 +93,20 @@ describe("generateRandomCpr", () => {
       expect(generateRandomCpr(dob, threeRandomDigits, lastDigit)).toMatch(/^\d{1,10}-+?\d{0,9}$/);
     });
 
-    test("Generate a valid CPR as string", () => {
+    test("Valid CPR as string", () => {
       const dob = "08/06/1998";
       const threeRandomDigits = "123";
       const lastDigit = "1";
       const result = generateRandomCpr(dob, threeRandomDigits, lastDigit);
 
-      expect(typeof result).toBe("string");
+      expect(typeof result).toBe('string');
     });
 
-    test.each(data)("Generate a valid CPR number with correct format", ({ dob, threeRandomDigits, lastDigit, expected }) => {
+    test.each(data)("CPR with correct date", ({ dob, threeRandomDigits, lastDigit, expected }) => {
       expect(generateRandomCpr(dob, threeRandomDigits, lastDigit)).toBe(expected);
     });
 
-    test.each(data)("Generate a CPR with correct last four digits", ({ dob, threeRandomDigits, lastDigit, expected }) => {
+    test.each(data)("CPR with correct last four digits", ({ dob, threeRandomDigits, lastDigit, expected }) => {
       const result = generateRandomCpr(dob, threeRandomDigits, lastDigit);
 
       const lastFourDigits = result.split('-')[1];
@@ -115,7 +115,7 @@ describe("generateRandomCpr", () => {
     });
   });
 
-  describe("Testing invalid data in generateRandomCpr", () => {
+  describe("Invalid data in generateRandomCPR", () => {
     const data = [
       { 'dob': "01/01/01", 'threeRandomDigits': "123", 'lastDigit': "1", 'expected': "Invalid date format" },
       { 'dob': "01/aa/0101", 'threeRandomDigits': "123", 'lastDigit': "1", 'expected': "Invalid date format" },
@@ -141,22 +141,22 @@ describe("generateRandomCpr", () => {
       expect(() => generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError(expected)
     });
 
-    test("Throw error for invalid three random digits", () => {
-      const dob = "08/06/1998";
-      const threeRandomDigits = "1111";
-      const lastDigit = "1";
+    test('Throw error for invalid three random digits', () => {
+      const dob = '08/06/1998';
+      const threeRandomDigits = '1111';
+      const lastDigit = '1';
 
       expect(() =>
-        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid three random digits");
+        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError('Invalid three random digits');
     });
 
-    test("Throw error for invalid last digit", () => {
-      const dob = "08/06/1998";
-      const threeRandomDigits = "123";
-      const lastDigit = "12";
+    test('Throw error for invalid last digit', () => {
+      const dob = '08/06/1998';
+      const threeRandomDigits = '123';
+      const lastDigit = '12';
 
       expect(() =>
-        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid last digit");
+        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError('Invalid last digit');
     });
 
     test("Throw error if all values are invalid", () => {
@@ -165,39 +165,39 @@ describe("generateRandomCpr", () => {
       const lastDigit = "122";
 
       expect(() =>
-        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError("Invalid date format");
+        generateRandomCpr(dob, threeRandomDigits, lastDigit)).toThrowError('Invalid date format');
     });
   });
 });
 
 /* ---------------------------------------- setRandomGenderDigit ---------------------------------------- */
 
-describe("getRandomGenderDigit", () => {
-  describe("testing valid data in setRandomGenderDigit", () => {
+describe('getRandomGenderDigit', () => {
+  describe('Testing valid data in setRandomGenderDigit', () => {
     const genderData = [
-      { gender: "male", expected: 1 },
-      { gender: "female", expected: 2 },
-      { gender: "mAle", expected: 1 },
-      { gender: "fEmAlE", expected: 2 },
+      { gender: 'male', expected: 1 },
+      { gender: 'female', expected: 2 },
+      { gender: 'mAle', expected: 1 },
+      { gender: 'fEmAlE', expected: 2 },
     ];
     test.each(genderData)(
-      "Gender validation on parameter passes",
+      'Gender validation on parameter passes',
       ({ gender, expected }) => {
         expect(setRandomGenderDigit(gender) % 2 === 0).toBe(expected % 2 === 0);
       }
     );
   });
 
-  describe("testing invalid data in getRandomGenderDigit", () => {
-    const invalidError = new Error("Invalid gender format");
+  describe('Testing invalid data in getRandomGenderDigit', () => {
+    const invalidError = new Error('Invalid gender format');
     const genderData = [
-      { gender: "fem", expected: invalidError },
-      { gender: " ", expected: invalidError },
-      { gender: "", expected: invalidError },
-      { gender: "!.-", expected: invalidError },
+      { gender: 'fem', expected: invalidError },
+      { gender: ' ', expected: invalidError },
+      { gender: '', expected: invalidError },
+      { gender: '!.-', expected: invalidError },
     ];
     test.each(genderData)(
-      "Gender validation on parameter passes",
+      'Gender validation on parameter passes',
       ({ gender, expected }) => {
         expect(() => setRandomGenderDigit(gender)).toThrowError(expected);
       }

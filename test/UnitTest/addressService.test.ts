@@ -1,25 +1,25 @@
-import { generateRandomDoor, generateRandomFloor, generateRandomNumberForDoor, generateStreetName, generateStreetVariation } from "../../src/Services/addressService";
+import { generateRandomDoor, generateRandomFloor, generateRandomHouseNumber, generateStreetName, generateStreetVariation } from "../../src/Services/addressService";
 
 /* ---------------------------------------- generateRandomFloor ---------------------------------------- */
 
-describe("generateRandomFloor", () => {
-    describe("testing valid data in generateRandomFloor", () => {
-      test("to generate a valid floor number", async () => {
+describe('generateRandomFloor', () => {
+    describe('Testing valid data in generateRandomFloor', () => {
+      test('Generate a valid floor number', async () => {
         const result = await generateRandomFloor();
-        expect(typeof result).toBe("string");
+        expect(typeof result).toBe('string');
       });
   
-      test("to see if its a numberic value or st", async () => {
+      test('Numberic value or st', async () => {
         const result = await generateRandomFloor();
         expect(result).toMatch(/^(st|\d+)$/);
       });
   
-      test("to see if it's greater than or equal to 1", async () => {
+      test('Greater than or equal to 1', async () => {
         const result = await generateRandomFloor();
         expect(result.length).toBeGreaterThanOrEqual(1);
       });
   
-      test("to see if it's less than or equal to 2", async () => {
+      test('Less than or equal to 2', async () => {
         const result = await generateRandomFloor();
         expect(result.length).toBeLessThanOrEqual(2);
       });
@@ -28,40 +28,40 @@ describe("generateRandomFloor", () => {
   
   /* ---------------------------------------- generateRandomNumberForDoor ---------------------------------------- */
   
-  describe("generateRandomNumberForDoor", () => {
-    describe("testing valid data in generateRandomNumberForDoor", () => {
-      test("to generate a valid door number", async () => {
-        const result = await generateRandomNumberForDoor();
-        expect(typeof result).toBe("string");
+  describe('generateRandomNumberForDoor', () => {
+    describe('Testing valid data in generateRandomNumberForDoor', () => {
+      test('to generate a valid door number', async () => {
+        const result = await generateRandomHouseNumber();
+        expect(typeof result).toBe('string');
       });
   
-      test("to see if it's greater than or equal to 1", async () => {
-        const result = await generateRandomNumberForDoor();
+      test('Greater than or equal to 1', async () => {
+        const result = await generateRandomHouseNumber();
         expect(result.length).toBeGreaterThanOrEqual(1);
       });
   
-      test("to see if it's less than or equal to 4", async () => {
-        const result = await generateRandomNumberForDoor();
-        expect(result.length).toBeLessThanOrEqual(4);
+      test('less than or equal to 5', async () => {
+        const result = await generateRandomHouseNumber();
+        expect(result.length).toBeLessThanOrEqual(5);
       });
     });
   });
   
     /* ---------------------------------------- generateStreetName ---------------------------------------- */
   
-  describe("generateStreetName", () => {
-      describe("testing valid data in generateStreetName", () => {
-        test('to generate a streetname that  ', async () => {
+  describe('generateStreetName', () => {
+      describe('testing valid data in generateStreetName', () => {
+        test('Testing street name type', async () => {
           const result = await generateStreetName();
-          expect(typeof result).toBe("string");
+          expect(typeof result).toBe('string');
         });
   
-        test('to generate a streetname that  ', async () => {
+        test('Greater then 4', async () => {
           const result = await generateStreetName();
           expect(result.length).toBeGreaterThanOrEqual(4);
         });
   
-        test('to generate a streetname that  ', async () => {
+        test('Less then or equal 9', async () => {
           const result = await generateStreetName();
           expect(result.length).toBeLessThanOrEqual(9);
         });
@@ -70,25 +70,25 @@ describe("generateRandomFloor", () => {
   
     /* ---------------------------------------- generateStreetVariation ---------------------------------------- */
   
-    describe("generateStreetVariation", () => {
-      describe("testing valid data in generateStreetVariation", () => {
-        test('to generate a streetname that is not empty', async () => {
+    describe('generateStreetVariation', () => {
+      describe('testing valid data in generateStreetVariation', () => {
+        test('Generate a streetname that is not empty', async () => {
           const result = await generateStreetVariation();
           expect(result).not.toBe("");
         });
       });
     
-      test('to generate a streetname that  ', async () => {
+      test('Testing streetVariation type', async () => {
         const result = await generateStreetVariation();
-        expect(typeof result).toBe("string");
+        expect(typeof result).toBe('string');
       });
     
-      test('to generate a streetname that  ', async () => {
+      test('Greater or equal to 2', async () => {
         const result = await generateStreetVariation();
         expect(result.length).toBeGreaterThanOrEqual(2);
       });
     
-      test('to generate a streetname that  ', async () => {
+      test('Less or equal to 9', async () => {
         const result = await generateStreetVariation();
         expect(result.length).toBeLessThanOrEqual(9);
       });
@@ -96,19 +96,19 @@ describe("generateRandomFloor", () => {
 
 /* ---------------------------------------- generateRandomDoor ---------------------------------------- */
 
-describe("generateRandomDoor", () => {
-    describe("testing valid data in generateRandomDoor", () => {
-        test('to generate a door that is a string', async () => {
+describe('generateRandomDoor', () => {
+    describe('Testing valid data in generateRandomDoor', () => {
+        test('Testing return type', async () => {
             const result = await generateRandomDoor();
             expect(typeof result).toBe("string");
         });
 
-        test('to generate a door that is either tv or th or mf', async () => {
+        test('Generate a door that is either tv or th or mf', async () => {
             const result = await generateRandomDoor();
             expect(result).toMatch(/^(tv|th|mf)$/);
         });
 
-        test('to generate a door that is a string', async () => {
+        test('Generate a door that is a string', async () => {
             const result = await generateRandomDoor();
             expect(result.length).toEqual(2);
         });
