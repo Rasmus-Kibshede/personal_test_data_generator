@@ -1,11 +1,11 @@
-import validator from "validator";
-import { Person } from "../../Model/Person";
+import validator from 'validator';
+import { Person } from '../../Model/Person';
 
 export const validateNameAndGender = (person: Person) => {
     if (validateGender(person.gender) && validateName(person.fullname)) {
         return person;
     } else {
-        throw new Error("Validation failed");
+        throw new Error('Validation failed');
     }
 };
 
@@ -15,5 +15,5 @@ export const validateName = (name: string) => {
 };
 
 export const validateGender = (gender: string) => {
-    return validator.equals(gender, "male") || validator.equals(gender, "female");
+    return validator.equals(gender, 'male') || validator.equals(gender, 'female');
 };
