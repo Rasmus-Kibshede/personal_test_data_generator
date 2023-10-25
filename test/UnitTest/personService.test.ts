@@ -5,7 +5,7 @@ import validator from 'validator';
 let prefix: string;
 let randomDigits: string;
 const prefixes = [
-  {'number': '2', 'expected': 7},
+  {'number': '2', 'expected': 7}, // true
   {'number': '30', 'expected': 6},
   {'number': '342', 'expected': 5},
   ];
@@ -41,7 +41,31 @@ const prefixes = [
             expect(randomDigits.length).toBe(expected); 
           })
         })
-  });
+      describe("should be digits", () => {
+        const digits = [
+            {'number': '2', 'expected': true}, 
+            {'number': '30', 'expected': true},
+            {'number': '342', 'expected': true},
+            ];
+            test.each(digits)('testing for digits', async ({ number, expected }) => {
+                let randomDigits = await generateRandomDigits(number.length);
+                expect(validator.isNumeric(randomDigits)).toBe(expected);    
+      })
+      })
+      describe("generated cifers of digits passes", () => {
+        const invalidPrefixError = new Error('Invalid prefix')
+        const digits = [
+            {'number': 4, 'expected': invalidPrefixError}, 
+            {'number': 5, 'expected': invalidPrefixError},
+            {'number': 6, 'expected': invalidPrefixError},
+            {'number': 7, 'expected': invalidPrefixError},
+            {'number': 8, 'expected': invalidPrefixError},
+        ];
+        test.each(digits)('Number invalid data fails', ({ number, expected }) => {
+            expect(generateRandomDigits(number)).toThrowError(expected);
+        });
+      })
+});
 
   describe('setRandomBirthday', () => {
     test('should generate a random date greater than or equal to a valid start date', async () => {

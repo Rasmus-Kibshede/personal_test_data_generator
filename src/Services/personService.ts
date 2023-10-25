@@ -1,3 +1,4 @@
+import { error } from "console";
 import { PersonDTO } from "../Model/PersonDTO";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 import validator from "validator";
@@ -124,12 +125,20 @@ export const randomNumberPrefix = async () => {
 
   return phoneNumberPrefixes[Math.floor(Math.random() * phoneNumberPrefixes.length)];
 }
-
+// TODO Valider length 
 export const generateRandomDigits = async (length: number) =>  {
+  if(length > 3) {
+    throw new Error('Invalid prefix')
+  }
   return Array.from({ length: 8 - length }, () => Math.floor(Math.random() * 10)).join('');
-};
 
+};
+// TODO valider prefix is numeric
 export const generateRandomPhoneNum = async () => {
     const prefix = await randomNumberPrefix();
     return (prefix + ' ' + generateRandomDigits(prefix.length)) as string;
 };
+
+// Eksempel på brug:
+const fakePhoneNumber = generateRandomPhoneNum();
+console.log(fakePhoneNumber);
