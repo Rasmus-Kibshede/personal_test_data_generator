@@ -1,6 +1,7 @@
 import { Person } from "../Model/Person";
 import { getAllPersonsFromFile } from "../Repositories/fileHandler";
 import validator from "validator";
+import { el, faker } from '@faker-js/faker';
 
 export const getRandomNameAndGender = async () => {
   const allPersons = await getAllPersonsFromFile();
@@ -49,28 +50,34 @@ export const setRandomBirthday = async () => {
 export const getNameGenderDob = async () => {
   const person = await getRandomNameAndGender();
   const birthday = await setRandomBirthday();
+  person.dateOfBirth = birthday;
 
-  const personWithDob: any = {
-    fullname: person.fullname,
-    gender: person.gender,
-    dateOfBirth: birthday,
-  };
+  // const personWithDob: any = {
+  //   fullname: person.fullname,
+  //   gender: person.gender,
+  //   dateOfBirth: birthday,
+  // };
 
-  return personWithDob;
+  return person;
 };
 
-export const getNameGenderCPR = async () => {
+export const getPerson = async () => {
   const person = await getRandomNameAndGender();
-  const cpr = await setRandomCpr();
+  const birthday = await setRandomBirthday();
 
-  const personWithDob: any = {
-    fullname: person.fullname,
-    gender: person.gender,
-    cpr: cpr,
-  };
+  person.dateOfBirth = birthday;
+  person.cpr = generateCPR(person.gender, birthday);
+  person.phoneNumber = await generateRandomPhoneNum();
 
-  return personWithDob;
-};
+  return person;
+}
+
+const generateCPR = (gender: string, dob: string) => {
+  const randomThreeDigits = generateThreeRandomDigits();
+  const lastDigit = setRandomGenderDigit(gender).toString();
+
+  return generateRandomCpr(dob, randomThreeDigits, lastDigit);
+}
 
 
 export const setRandomCpr = async () => {
@@ -85,12 +92,6 @@ export const setRandomCpr = async () => {
 
   person.dateOfBirth = birthday;
   person.cpr = cpr;
-
-  // const personWithCpr: PersonWithCpr = {
-  //   fullname: person.fullname,
-  //   gender: person.gender,
-  //   cpr: cpr,
-  // };
 
   return person;
 };
@@ -166,4 +167,19 @@ export const generateRandomDigits = async (length: number) => {
 export const generateRandomPhoneNum = async () => {
   const prefix = await randomNumberPrefix();
   return (prefix + ' ' + generateRandomDigits(prefix.length)) as string;
+};
+
+export const getPersons = async () => {
+  const persons: Person[] = [];
+  const randomNumber = faker.number.int({ min: 2, max: 100 });
+
+  for (let i = 0; i < randomNumber; i++) {
+    const person = await getPerson();
+
+    if (!persons.some(p => p.cpr === person.cpr || p.phoneNumber === person.phoneNumber)) {
+      persons.push(person);
+    }
+  }
+
+  return persons;
 };

@@ -4,7 +4,7 @@ export class Person {
     private _gender: string;
     private _dateOfBirth: string;
     private _address: string;
-    private _phoneNumber: number;
+    private _phoneNumber: string;
 
     constructor(fullname: string, gender: string) {
         this._fullname = fullname;
@@ -51,11 +51,11 @@ export class Person {
         this._address = value;
     }
 
-    get phoneNumber(): number {
+    get phoneNumber(): string {
         return this._phoneNumber;
     }
 
-    set phoneNumber(value: number) {
+    set phoneNumber(value: string) {
         this._phoneNumber = value;
     }
 }

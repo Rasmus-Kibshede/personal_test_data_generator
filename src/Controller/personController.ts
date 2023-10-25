@@ -3,9 +3,12 @@ import * as personService from '../Services/personService';
 
 export const getRandomNameAndGender = async (req: Request, res: Response) => {
 	try {
-		const response = await personService.getRandomNameAndGender();
-		// personResponse(response ? response : { err: response }, res, 200);
-		res.status(200).send({ data: response });
+		const response = await personService.getPerson();
+		const data = {
+			fullname: response.fullname,
+			gender: response.gender
+		}
+		res.status(200).send(data);
 	} catch (err) {
 		res.status(404).send({ err: (err as Error).message });
 	}
@@ -13,8 +16,13 @@ export const getRandomNameAndGender = async (req: Request, res: Response) => {
 
 export const getNameGenderDob = async (req: Request, res: Response) => {
 	try {
-		const response = await personService.getNameGenderDob();
-		personResponse(response ? response : { err: response }, res, 200);
+		const response = await personService.getPerson();
+		const data = {
+			fullname: response.fullname,
+			gender: response.gender,
+			dateOfBirth: response.dateOfBirth
+		}
+		res.status(200).send(data);
 	} catch (err) {
 		res.status(404).send({ err: (err as Error).message });
 	}
@@ -22,33 +30,57 @@ export const getNameGenderDob = async (req: Request, res: Response) => {
 
 export const getNameGenderCPR = async (req: Request, res: Response) => {
 	try {
-		const response = await personService.getNameGenderCPR();
-		personResponse(response ? response : { err: response }, res, 200);
+		const response = await personService.getPerson();
+		const data = {
+			fullname: response.fullname,
+			gender: response.gender,
+			cpr: response.cpr
+		}
+		res.status(200).send(data);
 	} catch (err) {
 		res.status(404).send({ err: (err as Error).message });
 	}
 };
 
 export const getRandomBirthday = async (req: Request, res: Response) => {
-	const response = await personService.setRandomBirthday();
-
-	if (!response) {
-		res.status(404).send({ err: response });
-	} else {
-		// personResponse(response ? response : { err: response }, res, 200);
-		res.status(200).send({ data: response });
+	try {
+		const response = await personService.getPerson();
+		const data = {
+			dateOfBirth: response.dateOfBirth
+		}
+		res.status(200).send(data);
+	} catch (err) {
+		res.status(404).send({ err: (err as Error).message });
 	}
+
 };
 
 export const getRandomCpr = async (req: Request, res: Response) => {
-	const response = await personService.setRandomCpr();
-	res.status(200).send({ cpr: response.cpr });
+	try {
+		const response = await personService.getPerson();
+		const data = {
+			cpr: response.cpr
+		}
+		res.status(200).send(data);
+	} catch (err) {
+		res.status(404).send({ err: (err as Error).message });
+	}
 };
 
-const personResponse = (response: any | { err: string }, res: Response, statusCode: number) => {
-	if (!response) {
-		res.status(404).send({ err: response });
-	} else {
-		res.status(statusCode).send(response);
+export const getPerson = async (req: Request, res: Response) => {
+	try {
+		const response = await personService.getPerson();
+		res.status(200).send(response);
+	} catch (err) {
+		res.status(404).send({ err: (err as Error).message });
+	}
+};
+
+export const getPersons = async (req: Request, res: Response) => {
+	try {
+		const response = await personService.getPersons();
+		res.status(200).send(response);
+	} catch (err) {
+		res.status(404).send({ err: (err as Error).message });
 	}
 };
