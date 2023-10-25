@@ -10,10 +10,9 @@ export const getRandomNameAndGender = async () => {
     throw new Error("No persons found");
   }
 
-  const randomNumber = Math.floor(Math.random() * allPersons.length);
+  const randomNumber = faker.number.int({ min: 1, max: allPersons.length - 1 });
   const randomPerson = allPersons[randomNumber];
   const fullname = randomPerson.name + " " + randomPerson.surname;
-
   const person = new Person(fullname, randomPerson.gender);
 
   return validateNameAndGender(person);
@@ -68,38 +67,18 @@ export const getPerson = async () => {
   return person;
 }
 
-const generateCPR = (gender: string, dob: string) => {
+export const generateCPR = (gender: string, dob: string) => {
   const randomThreeDigits = generateThreeRandomDigits();
   const lastDigit = setRandomGenderDigit(gender).toString();
 
   return generateRandomCpr(dob, randomThreeDigits, lastDigit);
 }
 
-
-export const setRandomCpr = async () => {
-  const person = await getRandomNameAndGender();
-  const birthday = await setRandomBirthday();
-  const gender = person.gender;
-
-  const randomThreeDigits = generateThreeRandomDigits();
-  const lastDigit = setRandomGenderDigit(gender).toString();
-
-  const cpr = generateRandomCpr(birthday, randomThreeDigits, lastDigit);
-
-  person.dateOfBirth = birthday;
-  person.cpr = cpr;
-
-  return person;
-};
-
 // TODO: Unit tests
 export const generateThreeRandomDigits = () => {
-  return Math.floor(Math.random() * 1000)
-    .toString()
-    .padStart(3, "0");
+  return faker.number.int({ min: 0, max: 9 }).toString();
 };
 
-// TODO: Unit tests
 export const generateRandomCpr = (
   dob: string,
   threeRandomDigits: string,
@@ -154,19 +133,18 @@ export const randomNumberPrefix = async () => {
   ];
 
   return phoneNumberPrefixes[
-    Math.floor(Math.random() * phoneNumberPrefixes.length)
+    faker.number.int({ min: 0, max: phoneNumberPrefixes.length - 1 })
   ];
 };
 
-export const generateRandomDigits = async (length: number) => {
-  return Array.from({ length: 8 - length }, () =>
-    Math.floor(Math.random() * 10)
-  ).join("");
+export const generateRandomDigits = async (prefixLength: number) => {
+  return faker.string.numeric({ length: 8 - prefixLength });
 };
 
 export const generateRandomPhoneNum = async () => {
   const prefix = await randomNumberPrefix();
   const generateDigits = await generateRandomDigits(prefix.length);
+
   return (prefix + ' ' + generateDigits) as string;
 };
 

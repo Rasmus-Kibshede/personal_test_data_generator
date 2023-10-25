@@ -3,8 +3,8 @@ import { PersonDTOFileObject } from '../Model/PersonDTO';
 
 const personNamePath = './documents/person-names.json';
 
-
 export const getAllPersonsFromFile = async () => {
+
     let fileContent = fs.readFileSync(personNamePath, 'utf16le');
 
     // Remove any leading Byte Order Mark (BOM), only ussed in UFT-16 and UFT-32 file encoding
