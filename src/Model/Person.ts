@@ -60,4 +60,4 @@ export class Person {
     set phoneNumber(value: string) {
         this._phoneNumber = value;
     }
-}
+};

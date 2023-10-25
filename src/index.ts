@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import "reflect-metadata";
+import 'reflect-metadata';
 import personRouter from './Routes/personRoute';
 import express from 'express'; // Import the express in typescript file
 import cors from 'cors' // Import the cors

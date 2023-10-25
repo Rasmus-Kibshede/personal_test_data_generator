@@ -1,4 +1,4 @@
-import { generateRandomDoor, generateRandomFloor, generateRandomNumberForDoor, generateStreetName, generateStreetVariation } from "../../src/Services/addressService";
+import { generateRandomDoor, generateRandomFloor, generateRandomHouseNumber, generateStreetName, generateStreetVariation } from "../../src/Services/addressService";
 
 /* ---------------------------------------- generateRandomFloor ---------------------------------------- */
 
@@ -31,17 +31,17 @@ describe("generateRandomFloor", () => {
   describe("generateRandomNumberForDoor", () => {
     describe("testing valid data in generateRandomNumberForDoor", () => {
       test("to generate a valid door number", async () => {
-        const result = await generateRandomNumberForDoor();
+        const result = await generateRandomHouseNumber();
         expect(typeof result).toBe("string");
       });
   
       test("to see if it's greater than or equal to 1", async () => {
-        const result = await generateRandomNumberForDoor();
+        const result = await generateRandomHouseNumber();
         expect(result.length).toBeGreaterThanOrEqual(1);
       });
   
       test("to see if it's less than or equal to 4", async () => {
-        const result = await generateRandomNumberForDoor();
+        const result = await generateRandomHouseNumber();
         expect(result.length).toBeLessThanOrEqual(4);
       });
     });

@@ -1,5 +1,3 @@
-// export type PersonDTO = PersonDTO1 | PersonDTO2;
-
 export interface PersonResponseDTO {
   personId: number;
   cpr: number | null;

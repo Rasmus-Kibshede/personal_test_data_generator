@@ -1,17 +1,5 @@
 import mysql, { PoolOptions } from 'mysql2/promise';
 
-/*export const appDataSource = new DataSource({
-    type: 'mysql',
-    host: process.env.DB_HOST,
-    username: process.env.DB_USERNAME,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT),
-    entities: [Person],
-    synchronize: true,
-    logging: false,
-});*/
-
 // Create the connection pool. The pool-specific settings are the defaults
 export const connection = mysql.createPool({
   host: process.env.DB_HOST,

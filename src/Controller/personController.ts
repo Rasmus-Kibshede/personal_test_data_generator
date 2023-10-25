@@ -14,7 +14,7 @@ export const generateNameAndGender = async (req: Request, res: Response) => {
 	}
 };
 
-export const getNameGenderDob = async (req: Request, res: Response) => {
+export const getNameGenderDOB = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPerson();
 		const data = {
@@ -55,7 +55,7 @@ export const getRandomBirthday = async (req: Request, res: Response) => {
 
 };
 
-export const getRandomCpr = async (req: Request, res: Response) => {
+export const getRandomCPR = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPerson();
 		const data = {

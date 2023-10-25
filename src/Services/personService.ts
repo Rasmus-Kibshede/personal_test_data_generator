@@ -1,14 +1,14 @@
-import { Person } from "../Model/Person";
-import { getAllPersonsFromFile } from "../Repositories/fileHandler";
-import validator from "validator";
+import { Person } from '../Model/Person';
+import { getAllPersonsFromFile } from '../Repositories/fileHandler';
+import validator from 'validator';
 import { faker } from '@faker-js/faker';
-import { setRandomAddress } from "./addressService";
-import { validateNameAndGender } from "../util/validation/personValidation";
+import { setRandomAddress } from './addressService';
+import { validateNameAndGender } from '../util/validation/personValidation';
 
 // -------------------------------------------------------- Person wrapper
 export const getPerson = async () => {
   const person = await getRandomNameAndGender();
-  const birthday = await setRandomBirthday();
+  const birthday = setRandomBirthday();
 
   person.dateOfBirth = birthday;
   person.cpr = generateCPR(person.gender, birthday);
@@ -16,7 +16,7 @@ export const getPerson = async () => {
   person.address = await setRandomAddress();
 
   return person;
-}
+};
 
 export const getPersons = async () => {
   const persons: Person[] = [];
@@ -39,8 +39,8 @@ export const getRandomNameAndGender = async () => {
   const allPersons = await getAllPersonsFromFile();
 
   if (!allPersons) {
-    throw new Error("No persons found");
-  }
+    throw new Error('No persons found');
+  };
 
   const randomNumber = faker.number.int({ min: 1, max: allPersons.length - 1 });
   const randomPerson = allPersons[randomNumber];
@@ -51,14 +51,14 @@ export const getRandomNameAndGender = async () => {
 };
 
 // -------------------------------------------------------- Birthday logic
-export const setRandomBirthday = async () => {
+export const setRandomBirthday = () => {
   const start = new Date(1908, 5, 8); // Oldest verified living person
   const end = new Date();
   const randomDate = new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime())
   );
 
-  const randomDateFormatted = randomDate.toLocaleDateString("en-GB");
+  const randomDateFormatted = randomDate.toLocaleDateString('en-GB');
 
   return randomDateFormatted;
 };
@@ -69,9 +69,8 @@ export const generateCPR = (gender: string, dob: string) => {
   const lastDigit = setRandomGenderDigit(gender).toString();
 
   return generateRandomCpr(dob, randomThreeDigits, lastDigit);
-}
+};
 
-// TODO: Vi vælger unit tests fra på denne metode, da den er meget simpel
 export const generateThreeRandomDigits = () => {
   return faker.string.numeric({ length: 3 });
 };
@@ -81,19 +80,19 @@ export const generateRandomCpr = (
   threeRandomDigits: string,
   lastDigit: string
 ) => {
-  if (!validator.isDate(dob, { format: "DD/MM/YYYY" })) {
-    throw new Error("Invalid date format");
+  if (!validator.isDate(dob, { format: 'DD/MM/YYYY' })) {
+    throw new Error('Invalid date format');
   }
 
   if (!validator.isNumeric(threeRandomDigits) || threeRandomDigits.length != 3) {
-    throw new Error("Invalid three random digits");
+    throw new Error('Invalid three random digits');
   }
 
   if (!validator.isNumeric(lastDigit) || lastDigit.length != 1) {
-    throw new Error("Invalid last digit");
+    throw new Error('Invalid last digit');
   }
 
-  const birthdayParts = dob.split("/");
+  const birthdayParts = dob.split('/');
 
   const day = birthdayParts[0];
   const month = birthdayParts[1];
@@ -105,12 +104,12 @@ export const generateRandomCpr = (
 // -------------------------------------------------------- Phone number logic
 export const setRandomGenderDigit = (gender: string) => {
   switch (gender.toLowerCase()) {
-    case "female":
+    case 'female':
       return Math.floor(Math.random() * 5) * 2;
-    case "male":
+    case 'male':
       return Math.floor(Math.random() * 5) * 2 + 1;
     default:
-      throw new Error("Invalid gender format");
+      throw new Error('Invalid gender format');
   }
 };
 
