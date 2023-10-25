@@ -10,7 +10,7 @@ export const getAddress = async (postalCode: number) => {
   }
 
   return address;
-}
+};
 
 // TODO: Integration testies
 export const setRandomAddress = async () => {
@@ -111,6 +111,7 @@ export const generateStreetName = async () => {
     "Sørens",
     "Mikkels",
     "Kristians",
+      'Strand'
   ];
   return streetNames[Math.floor(Math.random() * streetNames.length)];;
 };

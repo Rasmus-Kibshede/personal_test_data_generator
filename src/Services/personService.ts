@@ -71,7 +71,7 @@ export const generateCPR = (gender: string, dob: string) => {
   return generateRandomCpr(dob, randomThreeDigits, lastDigit);
 }
 
-// TODO: Unit tests
+// TODO: Vi vælger unit tests fra på denne metode, da den er meget simpel
 export const generateThreeRandomDigits = () => {
   return faker.string.numeric({ length: 3 });
 };
@@ -85,11 +85,11 @@ export const generateRandomCpr = (
     throw new Error("Invalid date format");
   }
 
-  if (!validator.isNumeric(threeRandomDigits)) {
+  if (!validator.isNumeric(threeRandomDigits) || threeRandomDigits.length != 3) {
     throw new Error("Invalid three random digits");
   }
 
-  if (!validator.isNumeric(lastDigit)) {
+  if (!validator.isNumeric(lastDigit) || lastDigit.length != 1) {
     throw new Error("Invalid last digit");
   }
 
