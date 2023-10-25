@@ -68,7 +68,7 @@ export const getPerson = async () => {
 
   person.dateOfBirth = birthday;
   person.cpr = generateCPR(person.gender, birthday);
-  person.phoneNumber = await generateRandomPhoneNum();
+  person.phoneNumber = (await generateRandomPhoneNum()).replace(/\s/g, '');
 
   return person;
 }
@@ -171,7 +171,8 @@ export const generateRandomDigits = async (length: number) => {
 
 export const generateRandomPhoneNum = async () => {
   const prefix = await randomNumberPrefix();
-  return (prefix + ' ' + generateRandomDigits(prefix.length)) as string;
+  const generateDigits = await generateRandomDigits(prefix.length);
+  return (prefix + ' ' + generateDigits) as string;
 };
 
 export const getPersons = async () => {
