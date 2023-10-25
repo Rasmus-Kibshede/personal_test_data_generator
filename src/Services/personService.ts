@@ -40,6 +40,7 @@ export const validateGender = (gender: string) => {
   return validator.equals(gender, "male") || validator.equals(gender, "female");
 };
 
+// Testet
 export const setRandomBirthday = async () => {
   const start = new Date(1908, 5, 8); // Oldest verified living person
   const end = new Date();
@@ -52,6 +53,7 @@ export const setRandomBirthday = async () => {
   return randomDateFormatted;
 };
 
+// TODO: Integration tests
 export const setRandomCpr = async () => {
   const gender = (await getRandomNameAndGender()).gender;
   const birthday = await setRandomBirthday();
@@ -62,14 +64,14 @@ export const setRandomCpr = async () => {
   return generateRandomCpr(birthday, randomThreeDigits, lastDigit);
 };
 
-// TODO: Unit tests
+// TODO: Vi vælger unit tests fra på denne metode, da den er meget simpel
 export const generateThreeRandomDigits = () => {
   return Math.floor(Math.random() * 1000)
     .toString()
     .padStart(3, "0");
 };
 
-// TODO: Unit tests
+// Testet 
 export const generateRandomCpr = (
   dob: string,
   threeRandomDigits: string,
@@ -96,7 +98,7 @@ export const generateRandomCpr = (
   return `${day}${month}${year}${threeRandomDigits}${lastDigit}`;
 };
 
-// Unit
+// Testet
 export const setRandomGenderDigit = (gender: string) => {
   switch (gender.toLowerCase()) {
     case "female":
