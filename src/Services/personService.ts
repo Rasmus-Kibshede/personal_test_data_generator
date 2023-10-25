@@ -61,12 +61,11 @@ export const setRandomCpr = async () => {
   return generateRandomCpr(birthday, randomThreeDigits, lastDigit);
 };
 
-// TODO: Unit tests
 export const generateThreeRandomDigits = () => {
   return Math.floor(Math.random() * 1000).toString().padStart(3, "0");
 };
 
-// TODO: Unit tests
+// TODO: Add check to see if the date is correct: I.E. 32/13/3052 passes.
 export const generateRandomCpr = (
   dob: string,
   threeRandomDigits: string,
@@ -77,11 +76,11 @@ export const generateRandomCpr = (
     throw new Error("Invalid date format");
   }
 
-  if (!validator.isNumeric(threeRandomDigits)) {
+  if (!validator.isNumeric(threeRandomDigits) || threeRandomDigits.length !== 3) {
     throw new Error("Invalid three random digits");
   }
 
-  if (!validator.isNumeric(lastDigit)) {
+  if (!validator.isNumeric(lastDigit) || lastDigit.length !== 1) {
     throw new Error("Invalid last digit");
   }
 
@@ -94,7 +93,6 @@ export const generateRandomCpr = (
   return `${day}${month}${year}${threeRandomDigits}${lastDigit}`;
 };
 
-// Unit
 export const setRandomGenderDigit = (gender: string) => {
   switch (gender.toLowerCase()) {
     case "female":
