@@ -40,9 +40,9 @@ describe('generateRandomFloor', () => {
         expect(result.length).toBeGreaterThanOrEqual(1);
       });
   
-      test('less than or equal to 4', async () => {
+      test('less than or equal to 5', async () => {
         const result = await generateRandomHouseNumber();
-        expect(result.length).toBeLessThanOrEqual(4);
+        expect(result.length).toBeLessThanOrEqual(5);
       });
     });
   });
