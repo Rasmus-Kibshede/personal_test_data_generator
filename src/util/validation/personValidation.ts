@@ -5,7 +5,6 @@ export const validateNameAndGender = (person: Person) => {
     if (validateGender(person.gender) && validateName(person.fullname)) {
         return person;
     } else {
-        console.log("Validation failed", person);
         throw new Error("Validation failed");
     }
 };
