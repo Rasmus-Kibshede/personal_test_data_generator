@@ -3,7 +3,7 @@ import { connection } from '../../src/Repositories/data-source';
 import { getPersonById } from '../../src/Repositories/personRepository';
 
 afterAll(() => {
-    // Closing the DB connection allows Jest to exit successfully.
+
     connection.end();
 });
 

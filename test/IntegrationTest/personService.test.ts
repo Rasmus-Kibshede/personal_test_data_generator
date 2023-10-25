@@ -7,7 +7,7 @@ beforeAll(async () => {
     person = await getRandomNameAndGender();
 });
 
-jest.mock("../../src/Repositories/fileHandler", () => {
+jest.mock('../../src/Repositories/fileHandler', () => {
     return {
         __esModule: true,
         getAllPersonsFromFile: jest.fn(() => {
@@ -19,9 +19,9 @@ jest.mock("../../src/Repositories/fileHandler", () => {
                     gender: 'female'
                 },
                 {
-                    name: "Lucas M.",
-                    surname: "Kjær",
-                    gender: "male"
+                    name: 'Lucas M.',
+                    surname: 'Kjær',
+                    gender: 'male'
                 }
             ]);
         }).mockImplementationOnce(() => {
@@ -33,14 +33,14 @@ jest.mock("../../src/Repositories/fileHandler", () => {
                     gender: 'female'
                 },
                 {
-                    name: "Lucas M.",
-                    surname: "Kjær",
-                    gender: "male"
+                    name: 'Lucas M.',
+                    surname: 'Kjær',
+                    gender: 'male'
                 },
                 {
-                    name: "TestSæt E. T",
-                    surname: "Et",
-                    gender: "male"
+                    name: 'TestSæt E. T',
+                    surname: 'Et',
+                    gender: 'male'
                 }
             ]);
         }).mockImplementationOnce(() => {
@@ -52,26 +52,26 @@ jest.mock("../../src/Repositories/fileHandler", () => {
                     gender: 'fema9le'
                 },
                 {
-                    name: "Lucas M,",
-                    surname: "Kj2ær",
-                    gender: "maale"
+                    name: 'Lucas M,',
+                    surname: 'Kj2ær',
+                    gender: 'maale'
                 },
                 {
-                    name: "LucÅs M.",
-                    surname: "Kj2ær",
-                    gender: "mal10e"
+                    name: 'LucÅs M.',
+                    surname: 'Kj2ær',
+                    gender: 'mal10e'
                 },
                 {
-                    name: "TestSæt T. O",
-                    surname: "To",
-                    gender: "malse"
+                    name: 'TestSæt T. O',
+                    surname: 'To',
+                    gender: 'malse'
                 }
             ]);
         })
     };
 });
 
-describe('', () => {
+describe('Testing random name and gender', () => {
 
     describe('Fullname length passes', () => {
         test('length is less then max string length', async () => {
@@ -114,17 +114,3 @@ describe('', () => {
         });
     });
 });
-
-
-
-
-
-
-
-//mock
-
-// describe('name gender and dob', () => {
-//     test('name gender and dob', async () => {
-//         expect((await nameGenderDob()).dateOfBirth).not.toBe(null);
-//     });
-// });
