@@ -23,12 +23,13 @@ export const validateNameAndGender = (person: Person) => {
   if (validateGender(person.gender) && validateName(person.fullname)) {
     return person;
   } else {
+    console.log("Validation failed", person);
     throw new Error("Validation failed");
   }
 };
 
 export const validateName = (name: string) => {
-  const nameFormat = /^(?=\S)(?!.*\d)[a-øA-Ø\sa.c]+\s[a-øA-Ø\sa.c]+$/;
+  const nameFormat = /^(?=\S)(?!.*\d)[a-øA-Ø\sa.c-]+\s[a-øA-Ø\sa.c-]+$/;
   return validator.matches(name, nameFormat);
 };
 
@@ -52,12 +53,6 @@ export const getNameGenderDob = async () => {
   const person = await getRandomNameAndGender();
   const birthday = await setRandomBirthday();
   person.dateOfBirth = birthday;
-
-  // const personWithDob: any = {
-  //   fullname: person.fullname,
-  //   gender: person.gender,
-  //   dateOfBirth: birthday,
-  // };
 
   return person;
 };
@@ -184,6 +179,8 @@ export const getPersons = async () => {
 
     if (!persons.some(p => p.cpr === person.cpr || p.phoneNumber === person.phoneNumber)) {
       persons.push(person);
+    } else {
+      i--;
     }
   }
 

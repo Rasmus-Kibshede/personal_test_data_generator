@@ -79,7 +79,11 @@ export const getPerson = async (req: Request, res: Response) => {
 export const getPersons = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPersons();
-		res.status(200).send(response);
+		const data = {
+			'person count': response.length,
+			'persons': response
+		}
+		res.status(200).send(data);
 	} catch (err) {
 		res.status(404).send({ err: (err as Error).message });
 	}
