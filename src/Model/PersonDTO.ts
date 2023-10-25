@@ -20,20 +20,6 @@ export interface PersonDTO {
   dob: string,
   cpr: string,
 }
-
-// export interface PersonDTOWithNameGender {
-//   fullname: string,
-//   gender: string,
-// }
-
-// export interface PersonDTOWithDateOfBirth extends PersonDTOWithNameGender {
-//   dateOfBirth: string,
-// }
-
-// export interface PersonWithCpr extends PersonDTOWithNameGender {
-//   cpr: string,
-// }
-
 export interface PersonRequestDTO {
   email: string;
   password: string;
