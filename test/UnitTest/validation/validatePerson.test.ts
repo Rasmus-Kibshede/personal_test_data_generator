@@ -1,5 +1,5 @@
-import { Person } from '../../src/Model/Person';
-import { validateName, validateGender, validateNameAndGender } from '../../src/Services/personService';
+import { Person } from '../../../src/Model/Person';
+import { validateName, validateGender, validateNameAndGender } from '../../../src/util/validation/personValidation';
 
 describe('Name validator passes', () => {
     const nameData = [
