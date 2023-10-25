@@ -3,9 +3,7 @@ import * as personService from '../../src/Services/personService';
 describe('setRandomCpr', () => {
     let generatedCpr: string;
 
-    const mockRandomDigits = jest.spyOn(personService, 'generateThreeRandomDigits').mockReturnValue('123');
-
-    jest.spyOn(personService, 'generateRandomCpr').mockReturnValue('0102221231').mockRestore;
+    jest.spyOn(personService, 'generateRandomCpr').mockReturnValue('010222-1231').mockRestore;
 
     beforeAll(async () => {
         generatedCpr = personService.generateCPR('male', '01/02/2002');
