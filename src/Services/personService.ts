@@ -39,7 +39,8 @@ export const validateGender = (gender: string) => {
 export const setRandomBirthday = async () => {
   const start = new Date(1908, 5, 8); // Oldest verified living person
   const end = new Date();
-  const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  const randomDate = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
   );
 
   const randomDateFormatted = randomDate.toLocaleDateString("en-GB");
@@ -98,7 +99,9 @@ export const setRandomCpr = async () => {
 
 // TODO: Unit tests
 export const generateThreeRandomDigits = () => {
-  return Math.floor(Math.random() * 1000).toString().padStart(3, "0");
+  return Math.floor(Math.random() * 1000)
+    .toString()
+    .padStart(3, "0");
 };
 
 // TODO: Unit tests
@@ -107,7 +110,6 @@ export const generateRandomCpr = (
   threeRandomDigits: string,
   lastDigit: string
 ) => {
-
   if (!validator.isDate(dob, { format: "DD/MM/YYYY" })) {
     throw new Error("Invalid date format");
   }
@@ -141,7 +143,6 @@ export const setRandomGenderDigit = (gender: string) => {
   }
 };
 
-
 export const randomNumberPrefix = async () => {
   const phoneNumberPrefixes = [
     '2', '30', '31', '40', '41', '42', '50', '51', '52', '53',
@@ -157,11 +158,15 @@ export const randomNumberPrefix = async () => {
     '827', '829',
   ];
 
-  return phoneNumberPrefixes[Math.floor(Math.random() * phoneNumberPrefixes.length)];
-}
+  return phoneNumberPrefixes[
+    Math.floor(Math.random() * phoneNumberPrefixes.length)
+  ];
+};
 
 export const generateRandomDigits = async (length: number) => {
-  return Array.from({ length: 8 - length }, () => Math.floor(Math.random() * 10)).join('');
+  return Array.from({ length: 8 - length }, () =>
+    Math.floor(Math.random() * 10)
+  ).join("");
 };
 
 export const generateRandomPhoneNum = async () => {
