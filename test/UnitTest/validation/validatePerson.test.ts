@@ -72,8 +72,8 @@ describe('validateNameAndGender validator passes', () => {
 
     test.each(personData)('Gender & name valid person data passes', ({ fullname, gender, expected }) => {
         const person = new Person(fullname, gender);
-        expect(validateNameAndGender(person).fullname).toBe(expected.fullname);
-        expect(validateNameAndGender(person).gender).toBe(expected.gender);
+        expect(validateNameAndGender(person).getFullName()).toBe(expected.fullname);
+        expect(validateNameAndGender(person).getGender()).toBe(expected.gender);
     });
 });
 

@@ -1,63 +1,63 @@
-import { AddressDTO } from "./Address";
+import { AddressDTO } from './Address';
 
 export class Person {
-    private _cpr: string;
-    private _fullname: string;
-    private _gender: string;
-    private _dateOfBirth: string;
-    private _address: AddressDTO;
-    private _phoneNumber: string;
+  private cpr: string;
+  private fullname: string;
+  private gender: string;
+  private dateOfBirth: string;
+  private address: AddressDTO;
+  private phoneNumber: string;
 
-    constructor(fullname: string, gender: string) {
-        this._fullname = fullname;
-        this._gender = gender;
-    }
+  constructor(fullname: string, gender: string) {
+    this.fullname = fullname;
+    this.gender = gender;
+  }
 
-    get cpr(): string {
-        return this._cpr;
-    }
+  getFullName(): string {
+    return this.fullname;
+  }
 
-    set cpr(value: string) {
-        this._cpr = value;
-    }
+  setFullName(value: string) {
+    this.fullname = value;
+  }
 
-    get fullname(): string {
-        return this._fullname;
-    }
+  getGender(): string {
+    return this.gender;
+  }
 
-    set fullname(value: string) {
-        this._fullname = value;
-    }
+  setGender(value: string) {
+    this.gender = value;
+  }
 
-    get gender(): string {
-        return this._gender;
-    }
+  getDateOfBirth(): string {
+    return this.dateOfBirth;
+  }
 
-    set gender(value: string) {
-        this._gender = value;
-    }
+  getCpr(): string {
+    return this.cpr;
+  }
 
-    get dateOfBirth(): string {
-        return this._dateOfBirth;
-    }
+  setCpr(value: string) {
+    this.cpr = value;
+  }
 
-    set dateOfBirth(value: string) {
-        this._dateOfBirth = value;
-    }
+  setDateOfBirth(value: string) {
+    this.dateOfBirth = value;
+  }
 
-    get address(): AddressDTO {
-        return this._address;
-    }
+  getAddress(): AddressDTO {
+    return this.address;
+  }
 
-    set address(value: AddressDTO) {
-        this._address = value;
-    }
+  setAddress(value: AddressDTO) {
+    this.address = value;
+  }
 
-    get phoneNumber(): string {
-        return this._phoneNumber;
-    }
+  getPhoneNumber(): string {
+    return this.phoneNumber;
+  }
 
-    set phoneNumber(value: string) {
-        this._phoneNumber = value;
-    }
-};
+  setPhoneNumber(value: string) {
+    this.phoneNumber = value;
+  }
+}

@@ -5,8 +5,8 @@ export const generateNameAndGender = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPerson();
 		const data = {
-			fullname: response.fullname,
-			gender: response.gender
+			fullname: response.getFullName(),
+			gender: response.getGender()
 		}
 		res.status(200).send(data);
 	} catch (err) {
@@ -18,9 +18,9 @@ export const getNameGenderDOB = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPerson();
 		const data = {
-			fullname: response.fullname,
-			gender: response.gender,
-			dateOfBirth: response.dateOfBirth
+			fullname: response.getFullName(),
+			gender: response.getGender(),
+			dateOfBirth: response.getDateOfBirth()
 		}
 		res.status(200).send(data);
 	} catch (err) {
@@ -32,9 +32,9 @@ export const getNameGenderCPR = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPerson();
 		const data = {
-			fullname: response.fullname,
-			gender: response.gender,
-			cpr: response.cpr
+			fullname: response.getFullName(),
+			gender: response.getGender(),
+			cpr: response.getCpr()
 		}
 		res.status(200).send(data);
 	} catch (err) {
@@ -46,7 +46,7 @@ export const getRandomBirthday = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPerson();
 		const data = {
-			dateOfBirth: response.dateOfBirth
+			dateOfBirth: response.getDateOfBirth()
 		}
 		res.status(200).send(data);
 	} catch (err) {
@@ -59,7 +59,7 @@ export const getRandomCPR = async (req: Request, res: Response) => {
 	try {
 		const response = await personService.getPerson();
 		const data = {
-			cpr: response.cpr
+			cpr: response.getCpr()
 		}
 		res.status(200).send(data);
 	} catch (err) {

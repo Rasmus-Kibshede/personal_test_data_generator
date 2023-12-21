@@ -10,10 +10,10 @@ export const getPerson = async () => {
   const person = await getRandomNameAndGender();
   const birthday = setRandomBirthday();
 
-  person.dateOfBirth = birthday;
-  person.cpr = generateCPR(person.gender, birthday);
-  person.phoneNumber = (await generateRandomPhoneNum()).replace(/\s/g, '');
-  person.address = await setRandomAddress();
+  person.setDateOfBirth(birthday);
+  person.setCpr(generateCPR(person.getGender(), birthday));
+  person.setPhoneNumber((await generateRandomPhoneNum()).replace(/\s/g, ''));
+  person.setAddress(await setRandomAddress());
 
   return person;
 };
@@ -25,7 +25,13 @@ export const getPersons = async () => {
   for (let i = 0; i < randomNumber; i++) {
     const person = await getPerson();
 
-    if (!persons.some(p => p.cpr === person.cpr || p.phoneNumber === person.phoneNumber)) {
+    if (
+      !persons.some(
+        (p) =>
+          p.getCpr() === person.getCpr() ||
+          p.getPhoneNumber() === person.getPhoneNumber()
+      )
+    ) {
       persons.push(person);
     } else {
       i--;
@@ -40,11 +46,11 @@ export const getRandomNameAndGender = async () => {
 
   if (!allPersons) {
     throw new Error('No persons found');
-  };
+  }
 
   const randomNumber = faker.number.int({ min: 1, max: allPersons.length - 1 });
   const randomPerson = allPersons[randomNumber];
-  const fullname = randomPerson.name + " " + randomPerson.surname;
+  const fullname = randomPerson.name + ' ' + randomPerson.surname;
   const person = new Person(fullname, randomPerson.gender);
 
   return validateNameAndGender(person);
@@ -84,7 +90,10 @@ export const generateRandomCpr = (
     throw new Error('Invalid date format');
   }
 
-  if (!validator.isNumeric(threeRandomDigits) || threeRandomDigits.length != 3) {
+  if (
+    !validator.isNumeric(threeRandomDigits) ||
+    threeRandomDigits.length != 3
+  ) {
     throw new Error('Invalid three random digits');
   }
 
@@ -114,17 +123,100 @@ export const setRandomGenderDigit = (gender: string) => {
 
 export const randomNumberPrefix = async () => {
   const phoneNumberPrefixes = [
-    '2', '30', '31', '40', '41', '42', '50', '51', '52', '53',
-    '60', '61', '71', '81', '91', '92', '93', '342', '344', '345',
-    '346', '347', '348', '349', '356', '357', '359', '362', '365',
-    '366', '389', '398', '431', '441', '462', '466', '468', '472',
-    '474', '476', '478', '485', '486', '488', '489', '493', '494',
-    '495', '496', '498', '499', '542', '543', '545', '551', '552',
-    '556', '571', '572', '573', '574', '577', '579', '584', '586',
-    '587', '589', '597', '598', '627', '629', '641', '649', '658',
-    '662', '663', '664', '665', '667', '692', '693', '694', '697',
-    '771', '772', '782', '783', '785', '786', '788', '789', '826',
-    '827', '829',
+    '2',
+    '30',
+    '31',
+    '40',
+    '41',
+    '42',
+    '50',
+    '51',
+    '52',
+    '53',
+    '60',
+    '61',
+    '71',
+    '81',
+    '91',
+    '92',
+    '93',
+    '342',
+    '344',
+    '345',
+    '346',
+    '347',
+    '348',
+    '349',
+    '356',
+    '357',
+    '359',
+    '362',
+    '365',
+    '366',
+    '389',
+    '398',
+    '431',
+    '441',
+    '462',
+    '466',
+    '468',
+    '472',
+    '474',
+    '476',
+    '478',
+    '485',
+    '486',
+    '488',
+    '489',
+    '493',
+    '494',
+    '495',
+    '496',
+    '498',
+    '499',
+    '542',
+    '543',
+    '545',
+    '551',
+    '552',
+    '556',
+    '571',
+    '572',
+    '573',
+    '574',
+    '577',
+    '579',
+    '584',
+    '586',
+    '587',
+    '589',
+    '597',
+    '598',
+    '627',
+    '629',
+    '641',
+    '649',
+    '658',
+    '662',
+    '663',
+    '664',
+    '665',
+    '667',
+    '692',
+    '693',
+    '694',
+    '697',
+    '771',
+    '772',
+    '782',
+    '783',
+    '785',
+    '786',
+    '788',
+    '789',
+    '826',
+    '827',
+    '829',
   ];
 
   return phoneNumberPrefixes[

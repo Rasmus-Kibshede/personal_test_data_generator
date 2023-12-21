@@ -2,7 +2,7 @@ import validator from 'validator';
 import { Person } from '../../Model/Person';
 
 export const validateNameAndGender = (person: Person) => {
-    if (validateGender(person.gender) && validateName(person.fullname)) {
+    if (validateGender(person.getGender()) && validateName(person.getFullName())) {
         return person;
     } else {
         throw new Error('Validation failed');

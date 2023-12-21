@@ -75,42 +75,42 @@ describe('Testing random name and gender', () => {
 
     describe('Fullname length passes', () => {
         test('length is less then max string length', async () => {
-            expect(person.fullname.length).toBeLessThan(2147483647);
+            expect(person.getFullName().length).toBeLessThan(2147483647);
         });
 
         test('length is greater then 0', async () => {
-            expect(person.fullname.length).toBeGreaterThan(0);
+            expect(person.getFullName().length).toBeGreaterThan(0);
         });
     });
 
     describe('Gender length passes', () => {
         test('length is less then max string length', async () => {
-            expect(person.gender.length).toBeLessThan(2147483647);
+            expect(person.getGender().length).toBeLessThan(2147483647);
         });
 
         test('length is greater then 0', async () => {
-            expect(person.gender.length).toBeGreaterThan(0);
+            expect(person.getGender().length).toBeGreaterThan(0);
         });
     });
 
     describe('Fullname format passes', () => {
         test('Fullname contains a space', () => {
-            expect(person.fullname).toContain(' ');
+            expect(person.getFullName()).toContain(' ');
         });
 
         test('Fullname matches alphabet chars with space', async () => {
-            expect(person.fullname).toMatch(/^[a-æA-Æ\sa.c]*$/);
+            expect(person.getFullName()).toMatch(/^[a-æA-Æ\sa.c]*$/);
         });
     });
 
     describe('Gender format passes', () => {
         test('Gender contains male or female passes', async () => {
 
-            expect(['male', 'female']).toContain(person.gender);
+            expect(['male', 'female']).toContain(person.getGender());
         });
 
         test('Gender matches alphabet chars', () => {
-            expect(person.gender).toMatch(/^[a-mA-M]*$/);
+            expect(person.getGender()).toMatch(/^[a-mA-M]*$/);
         });
     });
 });
