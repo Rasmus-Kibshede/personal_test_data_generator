@@ -1,23 +1,21 @@
 import { Engine } from "./Engine";
 
 export class Vehicle {
-  private colorHex: string;
+  private color: string;
   private capacity: number;
   private licenseNumber: string;
   private range: number;
-  private door: number;
   private engine: Engine;
   private fuelTank: number;
   private gear: number;
   private VIN: string;
   private wheel: number;
 
-  constructor(colorHex: string, capacity: number, licenseNumber: string, range: number, door: number, engine: Engine, fuelTank: number, gear: number, VIN: string, wheel: number) {
-    this.colorHex = colorHex;
+  constructor(color: string, capacity: number, licenseNumber: string, range: number, engine: Engine, fuelTank: number, gear: number, VIN: string, wheel: number) {
+    this.color = color;
     this.capacity = capacity;
     this.licenseNumber = licenseNumber;
     this.range = range;
-    this.door = door;
     this.engine = engine;
     this.fuelTank = fuelTank;
     this.gear = gear;
@@ -25,12 +23,12 @@ export class Vehicle {
     this.wheel = wheel
   }
 
-  getColorHex(): string {
-    return this.colorHex;
+  getColor(): string {
+    return this.color;
   }
 
-  setColorHex(value: string) {
-    this.colorHex = value;
+  setColor(value: string) {
+    this.color = value;
   }
 
   getCapacity(): number {
@@ -55,14 +53,6 @@ export class Vehicle {
 
   setRange(value: number) {
     this.range = value;
-  }
-
-  getDoor(): number {
-    return this.door;
-  }
-
-  setDoor(value: number) {
-    this.door = value;
   }
 
   getEngine(): Engine {
@@ -105,3 +95,50 @@ export class Vehicle {
     this.wheel = value
   }
 }
+
+export class Car extends Vehicle {
+  private make: string;
+  private model: string;
+  private door: number;
+  private year: number
+
+  constructor(make: string, model: string, year: number, door: number, color: string, capacity: number, licenseNumber: string, range: number, engine: Engine, fuelTank: number, gear: number, VIN: string, wheel: number) {
+    super(color, capacity, licenseNumber, range, engine, fuelTank, gear, VIN, wheel)
+    this.make = make;
+    this.model = model;
+    this.year = year; 
+    this.door = door;
+  }
+
+  getMake(): string {
+    return this.make
+  }
+
+  setMake(value: string){
+    this.make = value
+  }
+
+  getModel(): string {
+    return this.model
+  }
+
+  setModel(value: string){
+    this.model = this.model
+  }
+
+  getDoor(): number {
+    return this.door
+  }
+
+  setDoor(value: number){
+    this.door = value
+  }
+
+  getYear(): number {
+    return this.year
+  }
+
+  setYear(value: number){
+    this.year = value
+  }
+};
