@@ -16,6 +16,7 @@ create table if not exists postal_code
 )
 charset=utf8;
 
+drop procedure if exists RemoveDuplicates;
 create procedure RemoveDuplicates()
 BEGIN
 	DECLARE vcPostalCode CHAR(4);
