@@ -123,7 +123,7 @@ export class Car extends Vehicle {
   }
 
   setModel(value: string){
-    this.model = this.model
+    this.model = value
   }
 
   getDoor(): number {

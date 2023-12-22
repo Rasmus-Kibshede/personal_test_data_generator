@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { Car } from "../Model/Vehicle";
 import { generateEngine } from "./engineService";
 
-export const generateVehicle = () => {
+export const generateCar = () => {
     const carData = generateVehicleData();
     const door = generateDoor();
     const car = new Car(carData.make, carData.model, carData.year, door, generateColor(), generateCapacity(door),

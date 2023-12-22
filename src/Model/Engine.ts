@@ -5,7 +5,7 @@ private torque: number;
 private fuelType: string;
 
 constructor(type: string, HP: number, torque: number, fuelType: string) {
-    this.type = this.type;
+    this.type = type;
     this.HP = HP;
     this.torque = torque;
     this.fuelType = fuelType;
