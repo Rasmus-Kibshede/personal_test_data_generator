@@ -1,4 +1,4 @@
-import { BaseError } from "./validation/BaseError";
+import { BaseError } from "./BaseError";
 
 export type Result<T, E extends BaseError = BaseError> = { success: true, result: T } | { success: false, error: E }
 export type ApiResponse = { data: NonNullable<unknown> }
@@ -17,11 +17,12 @@ export const ensureError = (value: unknown): Error => {
 };
 
 export const success = (response: NonNullable<unknown>): Result<ApiResponse, BaseError> => {
-    if (Array.isArray(response)) {
+    return { success: true, result: { data: response } };
+   /* if (Array.isArray(response)) {
         return { success: true, result: { data: response } };
     } else {
         return { success: true, result: { data: response } };
-    }
+    }*/
 };
 
 export const failed = (arg: string | Error): Result<ApiResponse, BaseError> => {

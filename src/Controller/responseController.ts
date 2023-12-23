@@ -1,4 +1,4 @@
-import { BaseError } from '../util/validation/BaseError';
+import { BaseError } from '../util/BaseError';
 import { Result, ApiResponse } from '../util/errorHandler';
 import { Response } from 'express';
 
