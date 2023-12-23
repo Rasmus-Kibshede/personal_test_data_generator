@@ -1,23 +1,28 @@
 import { RowDataPacket } from 'mysql2';
 import { connection } from './data-source';
 import { Car } from '../Model/Vehicle';
+import { Result, failed, success } from '../util/errorHandler';
 
 export const getRandomCar = async () => {
-    const [rows] = await connection.query<RowDataPacket[]>('SELECT * FROM car ORDER BY RAND() LIMIT 1')
+    const [rows] = await connection.query<RowDataPacket[]>('SELECT * FROM car ORDER BY RAND() LIMIT 1' , (err: Error, result: any) =>{
+        return {err, result}
+    } )
+    //Execute er prepared statements. 
+    //const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM car ORDER BY RAND() LIMIT 1')
     return convertToCar(rows);
 };
 
 export const saveCar =async (car: Car) => {
     try {
         const [rows] = await connection.query<RowDataPacket[]>('');
-    return convertToCar(rows);
+        if(!rows){
+            failed(new Error('lav en custom error message'))
+        }
+    return success(convertToCar(rows));
     //Errors skal smides her, skal laves en ny Error(gør en ORM som standard)
     } catch (error) {
-        throw  new Error('Hvordan får vi errors fra MYSQL IND HER?, error i catch er "tom"');
-        
-    }
-    
-    
+        return failed(error)
+    }   
 } 
 
 const convertToCar = (rows: RowDataPacket[]) => {

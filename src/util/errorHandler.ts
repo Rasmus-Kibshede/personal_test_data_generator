@@ -25,7 +25,7 @@ export const success = (response: NonNullable<unknown>): Result<ApiResponse, Bas
     }*/
 };
 
-export const failed = (error: Error): Result<ApiResponse, BaseError> => {
+export const failed = (error: Error | unknown): Result<ApiResponse, BaseError> => {
         return autoError(error);
 
 };
@@ -38,7 +38,7 @@ export const invalidIdError = (entityName: string) => {
     return new Error(`No ${entityName} with that id`);
 };
 
-export const autoError = (arg: Error): Result<ApiResponse, BaseError> => {
+export const autoError = (arg: Error | unknown): Result<ApiResponse, BaseError> => {
     const error = ensureError(arg);
     let statusCode: string;
 

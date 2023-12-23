@@ -13,12 +13,13 @@ import * as carRepository from '../Repositories/carRepository';
 export const generateCar = () => {
         const door = generateDoor();
         const car = new Car(generateManufacturer(), generateDoor(), 1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
-        const savedCar = saveCar(car);
-        return success(savedCar);
+       // const savedCar = saveCar(car);
+       return success(car);
         //Ingen try catch da den ikke kalder databasen. 
         //Hvor vil vi hente fra DB og hvor vil vi genererer? 
 };
 
+//Virker ikke da insert ikke er lavet færdig i nu
 const saveCar = async (car: Car) => {
     try {
         const savedCar = await carRepository.saveCar(car);

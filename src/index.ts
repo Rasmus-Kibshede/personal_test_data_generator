@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import 'reflect-metadata';
 import personRouter from './Routes/personRoute';
+import carRouter from './Routes/carRoute';
 import express from 'express'; // Import the express in typescript file
 import cors from 'cors' // Import the cors
 
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(personRouter);
+app.use(carRouter);
 const PORT = process.env.PORT || 3000;
 // Listen to the port
 
