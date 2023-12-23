@@ -5,9 +5,7 @@ import { Car } from '../Model/Vehicle';
 //TEST
 export const saveCar = async (car: Car) => {
     try {
-        //LORTET VIRKER IKKE!
         connection.beginTransaction;
-
         const [chassisResult] = await connection.execute<RowDataPacket[]>(
             'INSERT INTO chassis (color, wheel, capacity) VALUES (?, ?, ?);',
             [car.getChassis().getColor(), car.getChassis().getWheel(), car.getChassis().getCapacity()]
@@ -17,12 +15,13 @@ export const saveCar = async (car: Car) => {
         console.log(chassisId, 'chassisId');
 
         const [fuelStatsResult] = await connection.execute<RowDataPacket[]>(
-            'INSERT INTO dsa (fuel_tank_size, distance) VALUES (?, ?)',
+            'INSERT INTO fuel_stats (fuel_tank_size, distance) VALUES (?, ?)',
             [car.getFuel().getFuelTank(), car.getFuel().getRange()]
         );
         result = Object.values(JSON.parse(JSON.stringify(fuelStatsResult)));
         const fuelStatsId = result[2];
         console.log(fuelStatsId, 'fuelStatsId');
+
         /*
         const [registrationResult] = await connection.execute<RowDataPacket[]>('INSERT INTO registration (vin, license_number) VALUES (?, ?);',
             [car.getRegistration().getVIN(), car.getRegistration().getLicenseNumber()]);
@@ -59,6 +58,7 @@ export const saveCar = async (car: Car) => {
 
 
 */
+
         connection.commit;
         console.log('Transaction committed successfully!');
     } catch (error) {
