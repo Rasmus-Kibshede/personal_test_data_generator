@@ -4,8 +4,10 @@ export class FuelStats { //Navngiving skal laves om
     private range: number; //Hvor langt kan den køre
 
 
-    constructor(){
-        
+    constructor(fuelStatsId: number, fuelTank: number, range: number) {
+        this.fuelStatsId = fuelStatsId;
+        this.fuelTank = fuelTank;
+        this.range = range;
     }
 
     getFuelStatsId(): number {

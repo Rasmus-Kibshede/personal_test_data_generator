@@ -4,7 +4,12 @@ export class Manufacturer{
     private model: string;
     private year: number
 
-    constructor(){}
+    constructor(manufacturerId: number, make: string, model: string, year: number){
+        this.manufacturerId = manufacturerId;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+    }
 
     getManufacturerId():number {
         return this.manufacturerId;

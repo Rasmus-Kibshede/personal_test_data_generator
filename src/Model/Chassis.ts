@@ -1,8 +1,15 @@
 export class Chassis {
+    private chassisId: number;
     private color: string;
     private wheel: number;
     private capacity: number; //Hvor mange passagere
 
+    constructor(chassisId: number, color: string, wheel: number, capacity: number){
+        this.chassisId = chassisId;
+        this.color = color;
+        this.wheel = wheel;
+        this.capacity = capacity;
+    }
 
     getColor(): string {
         return this.color;

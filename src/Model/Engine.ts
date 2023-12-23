@@ -1,45 +1,55 @@
-export class Engine{
-private type: string;
-private HP: number; 
-private torque: number;
-private fuelType: string;
+export class Engine {
+    private engineId: number;
+    private type: string;
+    private HP: number;
+    private torque: number;
+    private fuelType: string;
 
-constructor(type: string, HP: number, torque: number, fuelType: string) {
-    this.type = type;
-    this.HP = HP;
-    this.torque = torque;
-    this.fuelType = fuelType;
-  }
+    constructor(engineId: number, type: string, HP: number, torque: number, fuelType: string) {
+        this.engineId = engineId
+        this.type = type;
+        this.HP = HP;
+        this.torque = torque;
+        this.fuelType = fuelType;
+    }
 
-getType(): string {
-    return this.type;
-  }
+    getEngineId(): number {
+        return this.engineId;
+    }
 
-  setType(value: string) {
-    this.type = value;
-  }
+    setEngineId(value: number){
+        this.engineId = value;
+    }
 
-  getHP(): number {
-    return this.HP;
-  }
+    getType(): string {
+        return this.type;
+    }
 
-  setHP(value: number) {
-    this.HP = value;
-  }
+    setType(value: string) {
+        this.type = value;
+    }
 
-  getTorque(): number {
-    return this.torque;
-  }
+    getHP(): number {
+        return this.HP;
+    }
 
-  setTorque(value: number) {
-    this.torque = value;
-  }
+    setHP(value: number) {
+        this.HP = value;
+    }
 
-  getFuelType(): string {
-    return this.fuelType;
-  }
+    getTorque(): number {
+        return this.torque;
+    }
 
-  setFuelType(value: string) {
-    this.fuelType = value;
-  }
+    setTorque(value: number) {
+        this.torque = value;
+    }
+
+    getFuelType(): string {
+        return this.fuelType;
+    }
+
+    setFuelType(value: string) {
+        this.fuelType = value;
+    }
 }
