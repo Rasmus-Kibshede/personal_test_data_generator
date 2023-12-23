@@ -1,58 +1,59 @@
+import { en } from "@faker-js/faker";
+import { Chassis } from "./Chassis";
 import { Engine } from "./Engine";
+import { FuelStats } from "./FuelStats";
+import { Gearbox } from "./Gearbox";
+import { Registration } from "./Registration";
 
 export class Vehicle {
-  private color: string;
-  private capacity: number;
-  private licenseNumber: string;
-  private range: number;
+  private vehicleId: number;
+  private chassis: Chassis;
+  private fuel: FuelStats;
+  private registration: Registration;
   private engine: Engine;
-  private fuelTank: number;
-  private gear: number;
-  private VIN: string;
-  private wheel: number;
+  private gearbox: Gearbox;
 
-  constructor(color: string, capacity: number, licenseNumber: string, range: number, engine: Engine, fuelTank: number, gear: number, VIN: string, wheel: number) {
-    this.color = color;
-    this.capacity = capacity;
-    this.licenseNumber = licenseNumber;
-    this.range = range;
+
+  //FOR LANG!
+  constructor(vehicleId: number, chassis: Chassis, fuel: FuelStats, registration: Registration, engine: Engine, gearbox: Gearbox) {
+    this.vehicleId = vehicleId;
+    this.chassis = chassis
+    this.fuel = fuel
+    this.registration = registration;
     this.engine = engine;
-    this.fuelTank = fuelTank;
-    this.gear = gear;
-    this.VIN = VIN;
-    this.wheel = wheel
+    this.gearbox = gearbox;
   }
 
-  getColor(): string {
-    return this.color;
+  getVehicleId(): number {
+    return this.vehicleId;
   }
 
-  setColor(value: string) {
-    this.color = value;
+  setVehicleId(value: number) {
+    this.vehicleId = value;
   }
 
-  getCapacity(): number {
-    return this.capacity;
+  getChassis(): Chassis{
+    return this.chassis;
   }
 
-  setCapacity(value: number) {
-    this.capacity = value;
+  setChassis(value: Chassis){
+    this.chassis = value;
   }
 
-  getLicenseNumber(): string {
-    return this.licenseNumber;
+  getFuel(): FuelStats {
+    return this.fuel;
   }
 
-  setLicenseNumber(value: string) {
-    this.licenseNumber = value;
+  setFuel(value: FuelStats) {
+    this.fuel = value;
   }
 
-  getRange(): number {
-    return this.range;
+  getRegistration(): Registration {
+    return this.registration;
   }
 
-  setRange(value: number) {
-    this.range = value;
+  setRegistration(value: Registration) {
+    this.registration = value;
   }
 
   getEngine(): Engine {
@@ -63,36 +64,12 @@ export class Vehicle {
     this.engine = value;
   }
 
-  getFuelTank(): number {
-    return this.fuelTank;
+  getGear(): Gearbox {
+    return this.gearbox;
   }
 
-  setFuelTank(value: number) {
-    this.fuelTank = value;
-  }
-
-  getGear(): number {
-    return this.gear;
-  }
-
-  setGear(value: number) {
-    this.gear = value;
-  }
-
-  getVIN(): string {
-    return this.VIN;
-  }
-
-  setVIN(value: string) {
-    this.VIN = value;
-  }
-
-  getWheel(): number {
-    return this.wheel
-  }
-
-  setWheel(value: number){
-    this.wheel = value
+  setGear(value: Gearbox) {
+    this.gearbox = value;
   }
 }
 
@@ -102,11 +79,12 @@ export class Car extends Vehicle {
   private door: number;
   private year: number
 
-  constructor(make: string, model: string, year: number, door: number, color: string, capacity: number, licenseNumber: string, range: number, engine: Engine, fuelTank: number, gear: number, VIN: string, wheel: number) {
-    super(color, capacity, licenseNumber, range, engine, fuelTank, gear, VIN, wheel)
+  //FOR LANG!
+  constructor(make: string, model: string, year: number, door: number, vehicleId: number, chassis: Chassis, fuel: FuelStats, registration: Registration, engine: Engine, gearbox: Gearbox) {
+    super(vehicleId, chassis, fuel, registration, engine, gearbox)
     this.make = make;
     this.model = model;
-    this.year = year; 
+    this.year = year;
     this.door = door;
   }
 
@@ -114,7 +92,7 @@ export class Car extends Vehicle {
     return this.make
   }
 
-  setMake(value: string){
+  setMake(value: string) {
     this.make = value
   }
 
@@ -122,7 +100,7 @@ export class Car extends Vehicle {
     return this.model
   }
 
-  setModel(value: string){
+  setModel(value: string) {
     this.model = value
   }
 
@@ -130,7 +108,7 @@ export class Car extends Vehicle {
     return this.door
   }
 
-  setDoor(value: number){
+  setDoor(value: number) {
     this.door = value
   }
 
@@ -138,7 +116,7 @@ export class Car extends Vehicle {
     return this.year
   }
 
-  setYear(value: number){
+  setYear(value: number) {
     this.year = value
   }
 };
