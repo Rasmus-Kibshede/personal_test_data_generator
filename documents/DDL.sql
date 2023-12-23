@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS chassis (
 CREATE TABLE IF NOT EXISTS fuel_stats (
     fuel_stats_id INT AUTO_INCREMENT PRIMARY KEY,
     fuel_tank_size INT CHECK (fuel_tank_size BETWEEN 40 AND 65) NOT NULL,
-    fuel_range INT NOT NULL
+    distance INT NOT NULL
+	-- distance instead of range, range is a reserved keyword. 
 );
 
 CREATE TABLE IF NOT EXISTS registration (
