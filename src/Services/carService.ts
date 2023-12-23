@@ -12,11 +12,31 @@ import * as carRepository from '../Repositories/carRepository';
 
 export const generateCar = () => {
         const door = generateDoor();
-        const car = new Car(generateManufacturer(), generateDoor(), 1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
+        const car = new Car(generateManufacturer(), door, 1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
        // const savedCar = saveCar(car);
+       //car.setVehicleId(1);
        return success(car);
         //Ingen try catch da den ikke kalder databasen. 
         //Hvor vil vi hente fra DB og hvor vil vi genererer? 
+};
+
+export const generateCars = (choice: number) => {
+    if(!choice){
+        return failed(new Error('No cars generated.'))
+    }
+   const cars: Car[] = [];
+    Array.from({ length: choice }, () => {
+        const door = generateDoor();
+        const car = new Car(generateManufacturer(), door, 1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
+        cars.push(car);
+        car.setVehicleId(cars.length)
+      });
+      return success(cars)
+}
+
+const generateDoor = () => {
+    const doors = [3, 5]
+    return doors[faker.number.int({ min: 0, max: doors.length -1 })]
 };
 
 //Virker ikke da insert ikke er lavet færdig i nu
@@ -28,9 +48,4 @@ const saveCar = async (car: Car) => {
         //Quick fix
         failed(error as Error);
     }
-};
-
-const generateDoor = () => {
-    const doors = [3, 5]
-    return doors[faker.number.int({ min: 0, max: doors.length -1 })]
 };

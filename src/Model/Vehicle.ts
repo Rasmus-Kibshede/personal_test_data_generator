@@ -13,7 +13,7 @@ export class Vehicle {
   private engine: Engine;
   private gearbox: Gearbox;
 
-
+//Vehicle id burde ikke være med i constructor, da id kommer fra DB
   constructor(vehicleId: number, chassis: Chassis, fuel: FuelStats, registration: Registration, engine: Engine, gearbox: Gearbox) {
     this.vehicleId = vehicleId;
     this.chassis = chassis
@@ -75,7 +75,7 @@ export class Vehicle {
 export class Car extends Vehicle {
   private manufacturer: Manufacturer;
   private door: number;
-
+//Vehicle id burde ikke være med i constructor, da id kommer fra DB
   constructor(manufacturer: Manufacturer, door: number, vehicleId: number, chassis: Chassis, fuel: FuelStats, registration: Registration, engine: Engine, gearbox: Gearbox) {
     super(vehicleId, chassis, fuel, registration, engine, gearbox)
     this.manufacturer = manufacturer
