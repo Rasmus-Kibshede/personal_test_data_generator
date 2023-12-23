@@ -5,28 +5,60 @@ import { Car } from '../Model/Vehicle';
 //TEST
 export const saveCar = async (car: Car) => {
     try {
+        //LORTET VIRKER IKKE!
         connection.beginTransaction;
+
         const [chassisResult] = await connection.execute<RowDataPacket[]>(
             'INSERT INTO chassis (color, wheel, capacity) VALUES (?, ?, ?);',
             [car.getChassis().getColor(), car.getChassis().getWheel(), car.getChassis().getCapacity()]
         );
-       let result = Object.values(JSON.parse(JSON.stringify(chassisResult)));
+        let result = Object.values(JSON.parse(JSON.stringify(chassisResult)));
         const chassisId = result[2];
-        console.log(chassisId);
-        
+        console.log(chassisId, 'chassisId');
+
         const [fuelStatsResult] = await connection.execute<RowDataPacket[]>(
-            'INSERT INTO fuel_stats (fuel_tank_size, distance) VALUES (?, ?)',
+            'INSERT INTO dsa (fuel_tank_size, distance) VALUES (?, ?)',
             [car.getFuel().getFuelTank(), car.getFuel().getRange()]
         );
         result = Object.values(JSON.parse(JSON.stringify(fuelStatsResult)));
         const fuelStatsId = result[2];
-        console.log(fuelStatsId);
+        console.log(fuelStatsId, 'fuelStatsId');
+        /*
+        const [registrationResult] = await connection.execute<RowDataPacket[]>('INSERT INTO registration (vin, license_number) VALUES (?, ?);',
+            [car.getRegistration().getVIN(), car.getRegistration().getLicenseNumber()]);
+        result = Object.values(JSON.parse(JSON.stringify(registrationResult)));
+        const registrationId = result[2];
+        console.log(registrationId, 'registrationId');
 
-        
+        const [engineResult] = await connection.execute<RowDataPacket[]>('INSERT INTO engine (type, horsepower, torque, fuel_type) VALUES (?, ?, ?, ?);',
+            [car.getEngine().getType(), car.getEngine().getHP, car.getEngine().getTorque, car.getEngine().getFuelType]);
+        result = Object.values(JSON.parse(JSON.stringify(engineResult)));
+        const engineId = result[2];
+        console.log(engineId, 'engineId');
+
+        const [gearboxResult] = await connection.execute<RowDataPacket[]>('INSERT INTO gearbox (type, gears, drive_train) VALUES (?, ?, ?);',
+            [car.getGear().getType(), car.getGear().getGears(), car.getGear().getDriveTrain()]);
+        result = Object.values(JSON.parse(JSON.stringify(gearboxResult)));
+        const gearboxId = result[2];
+        console.log(gearboxId, 'gearboxId');
+
+        const [vehicleResult] = await connection.execute<RowDataPacket[]>('INSERT INTO vehicle (chassis_id, fuel_stats_id, registration_id, engine_id, gearbox_id) VALUES (?, ?, ?, ?, ?);',
+            [chassisId, fuelStatsId, registrationId, engineId, gearboxId])
+        result = Object.values(JSON.parse(JSON.stringify(vehicleResult)));
+        const vehicleId = result[2];
+        console.log(vehicleId, 'vehicleID');
+
+        const [manufacturerResult] = await connection.execute<RowDataPacket[]>('INSERT INTO manufacturer (make, model, year) VALUES (?, ?, ?);',
+            [car.getManufacturer().getMake, car.getManufacturer().getModel(), car.getManufacturer().getYear()]);
+        result = Object.values(JSON.parse(JSON.stringify(manufacturerResult)));
+        const manufacturerId = result[2];
+        console.log(manufacturerId, 'manufacturerId');
+
+        const [carResult] = await connection.execute<RowDataPacket[]>('INSERT INTO car (vehicle_id, manufacturer_id, door) VALUES (?, ?, ?);',
+            [vehicleId, manufacturerId, car.getDoor()]);
 
 
-
-
+*/
         connection.commit;
         console.log('Transaction committed successfully!');
     } catch (error) {
