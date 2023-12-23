@@ -25,14 +25,12 @@ export const success = (response: NonNullable<unknown>): Result<ApiResponse, Bas
     }*/
 };
 
-export const failed = (arg: string | Error): Result<ApiResponse, BaseError> => {
-    if (arg instanceof Error) {
-        return autoError(arg);
-    } else {
-        return customError(arg);
-    }
+export const failed = (error: Error): Result<ApiResponse, BaseError> => {
+        return autoError(error);
+
 };
 
+// Skal slettes
 export const invalidIdError = (entityName: string) => {
     if (entityName === 'user') {
         return new Error(`No ${entityName} with that email`);
@@ -61,6 +59,7 @@ export const autoError = (arg: Error): Result<ApiResponse, BaseError> => {
     };
 };
 
+//Laves om. 
 export const customError = (arg: string): Result<ApiResponse, BaseError> => {
     const error = invalidIdError(arg);
     return {
@@ -85,6 +84,3 @@ export const generateStatusCode = (err: string): string => {
     const statusCode = errorMappings[err] || '500';
     return statusCode;
 };
-
-// TODO: Add error handler for mongoDB errors
-// E11000 duplicate key error collection: test.role_mdb index: UQ_b3c70d0c75c21d7ed9adfeea828 dup key: { title: \"Super dooper cooper admin\" }

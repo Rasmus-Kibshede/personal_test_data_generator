@@ -30,7 +30,7 @@ const generateLicenseNumber = () => {
         'GG 89 012',
     ];
 
-    return plates[faker.number.int({ min: 0, max: plates.length })]
+    return plates[faker.number.int({ min: 0, max: plates.length -1})]
 }
 
 const generateVIN = () => {
@@ -55,5 +55,5 @@ const generateVIN = () => {
         'YV1RS592672591003',
         'ZFA25000001692412',
     ];
-    return vinNumbers[faker.number.int({ min: 0, max: vinNumbers.length })]
+    return vinNumbers[faker.number.int({ min: 0, max: vinNumbers.length -1})]
 }

@@ -22,5 +22,5 @@ const generateVehicleData = () => {
         { make: 'Hyundai', model: 'Elantra', year: 2021 },
     ];
 
-    return data[faker.number.int({ min: 0, max: data.length })]
+    return data[faker.number.int({ min: 0, max: data.length -1})]
 }

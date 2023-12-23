@@ -22,7 +22,7 @@ const generateColor = () => {
         'White'
     ];
 
-    return colors[faker.number.int({ min: 0, max: colors.length })]
+    return colors[faker.number.int({ min: 0, max: colors.length -1 })]
 }
 
 const generateCapacity = (door: number) => {

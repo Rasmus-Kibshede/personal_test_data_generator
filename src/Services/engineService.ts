@@ -13,7 +13,7 @@ return faker.number.int({min: 150, max: 1100})
 
 const generateType = () => {
     const types = ['Electric', 'V6', '4cyl', 'V8', 'V10', 'V12']
-    return types[faker.number.int({min:0, max: 2})]
+    return types[faker.number.int({min:0, max: types.length -1})]
 };
 
 const generateFuelType = (enginType: string) =>{
@@ -21,7 +21,7 @@ const generateFuelType = (enginType: string) =>{
     if(enginType === 'Electric'){
         return 'AC'
     } 
-    return types[faker.number.int({min:0, max: 1})]
+    return types[faker.number.int({min:0, max: types.length -1})]
 };
 
 
