@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS fuel_stats (
     fuel_stats_id INT AUTO_INCREMENT PRIMARY KEY,
     fuel_tank_size INT CHECK (fuel_tank_size BETWEEN 40 AND 65) NOT NULL,
     distance INT NOT NULL
-	-- distance instead of range, range is a reserved keyword. 
 );
 
 CREATE TABLE IF NOT EXISTS registration (
@@ -49,7 +48,7 @@ CREATE TABLE IF NOT EXISTS gearbox (
     gearbox_id INT AUTO_INCREMENT PRIMARY KEY,
     type VARCHAR(255) NOT NULL,
     gears INT NOT NULL,
-    drive_train VARCHAR(255) NOT NULL
+    drive_train VARCHAR(255) CHECK (drive_train IN ('AWD', '4WD', 'FrontWD', 'RearWD')) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS vehicle (
@@ -65,6 +64,22 @@ CREATE TABLE IF NOT EXISTS vehicle (
     FOREIGN KEY (engine_id) REFERENCES engine(engine_id),
     FOREIGN KEY (gearbox_id) REFERENCES gearbox(gearbox_id)
 );
+
+CREATE TABLE IF NOT EXISTS manufacturer (
+    manufacturer_id INT AUTO_INCREMENT PRIMARY KEY,
+    make VARCHAR(255) NOT NULL,
+    model VARCHAR(255) NOT NULL,
+    year INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS car (
+    vehicle_id INT PRIMARY KEY,
+    manufacturer_id INT,
+    door INT NOT NULL,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicle(vehicle_id),
+    FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(manufacturer_id)
+);
+
 
 
 
