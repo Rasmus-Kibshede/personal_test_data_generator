@@ -18,7 +18,7 @@ const generateType = () => {
 };
 
 const generateFuelType = (enginType: string) =>{
-    const types = ['Diesel', 'Petrol']
+    const types = ['Diesel', 'Petrol', 'Hybrid']
     if(enginType === 'Electric'){
         return 'AC'
     } else {

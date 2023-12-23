@@ -1,3 +1,4 @@
+drop table if exists fuel_stats
 create table if not exists person
 (
 	person_id int auto_increment
