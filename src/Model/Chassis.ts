@@ -11,6 +11,14 @@ export class Chassis {
         this.capacity = capacity;
     }
 
+    getChassisId(): number {
+        return this.chassisId;
+    }
+
+    setChassisId(value: number){
+        this.chassisId = value;
+    }
+
     getColor(): string {
         return this.color;
     }

@@ -2,7 +2,7 @@ export class Gearbox {
     private gearboxId: number; 
     private type: string; //Automat eller Manuel
     private gears: number; //Antal Gear
-    private driveTrain: string; //AWD, 4WD, FrontWD, BackWD
+    private driveTrain: string; //AWD, 4WD, FrontWD, RearWD
 
 
     constructor(gearboxId: number, type: string, gears: number, driveTrain: string) {
