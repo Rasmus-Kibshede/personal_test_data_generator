@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import * as carService from '../Services/carService'
 import * as responseController from '../Controller/responseController'
 
-export const generateCar = (req: Request, res: Response) => {
-    const response = carService.generateCar();
+export const generateCar = async (req: Request, res: Response) => {
+    const response = await carService.generateCar();
     //res.status(200).send(response);
     return responseController.response(res, response, 200)
 }

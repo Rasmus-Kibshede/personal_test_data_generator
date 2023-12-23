@@ -32,7 +32,28 @@ export const getRandomCar = async () => {
 
 export const saveCar =async (car: Car) => {
     try {
-        const [rows] = await connection.query<RowDataPacket[]>('');
+        const [rows] = await connection.query<RowDataPacket[]>(
+            'START TRANSACTION; \n' +
+        'INSERT INTO chassis (color, wheel, capacity) VALUES (?, ?, ?); \n' +
+        'SET @chassisId = LAST_INSERT_ID(); \n' + 
+        'INSERT INTO fuel_stats (fuel_tank_size, distance) VALUES (?, ?); \n' +
+        'SET @fuelStatsId = LAST_INSERT_ID(); \n' +
+        'INSERT INTO registration (vin, license_number) VALUES (?, ?); \n' +
+        'SET @registrationId = LAST_INSERT_ID(); \n' +
+        'INSERT INTO engine (type, horsepower, torque, fuel_type) VALUES (?, ?, ?, ?); \n' +
+        'SET @engineId = LAST_INSERT_ID(); \n' +
+        'INSERT INTO gearbox (type, gears, drive_train) VALUES (?, ?, ?); \n' +
+        'SET @gearboxId = LAST_INSERT_ID(); \n' +
+        'INSERT INTO vehicle (chassis_id, fuel_stats_id, registration_id, engine_id, gearbox_id) VALUES (@chassisId, @fuelStatsId, @registrationId, @engineId, @gearboxId); \n' +
+        'SET @vehicleId = LAST_INSERT_ID(); \n' +
+        'INSERT INTO manufacturer (make, model, year) VALUES (?, ?, ?); \n' +
+        'SET @manufacturerId = LAST_INSERT_ID(); \n' +
+        'INSERT INTO car (vehicle_id, manufacturer_id, door) VALUES (@vehicleId, @manufacturerId, ?); \n' +
+        'COMMIT;', [car.getChassis().getColor(), car.getChassis().getWheel(), car.getChassis().getCapacity(), car.getFuel().getFuelTank(), 
+            car.getFuel().getRange(), car.getRegistration().getVIN(), car.getRegistration().getLicenseNumber(), car.getEngine().getType(), car.getEngine().getHP(), 
+        car.getEngine().getTorque(), car.getEngine().getFuelType(), car.getGear().getType(), car.getGear().getGears(), car.getGear().getDriveTrain(), 
+        car.getManufacturer().getMake(), car.getManufacturer().getModel(), car.getManufacturer().getYear(), car.getDoor()]);
+        
         if(!rows){
             failed(new Error('lav en custom error message'))
         }

@@ -10,11 +10,11 @@ import { failed, success } from "../util/errorHandler";
 import * as carRepository from '../Repositories/carRepository';
 
 
-export const generateCar = () => {
+export const generateCar =  async () => {
         const door = generateDoor();
         const car = new Car(generateManufacturer(), door, 1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
-       // const savedCar = saveCar(car);
-       //car.setVehicleId(1);
+        const savedCar = await saveCar(car);
+        console.log(savedCar?.success ? savedCar.result.data : savedCar?.error.error);
        return success(car);
         //Ingen try catch da den ikke kalder databasen. 
         //Hvor vil vi hente fra DB og hvor vil vi genererer? 
