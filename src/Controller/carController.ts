@@ -12,3 +12,8 @@ export const generateCars = (req: Request, res: Response) => {
     const response = carService.generateCars(Number(req.params.id));
     return responseController.response(res, response, 200);
 }
+
+export const getCarById = (req: Request, res: Response) => {
+    const response = carService.getCarById(Number(req.params.id))
+    return res.status(200).send(response);
+}

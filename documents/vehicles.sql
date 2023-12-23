@@ -23,40 +23,40 @@ INSERT INTO fuel_stats (fuel_tank_size, distance) VALUES
 (60, 450);
 
 INSERT INTO registration (vin, license_number) VALUES
-('ABC123456DEF78901', 'XYZ123'),
-('DEF789012ABC34567', 'LMN456'),
-('GHI456789JKL01234', 'PQR789'),
-('JKL012345MNO67890', 'STU012'),
-('MNO678901PQR23456', 'VWX345'),
-('PQR234567STU89012', 'YZA678'),
-('STU890123VWX45678', 'BCD901'),
-('VWX456789YZA12345', 'EFG234'),
-('YZA123456BCD78901', 'HIJ567'),
-('BCD789012EFG34567', 'KLM678');
+('ABC123456DEF78901', 'AA 12 345'),
+('DEF789012ABC34567', 'LM 14 356'),
+('GHI456789JKL01234', 'PQ 32 789'),
+('JKL012345MNO67890', 'ST 29 012'),
+('MNO678901PQR23456', 'VW 90 345'),
+('PQR234567STU89012', 'YZ 87 678'),
+('STU890123VWX45678', 'BC 22 901'),
+('VWX456789YZA12345', 'EF 56 234'),
+('YZA123456BCD78901', 'HI 99 567'),
+('BCD789012EFG34567', 'KL 89 678');
 
 INSERT INTO engine (type, horsepower, torque, fuel_type) VALUES
-('Petrol', 200, 220, 'Gasoline'),
+('Petrol', 200, 220, 'Petrol'),
 ('Diesel', 180, 300, 'Diesel'),
-('Petrol', 250, 280, 'Gasoline'),
-('AC', 180, 200, 'Electric'),
-('Diesel', 200, 320, 'Diesel'),
-('AC', 220, 240, 'Electric'),
-('Petrol', 190, 200, 'Gasoline'),
+('Hybrid', 250, 280, 'Hybrid'),
+('Electric', 180, 200, 'Electric'),
+('Petrol', 200, 320, 'Petrol'),
+('Electric', 220, 240, 'Electric'),
+('Petrol', 190, 200, 'Petrol'),
 ('Diesel', 170, 280, 'Diesel'),
-('Petrol', 210, 230, 'Gasoline'),
-('AC', 200, 220, 'Electric');
+('Petrol', 210, 230, 'Petrol'),
+('Electric', 200, 220, 'Electric');
 
 INSERT INTO gearbox (type, gears, drive_train) VALUES
 ('Automatic', 8, 'AWD'),
-('Manual', 6, 'FrontWD'),
-('Automatic', 7, 'RearWD'),
+('Manual', 6, 'Front wheel drive'),
+('Automatic', 7, 'Rear wheel drive'),
 ('Manual', 5, '4WD'),
-('Automatic', 6, 'FrontWD'),
-('Manual', 5, 'RearWD'),
+('Automatic', 6, 'Front wheel drive'),
+('Manual', 5, 'Rear wheel drive'),
 ('Automatic', 9, 'AWD'),
 ('Manual', 6, '4WD'),
-('Automatic', 8, 'FrontWD'),
-('Manual', 7, 'RearWD');
+('Automatic', 8, 'Front wheel drive'),
+('Manual', 7, 'Rear wheel drive');
 
 INSERT INTO vehicle (chassis_id, fuel_stats_id, registration_id, engine_id, gearbox_id) VALUES
 (1, 1, 1, 1, 1),
@@ -93,3 +93,4 @@ INSERT INTO car (vehicle_id, manufacturer_id, door) VALUES
 (8, 8, 4),
 (9, 9, 4),
 (10, 10, 4);
+

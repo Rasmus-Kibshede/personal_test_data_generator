@@ -34,6 +34,10 @@ export const generateCars = (choice: number) => {
       return success(cars)
 }
 
+export const getCarById =async (id:number) => {
+    return carRepository.getCarById(id);
+}
+
 const generateDoor = () => {
     const doors = [3, 5]
     return doors[faker.number.int({ min: 0, max: doors.length -1 })]
