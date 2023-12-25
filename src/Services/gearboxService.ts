@@ -6,16 +6,16 @@ export const generateGearbox = () => {
     return gearbox;
 }
 
-const generateType = () => {
+export const generateType = () => {
 const types = ['Automatic', 'Manuel', 'Electric'];
 return types[faker.number.int({ min: 0, max: types.length -1 })];
 }
 
-const generateGear = () => {
+export const generateGear = () => {
     return faker.number.int({ min: 4, max: 7 });
 }
 
-const generateDriveTrain = () => {
+export const generateDriveTrain = () => {
     const types = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
     return types[faker.number.int({ min: 0, max: types.length -1 })];
 }
