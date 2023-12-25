@@ -8,7 +8,7 @@ export const generateManufacturer = () => {
     return manufacturer;
 }
 
-const generateVehicleData = () => {
+export const generateVehicleData = () => {
     const data = [
         { make: 'Toyota', model: 'Camry', year: 2022 },
         { make: 'Honda', model: 'Accord', year: 2021 },
@@ -21,6 +21,5 @@ const generateVehicleData = () => {
         { make: 'Nissan', model: 'Altima', year: 2022 },
         { make: 'Hyundai', model: 'Elantra', year: 2021 },
     ];
-
     return data[faker.number.int({ min: 0, max: data.length -1})]
 }

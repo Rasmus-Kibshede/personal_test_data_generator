@@ -1,6 +1,4 @@
-import { generateRandomDoor, generateRandomFloor, generateRandomHouseNumber, generateStreetName, generateStreetVariation } from "../../src/Services/addressService";
-import * as registrationService from '../../src/Services/registrationService'
-
+import * as registrationService from '../../src/Services/registrationService';
 
 /* ---------------------------------------- generateLicenseNumber ---------------------------------------- */
 
@@ -24,13 +22,13 @@ describe('generateLicenseNumber', () => {
             expect(result.length).toBe(9);
           });
 
-        test('Testing right License format AA 12 345', () => {
+        test('Testing License format AA 12 345', () => {
             const licenseNumber = registrationService.generateLicenseNumber();
             const pattern = /^[A-Z]{2} \d{2} \d{3}$/;
             expect(licenseNumber).toMatch(pattern);
         });
 
-        test('Generated license number does not have invalid characters', () => {
+        test('License number invalid characters', () => {
             const result = registrationService.generateLicenseNumber();
             expect(result).not.toMatch(/[^A-Z\d\s]/);
           });
@@ -43,25 +41,25 @@ describe('generateLicenseNumber', () => {
             expect(plates).toContain(licenseNumber);
         });
 
-        test('Generated license number has the correct number of spaces', () => {
+        test('License number correct number of spaces', () => {
             const result = registrationService.generateLicenseNumber();
             const spaceCount = result.split(' ').length - 1;
             expect(spaceCount).toBe(2);
           });
 
-          test('Generated license number has uppercase letters', () => {
+          test('License number has uppercase letters', () => {
             const result = registrationService.generateLicenseNumber();
             const uppercaseLetters = result.match(/[A-Z]/g);
             expect(uppercaseLetters).not.toBeNull();
           });
 
-          test('Generated license number has digits', () => {
+          test('License number has digits', () => {
             const result = registrationService.generateLicenseNumber();
             const digits = result.match(/\d/g);
             expect(digits).not.toBeNull();
           });
         
-          test('Generated license number has valid spacing', () => {
+          test('License number has valid spacing', () => {
             const result = registrationService.generateLicenseNumber();
             const validSpacing = result.match(/[A-Z]{2} \d{2} \d{3}/);
             expect(validSpacing).not.toBeNull();
@@ -82,36 +80,34 @@ describe('generateVIN', () => {
         expect(result).not.toBe("");
       });
 
-      test('Generated VIN is not null or undefined', () => {
+      test('VIN is not null or undefined', () => {
         const result = registrationService.generateVIN();
         expect(result).toBeDefined();
       });
 
-      test('Generated VIN contains only alphanumeric characters', () => {
+      test('GVIN contains only alphanumeric characters', () => {
         const result = registrationService.generateVIN();
         expect(result).toMatch(/^[a-zA-Z0-9]+$/);
       });
 
-      test('Generated VIN is not in an invalid format', () => {
+      test('VIN not invalid format', () => {
         const result = registrationService.generateVIN();
         expect(result).not.toMatch(/^[\W_]+$/);
       });
 
-    test('Generated VIN is in the correct format', () => {
+    test('VIN correct format', () => {
         const vinPattern = /^[A-HJ-NPR-Z0-9]{17}$/;
-
         const vin = registrationService.generateVIN();
         expect(vin).toMatch(vinPattern);
     });
 
-    test('Generated VIN is within the expected range', () => {
+    test('VIN within expected range', () => {
         const vinNumbers = [
             '1GNEK13ZX3R298984', '2HNYD28678H532126', '3FAKP0JA2AR245875', '4T1BG22KX2U545767', '5NPD84LF4LH563295',
             '6YV1A22B575218475', '7FARW2H51KE029243', '8G1ND52J636100920', '9BWDE61J334015650', 'JS1GN7EA862101994',
             'KNMAT2MV5KP509788', 'LFGTCKPMXBP008810', 'MHFSA03J0KN009465', 'NMTKHMBX9JR044186', '5UXKR2C58G0R70603',
             'WAUBFAFL7BA003901', 'XWBEN10EX9VS74136', 'YV1RS592672591003', 'ZFA25000001692412',
         ];
-
         const vin = registrationService.generateVIN();
         expect(vinNumbers).toContain(vin);
     });
