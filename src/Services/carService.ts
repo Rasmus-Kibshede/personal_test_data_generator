@@ -11,14 +11,16 @@ import * as carRepository from '../Repositories/carRepository';
 
 
 export const generateCar =  async () => {
+    try {
         const door = generateDoor();
         const car = new Car(generateManufacturer(), door, 1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
-        carRepository.saveCar(car);
-       return success(car);
-        //Ingen try catch da den ikke kalder databasen. 
-        //Hvor vil vi hente fra DB og hvor vil vi genererer? 
+        const savedCar = await saveCar(car);
+       return success(savedCar as Car);
+    } catch (error) {
+        return failed(error)
+    }   
 };
-
+//Denne kan laves om så den henter fra DB. 
 export const generateCars = (choice: number) => {
     if(!choice){
         return failed(new Error('No cars generated.'))
@@ -45,9 +47,17 @@ const generateDoor = () => {
 //Virker ikke da insert ikke er lavet færdig i nu
 const saveCar = async (car: Car) => {
     try {
-        const savedCar = await carRepository.saveCar(car);
+        const ids = await carRepository.saveCar(car);
+      car.getChassis().setChassisId(Number(ids?.chassisId));
+      car.getFuel().setFuelStatsId(Number(ids?.fuelId));
+      car.getRegistration().setRegistrationId(Number(ids?.registrationId));
+      car.getEngine().setEngineId(Number(ids?.engineId));
+      car.getGear().setGearboxId(Number(ids?.gearboxId));
+      car.setVehicleId(Number(ids?.vehicleId));
+      car.getManufacturer().setManufacturerId(Number(ids?.manufacturerId));
+      return car;
+        
     } catch (error) {
-        //Quick fix
-        failed(error as Error);
+        return failed(error);
     }
 };
