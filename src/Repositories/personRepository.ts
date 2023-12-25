@@ -3,9 +3,7 @@ import { PersonResponseDTO } from '../Model/PersonDTO';
 import { connection } from './data-source';
 
 export const getPersonById = async (id: number) => {
-    const [rows] = await connection.query<RowDataPacket[]>('select * from person where person_id = ?', [id ,(err: Error, result: any) =>{
-        return {err, result}
-    } ])
+    const [rows] = await connection.query<RowDataPacket[]>('select * from person where person_id = ?', [id])
     
     const personDto: PersonResponseDTO = {
         personId: rows[0].person_id,
