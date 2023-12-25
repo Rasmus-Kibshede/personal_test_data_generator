@@ -20,6 +20,7 @@ export const generateCar =  async () => {
         return failed(error)
     }   
 };
+
 //Denne kan laves om så den henter fra DB. 
 export const generateCars = (choice: number) => {
     if(!choice){
@@ -44,7 +45,6 @@ const generateDoor = () => {
     return doors[faker.number.int({ min: 0, max: doors.length -1 })]
 };
 
-//Virker ikke da insert ikke er lavet færdig i nu
 const saveCar = async (car: Car) => {
     try {
         const ids = await carRepository.saveCar(car);
