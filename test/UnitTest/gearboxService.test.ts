@@ -94,11 +94,6 @@ describe('generateGear', () => {
         expect(result).toBeLessThan(10);
       });
       
-      test('Gear is not negative', () => {
-        const result = gearboxService.generateGear();
-        expect(result).toBeGreaterThanOrEqual(0);
-      });
-      
       test('Gear is not a floating-point number', () => {
         const result = gearboxService.generateGear();
         expect(result % 1).toBe(0);

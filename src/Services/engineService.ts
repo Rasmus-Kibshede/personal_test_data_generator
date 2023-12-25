@@ -7,17 +7,17 @@ export const generateEngine = () => {
     return engine;
 };
 
-const generatePower = () =>  {
+export const generatePower = () =>  {
 return faker.number.int({min: 150, max: 1100})
 };
 
-const generateType = () => {
+export const generateType = () => {
     const types = ['Electric', 'V6', '4cyl', 'V8', 'V10', 'V12']
     const random = types[faker.number.int({min:0, max: types.length -1})]
     return random
 };
 
-const generateFuelType = (enginType: string) =>{
+export const generateFuelType = (enginType: string) =>{
     const types = ['Diesel', 'Petrol', 'Hybrid']
     if(enginType === 'Electric'){
         return 'AC'
