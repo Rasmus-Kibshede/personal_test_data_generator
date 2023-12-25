@@ -6,7 +6,7 @@ export const generateChassis = (door: number) => {
     return chassis;
 }
 
-const generateColor = () => {
+export const generateColor = () => {
     const colors = [
         'Red',
         'Blue',
@@ -23,9 +23,9 @@ const generateColor = () => {
     ];
 
     return colors[faker.number.int({ min: 0, max: colors.length -1 })]
-}
+};
 
-const generateCapacity = (door: number) => {
+export const generateCapacity = (door: number) => {
     if (door === 3) {
         return 2
     } else {
@@ -33,6 +33,6 @@ const generateCapacity = (door: number) => {
     }
 };
 
-const generateWheel = () => {
+export const generateWheel = () => {
     return 4;
 }

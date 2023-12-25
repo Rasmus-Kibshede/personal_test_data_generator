@@ -15,6 +15,11 @@ describe('generatePower', () => {
     expect(typeof power).toBe('number');
   });
 
+  test('Power is an integer', () => {
+    const capacity = engineService.generatePower();
+    expect(Number.isInteger(capacity)).toBe(true);
+  });
+
   test('Power is not a string', () => {
     const result = engineService.generatePower();
     expect(result).not.toBe('string');

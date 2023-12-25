@@ -8,6 +8,11 @@ describe('generateRange', () => {
         expect(typeof result).toBe('number');
       });
 
+      test('Range is an integer', () => {
+        const capacity = fuelService.generateRange();
+        expect(Number.isInteger(capacity)).toBe(true);
+      });
+
       test('Range is not null or undefined', () => {
         const result = fuelService.generateRange();
         expect(result).not.toBeNull();
@@ -41,23 +46,23 @@ describe('generateRange', () => {
 /* ---------------------------------------- generateFuelTank ---------------------------------------- */
 describe('generateFuelTank', () => {
 
-test('Generated fuel tank is a number', () => {
+test('Fuel tank is a number', () => {
     const result = fuelService.generateFuelTank();
     expect(typeof result).toBe('number');
   });
 
-  test('Range is not null or undefined', () => {
+  test('Fuel tank is not null or undefined', () => {
     const result = fuelService.generateFuelTank();
     expect(result).not.toBeNull();
     expect(result).not.toBeUndefined();
   });
     
-  test('Generated fuel tank is an integer', () => {
+  test('Fuel tank is an integer', () => {
     const result = fuelService.generateFuelTank();
     expect(result % 1).toBe(0);
   });
   
-  test('Generated fuel tank is within the expected range', () => {
+  test('Fuel tank is within the expected range', () => {
     const result = fuelService.generateFuelTank();
     const expectedMin = 45;
     const expectedMax = 65;
@@ -65,12 +70,12 @@ test('Generated fuel tank is a number', () => {
     expect(result).toBeLessThanOrEqual(expectedMax);
   });
   
-  test('Generated fuel tank is a positive number', () => {
+  test('Fuel tank is a positive number', () => {
     const result = fuelService.generateFuelTank();
     expect(result).toBeGreaterThan(0);
   });
   
-  test('Generated fuel tank is less than 100', () => {
+  test('Fuel tank is less than 100', () => {
     const result = fuelService.generateFuelTank();
     expect(result).toBeLessThan(100);
   });

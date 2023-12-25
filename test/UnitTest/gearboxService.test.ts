@@ -78,6 +78,11 @@ describe('generateGear', () => {
         const result = gearboxService.generateGear();
         expect(typeof result).toBe('number');
       });
+
+      test('Gear is an integer', () => {
+        const capacity = gearboxService.generateGear();
+        expect(Number.isInteger(capacity)).toBe(true);
+      });
       
       test('Gear is an integer', () => {
         const result = gearboxService.generateGear();
