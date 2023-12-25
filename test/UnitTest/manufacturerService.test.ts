@@ -3,7 +3,6 @@ import * as manufacturerService from '../../src/Services/manufacturerService'
 
 /* ---------------------------------------- generateVehicleData ---------------------------------------- */
 
-
 describe('generateVehicleData', () => {
 
     test('Vehicle data is an object', () => {

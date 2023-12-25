@@ -46,35 +46,35 @@ describe('generatePower', () => {
 
 describe('generateType', () => {
 
-  let generatedType: string
-
-  beforeEach(() => {
-    const generatedType = engineService.generateType();
-  });
-
   test('Engine type is one of the defined types', () => {
+    const generatedType = engineService.generateType();
     const types = ['Electric', 'V6', '4cyl', 'V8', 'V10', 'V12'];
     expect(types).toContain(generatedType);
   });
 
   test('Engine type is a string', () => {
+    const generatedType = engineService.generateType();
     expect(typeof generatedType).toBe('string');
   });
 
   test('Engine type is not an empty string', () => {
+    const generatedType = engineService.generateType();
     expect(generatedType).not.toBe('');
   });
 
   test('Engine type is not null or undefined', () => {
+    const generatedType = engineService.generateType();
     expect(generatedType).not.toBeNull();
     expect(generatedType).not.toBeUndefined();
   });
 
   test('Engine type is a string with no leading or trailing whitespaces', () => {
+    const generatedType = engineService.generateType();
     expect(generatedType.trim()).toEqual(generatedType);
   });
 
   test('Engine type is not an unexpected type', () => {
+    const generatedType = engineService.generateType();
     const unexpectedTypes = ['2cyl', 'rotery'];
     expect(unexpectedTypes).not.toContain(generatedType);
   });
