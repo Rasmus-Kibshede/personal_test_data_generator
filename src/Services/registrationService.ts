@@ -29,7 +29,7 @@ export const generateLicenseNumber = () => {
         'FF 67 890',
         'GG 89 012',
     ];
-
+faker.vehicle.
     return plates[faker.number.int({ min: 0, max: plates.length -1})]
 }
 
