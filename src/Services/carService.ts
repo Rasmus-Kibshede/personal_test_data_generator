@@ -13,7 +13,7 @@ import * as carRepository from '../Repositories/carRepository';
 export const generateCar =  async () => {
     try {
         const door = generateDoor();
-        const car = new Car(generateManufacturer(), door, 1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
+        const car = new Car(generateManufacturer(), door, -1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
         const savedCar = await saveCar(car);
        return success(savedCar as Car);
     } catch (error) {
@@ -29,7 +29,7 @@ export const generateCars = (choice: number) => {
    const cars: Car[] = [];
     Array.from({ length: choice }, () => {
         const door = generateDoor();
-        const car = new Car(generateManufacturer(), door, 1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
+        const car = new Car(generateManufacturer(), door, -1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
         cars.push(car);
         car.setVehicleId(cars.length)
       });
