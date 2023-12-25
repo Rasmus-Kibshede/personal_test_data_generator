@@ -15,7 +15,7 @@ export const generateCar =  async () => {
         const door = generateDoor();
         const car = new Car(generateManufacturer(), door, -1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
         const savedCar = await saveCar(car);
-       return success(savedCar as Car);
+       return success(savedCar);
     } catch (error) {
         return failed(error)
     }   
