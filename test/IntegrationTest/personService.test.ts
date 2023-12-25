@@ -99,7 +99,6 @@ describe('Testing random name and gender', () => {
         });
 
         test('Fullname matches alphabet chars with space', async () => {
-            console.log(person.getFullName(), 'WHY IS IT NOT PASSING?');
             expect(person.getFullName()).toMatch(/^[a-æA-Æ\sa.c]*$/);
         });
     });

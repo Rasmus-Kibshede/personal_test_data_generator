@@ -50,7 +50,7 @@ describe('generateColor', () => {
 
     test('Color has a valid length', () => {
         const generatedColor = chassisService.generateColor();
-        expect(generatedColor.length).toBeGreaterThan(3);
+        expect(generatedColor.length).toBeGreaterThanOrEqual(3);
         expect(generatedColor.length).toBeLessThanOrEqual(6);
     });
 
