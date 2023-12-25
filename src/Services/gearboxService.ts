@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 import { Gearbox } from "../Model/Gearbox"
 
 export const generateGearbox = () => {
-    const gearbox = new Gearbox(1, generateType(), generateGear(), generateDriveTrain());
+    const gearbox = new Gearbox(-1, generateType(), generateGear(), generateDriveTrain());
     return gearbox;
 }
 

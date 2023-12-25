@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { Registration } from "../Model/Registration";
 
 export const generateRegistration = () => {
-    const registration = new Registration(1, generateVIN(), generateLicenseNumber());
+    const registration = new Registration(-1, generateVIN(), generateLicenseNumber());
     return registration;
 }
 

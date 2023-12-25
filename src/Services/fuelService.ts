@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 import { FuelStats } from "../Model/FuelStats"
 
 export const generateFuelStats = () => {
-    const fuel = new FuelStats(1, generateFuelTank(), generateRange())
+    const fuel = new FuelStats(-1, generateFuelTank(), generateRange())
     return fuel
 }
 

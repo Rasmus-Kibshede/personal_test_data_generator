@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { Chassis } from "../Model/Chassis"
 
 export const generateChassis = (door: number) => {
-    const chassis = new Chassis(1, generateColor(), generateWheel(), generateCapacity(door));
+    const chassis = new Chassis(-1, generateColor(), generateWheel(), generateCapacity(door));
     return chassis;
 }
 

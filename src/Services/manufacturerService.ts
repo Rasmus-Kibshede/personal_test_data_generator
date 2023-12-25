@@ -3,7 +3,7 @@ import { Manufacturer } from "../Model/Manufacturer";
 
 export const generateManufacturer = () => {
     const manufacturerData = generateVehicleData();
-    const manufacturer = new Manufacturer(1, manufacturerData.make, manufacturerData.model, manufacturerData.year)
+    const manufacturer = new Manufacturer(-1, manufacturerData.make, manufacturerData.model, manufacturerData.year)
 
     return manufacturer;
 }
