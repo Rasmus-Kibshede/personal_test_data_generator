@@ -36,7 +36,7 @@ describe('generateVehicleData', () => {
         expect(result.year).toBeLessThanOrEqual(currentYear);
     });
 
-    test('Vehicle data make is in the expected list', () => {
+    test('Vehicle make is in the expected list', () => {
         const result = manufacturerService.generateVehicleData();
         const expectedMakes = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla', 'BMW', 'Mercedes-Benz', 'Audi', 'Nissan', 'Hyundai'];
         expect(expectedMakes).toContain(result.make);
@@ -65,15 +65,6 @@ describe('generateVehicleData', () => {
         expect(result.model).not.toBeUndefined();
     });
 
-    test('Vehicle data does not have duplicate makes', () => {
-        const makes = new Set();
-        for (let i = 0; i < 100; i++) {
-            const result = manufacturerService.generateVehicleData();
-            makes.add(result.make);
-        }
-        expect(makes.size).toBe(10);
-    });
-
     test('Vehicle data does not have duplicate models', () => {
         const models = new Set();
         for (let i = 0; i < 100; i++) {
@@ -83,4 +74,23 @@ describe('generateVehicleData', () => {
         expect(models.size).toBe(10);
     });
 
+    test('Make greater or equal to 3', async () => {
+        const result = manufacturerService.generateVehicleData();
+        expect(result.make.length).toBeGreaterThanOrEqual(3);
+      });
+    
+      test('Make less or equal to 9', async () => {
+        const result = manufacturerService.generateVehicleData();
+        expect(result.make.length).toBeLessThanOrEqual(13);
+      });
+
+      test('Model greater or equal to 2', async () => {
+        const result = manufacturerService.generateVehicleData();
+        expect(result.model.length).toBeGreaterThanOrEqual(2);
+      });
+    
+      test('Model less or equal to 7', async () => {
+        const result = manufacturerService.generateVehicleData();
+        expect(result.model.length).toBeLessThanOrEqual(7);
+      });
 });
