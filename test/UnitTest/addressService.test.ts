@@ -30,6 +30,7 @@ describe('generateRandomFloor', () => {
   
   describe('generateRandomNumberForDoor', () => {
     describe('Testing valid data in generateRandomNumberForDoor', () => {
+     
       test('to generate a valid door number', async () => {
         const result = await generateRandomHouseNumber();
         expect(typeof result).toBe('string');

@@ -6,7 +6,7 @@ export const generateRegistration = () => {
     return registration;
 }
 
-const generateLicenseNumber = () => {
+export const generateLicenseNumber = () => {
     const plates = [
         'AB 34 567',
         'CD 56 789',
@@ -33,7 +33,7 @@ const generateLicenseNumber = () => {
     return plates[faker.number.int({ min: 0, max: plates.length -1})]
 }
 
-const generateVIN = () => {
+export const generateVIN = () => {
     const vinNumbers = [
         '1GNEK13ZX3R298984',
         '2HNYD28678H532126',
