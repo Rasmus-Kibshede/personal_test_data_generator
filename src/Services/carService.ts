@@ -21,7 +21,6 @@ export const generateCar =  async () => {
     }   
 };
 
-//Denne kan laves om så den henter fra DB. 
 export const generateCars = (choice: number) => {
     if(!choice){
         return failed(new Error('No cars generated.'))

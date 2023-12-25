@@ -82,44 +82,8 @@ export const getRandomCar = async () => {
     const [rows] = await conn.query<RowDataPacket[]>('SELECT * FROM car ORDER BY RAND() LIMIT 1', (err: Error, result: any) => {
         return { err, result }
     })
-    //Execute er prepared statements. 
-    //const [rows] = await connection.execute<RowDataPacket[]>('SELECT * FROM car ORDER BY RAND() LIMIT 1')
     return convertToCar(rows);
 };
-/*
-export const saveCar = async (car: Car) => {
-    try {
-        const [rows] = await connection.execute<RowDataPacket[]>(
-            'START TRANSACTION; \n' +
-            'INSERT INTO chassis (color, wheel, capacity) VALUES (?, ?, ?); \n' +
-            'SET @chassisId = LAST_INSERT_ID(); \n' +
-            'INSERT INTO fuel_stats (fuel_tank_size, distance) VALUES (?, ?); \n' +
-            'SET @fuelStatsId = LAST_INSERT_ID(); \n' +
-            'INSERT INTO registration (vin, license_number) VALUES (?, ?); \n' +
-            'SET @registrationId = LAST_INSERT_ID(); \n' +
-            'INSERT INTO engine (type, horsepower, torque, fuel_type) VALUES (?, ?, ?, ?); \n' +
-            'SET @engineId = LAST_INSERT_ID(); \n' +
-            'INSERT INTO gearbox (type, gears, drive_train) VALUES (?, ?, ?); \n' +
-            'SET @gearboxId = LAST_INSERT_ID(); \n' +
-            'INSERT INTO vehicle (chassis_id, fuel_stats_id, registration_id, engine_id, gearbox_id) VALUES (@chassisId, @fuelStatsId, @registrationId, @engineId, @gearboxId); \n' +
-            'SET @vehicleId = LAST_INSERT_ID(); \n' +
-            'INSERT INTO manufacturer (make, model, year) VALUES (?, ?, ?); \n' +
-            'SET @manufacturerId = LAST_INSERT_ID(); \n' +
-            'INSERT INTO car (vehicle_id, manufacturer_id, door) VALUES (@vehicleId, @manufacturerId, ?); \n' +
-            'COMMIT;', [car.getChassis().getColor(), car.getChassis().getWheel(), car.getChassis().getCapacity(), car.getFuel().getFuelTank(),
-            car.getFuel().getRange(), car.getRegistration().getVIN(), car.getRegistration().getLicenseNumber(), car.getEngine().getType(), car.getEngine().getHP(),
-            car.getEngine().getTorque(), car.getEngine().getFuelType(), car.getGear().getType(), car.getGear().getGears(), car.getGear().getDriveTrain(),
-            car.getManufacturer().getMake(), car.getManufacturer().getModel(), car.getManufacturer().getYear(), car.getDoor()]);
-
-        if (!rows) {
-            failed(new Error('lav en custom error message'))
-        }
-        return success(convertToCar(rows));
-        //Errors skal smides her, skal laves en ny Error(gør en ORM som standard)
-    } catch (error) {
-        return failed(error)
-    }
-}*/
 
 const convertToCar = (rows: RowDataPacket[]) => {
     return new Car(rows[0].manufacture, rows[0].door, rows[0].vehicleId, rows[0].chassis, rows[0].fuel, rows[0].registration, rows[0].engine, rows[0].gearbox);
