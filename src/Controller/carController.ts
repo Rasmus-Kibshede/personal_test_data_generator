@@ -4,7 +4,6 @@ import * as responseController from '../Controller/responseController'
 
 export const generateCar = async (req: Request, res: Response) => {
     const response = await carService.generateCar();
-    //res.status(200).send(response);
     return responseController.response(res, response, 200)
 }
 
