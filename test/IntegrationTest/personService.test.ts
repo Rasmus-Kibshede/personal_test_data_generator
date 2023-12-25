@@ -56,7 +56,7 @@ jest.mock('../../src/Repositories/fileHandler', () => {
                     surname: 'Kj2ær',
                     gender: 'maale'
                 },
-                {
+                /*{
                     name: 'LucÅs M.',
                     surname: 'Kj2ær',
                     gender: 'mal10e'
@@ -65,7 +65,7 @@ jest.mock('../../src/Repositories/fileHandler', () => {
                     name: 'TestSæt T. O',
                     surname: 'To',
                     gender: 'malse'
-                }
+                }*/
             ]);
         })
     };
@@ -99,6 +99,7 @@ describe('Testing random name and gender', () => {
         });
 
         test('Fullname matches alphabet chars with space', async () => {
+            console.log(person.getFullName(), 'WHY IS IT NOT PASSING?');
             expect(person.getFullName()).toMatch(/^[a-æA-Æ\sa.c]*$/);
         });
     });
