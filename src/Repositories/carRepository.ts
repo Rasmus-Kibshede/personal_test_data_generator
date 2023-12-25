@@ -47,14 +47,12 @@ export const saveCar = async (car: Car) => {
         result = Object.values(JSON.parse(JSON.stringify(manufacturerResult)));
         const manufacturerId = result[2];
 
-        const [carResult] = await conn.execute<RowDataPacket[]>('INSERT INTO car (vehicle_id, manufacturer_id, door) VALUES (?, ?, ?);',
+        await conn.execute<RowDataPacket[]>('INSERT INTO car (vehicle_id, manufacturer_id, door) VALUES (?, ?, ?);',
             [vehicleId, manufacturerId, car.getDoor()]);
   
       await connection.commit();
-      console.log('Transaction committed successfully!');
       return {chassisId: chassisId, fuelId: fuelStatsId, registrationId: registrationId, engineId: engineId, gearboxId: gearboxId, vehicleId: vehicleId, manufacturerId: manufacturerId  }
     } catch (error) {
-      console.error(error);
       await connection.rollback();
     } finally {
       connection.release();
