@@ -1,3 +1,4 @@
+drop table if exists fuel_stats
 create table if not exists person
 (
 	person_id int auto_increment
@@ -16,6 +17,73 @@ create table if not exists postal_code
 )
 charset=utf8;
 
+CREATE TABLE IF NOT EXISTS chassis (
+    chassis_id INT AUTO_INCREMENT PRIMARY KEY,
+    color VARCHAR(255) NOT NULL,
+    wheel INT NOT NULL,
+    capacity INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS fuel_stats (
+    fuel_stats_id INT AUTO_INCREMENT PRIMARY KEY,
+    fuel_tank_size INT CHECK (fuel_tank_size BETWEEN 40 AND 65) NOT NULL,
+    distance INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS registration (
+    registration_id INT AUTO_INCREMENT PRIMARY KEY,
+    vin VARCHAR(255) NOT NULL,
+    license_number VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS engine (
+    engine_id INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(255) NOT NULL,
+    horsepower INT NOT NULL,
+    torque INT NOT NULL,
+    fuel_type VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS gearbox (
+    gearbox_id INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(255) NOT NULL,
+    gears INT NOT NULL,
+    drive_train VARCHAR(255) CHECK (drive_train IN ('AWD', '4WD', 'FrontWD', 'RearWD')) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS vehicle (
+    vehicle_id INT AUTO_INCREMENT PRIMARY KEY,
+    chassis_id INT,
+    fuel_stats_id INT,
+    registration_id INT,
+    engine_id INT,
+    gearbox_id INT,
+    FOREIGN KEY (chassis_id) REFERENCES chassis(chassis_id),
+    FOREIGN KEY (fuel_stats_id) REFERENCES fuel_stats(fuel_stats_id),
+    FOREIGN KEY (registration_id) REFERENCES registration(registration_id),
+    FOREIGN KEY (engine_id) REFERENCES engine(engine_id),
+    FOREIGN KEY (gearbox_id) REFERENCES gearbox(gearbox_id)
+);
+
+CREATE TABLE IF NOT EXISTS manufacturer (
+    manufacturer_id INT AUTO_INCREMENT PRIMARY KEY,
+    make VARCHAR(255) NOT NULL,
+    model VARCHAR(255) NOT NULL,
+    year INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS car (
+    vehicle_id INT PRIMARY KEY,
+    manufacturer_id INT,
+    door INT NOT NULL,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicle(vehicle_id),
+    FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(manufacturer_id)
+);
+
+
+
+
+drop procedure if exists RemoveDuplicates;
 create procedure RemoveDuplicates()
 BEGIN
 	DECLARE vcPostalCode CHAR(4);

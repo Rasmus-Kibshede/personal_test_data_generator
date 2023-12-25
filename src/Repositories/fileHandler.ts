@@ -11,9 +11,6 @@ export const getAllPersonsFromFile = async () => {
     if (fileContent.charCodeAt(0) === 0xfeff) {
         fileContent = fileContent.slice(1);
     };
-    console.log(JSON.parse(fileContent)[0].persons);
-    
-
     const data: PersonDTOFileObject[] = JSON.parse(fileContent)[0].persons;
     return data;
 };

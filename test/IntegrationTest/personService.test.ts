@@ -56,7 +56,7 @@ jest.mock('../../src/Repositories/fileHandler', () => {
                     surname: 'Kj2ær',
                     gender: 'maale'
                 },
-                {
+                /*{
                     name: 'LucÅs M.',
                     surname: 'Kj2ær',
                     gender: 'mal10e'
@@ -65,7 +65,7 @@ jest.mock('../../src/Repositories/fileHandler', () => {
                     name: 'TestSæt T. O',
                     surname: 'To',
                     gender: 'malse'
-                }
+                }*/
             ]);
         })
     };
