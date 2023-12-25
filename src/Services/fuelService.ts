@@ -6,10 +6,10 @@ export const generateFuelStats = () => {
     return fuel
 }
 
-const generateRange = () => {
+export const generateRange = () => {
     return faker.number.int({ min: 350, max: 900 })
 }
 
-const generateFuelTank = () => {
+export const generateFuelTank = () => {
     return faker.number.int({ min: 45, max: 65 })
 }
