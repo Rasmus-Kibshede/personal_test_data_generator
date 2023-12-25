@@ -8,7 +8,7 @@ export const generateCar = async (req: Request, res: Response) => {
 }
 
 export const generateCars = (req: Request, res: Response) => {
-    const response = carService.generateCars(Number(req.params.id));
+    const response = carService.generateCars(Number(req.params.count));
     return responseController.response(res, response, 200);
 }
 

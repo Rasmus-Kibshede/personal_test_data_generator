@@ -6,7 +6,7 @@ const carRouter = Router();
 //Endpoints
 carRouter.get('/car', carController.generateCar)
 //ID er antallet af biler man vil have genereret. 
-carRouter.get('/cars/:id', carController.generateCars)
+carRouter.get('/cars/:count', carController.generateCars)
 carRouter.get('/car/:id', carController.getCarById)
 /*carRouter.get('/car', carController.getRandomBirthday)
 carRouter.get('/car', carController.getRandomCPR)
