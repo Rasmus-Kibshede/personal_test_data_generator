@@ -6,22 +6,16 @@ const expectedMakes = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla', 'BMW', '
 const shortestMake = expectedMakes.reduce(function (a, b) {
     return a.length <= b.length ? a : b;
 });
-const longestMake = expectedMakes.reduce(
-    function (a, b) {
-        return a.length > b.length ? a : b;
-    });
+const longestMake = expectedMakes.reduce(function (a, b) {
+    return a.length > b.length ? a : b;
+});
 const expectedModels = ['Camry', 'Accord', 'Mustang', 'Malibu', 'Model 3', 'X5', 'C-Class', 'A4', 'Altima', 'Elantra'];
 const shortestModel = expectedModels.reduce(function (a, b) {
     return a.length <= b.length ? a : b;
 });
-const longestModel = expectedModels.reduce(
-    function (a, b) {
-        return a.length > b.length ? a : b;
-    });
-
-
-
-
+const longestModel = expectedModels.reduce(function (a, b) {
+    return a.length > b.length ? a : b;
+});
 
 /* ---------------------------------------- generateManufacturer ---------------------------------------- */
 
@@ -53,6 +47,14 @@ describe('generateManufacturer', () => {
         expect(vehicleData).toHaveProperty('year');
         expect(typeof vehicleData.getYear()).toBe('number');
     });
+
+    test('Make is a string with no leading or trailing whitespaces', () => {
+        expect(vehicleData.getMake().trim()).toEqual(vehicleData.getMake());
+      });
+
+      test('Model is a string with no leading or trailing whitespaces', () => {
+        expect(vehicleData.getModel().trim()).toEqual(vehicleData.getModel());
+      });
 
     test('Vehicle data has valid year', () => {
         const currentYear = new Date().getFullYear();
@@ -99,7 +101,7 @@ describe('generateManufacturer', () => {
         }
         expect(models.size).toBe(expectedModels.length);
     });
-    
+
     test('Make greater or equal to 3', async () => {
         expect(shortestMake.length).toBeGreaterThanOrEqual(3);
     });
@@ -131,7 +133,7 @@ describe('generateManufacturer', () => {
     test('Model not equal 8', async () => {
         expect(longestModel.length).not.toBe(8);
     });
-    
+
     test('Manufacturer has id', () => {
         expect(vehicleData.getManufacturerId()).toBeDefined();
         expect(vehicleData.getManufacturerId()).toBe(-1);

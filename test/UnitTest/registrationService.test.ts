@@ -68,6 +68,10 @@ describe('generateLicenseNumber', () => {
       const validSpacing = license.match(/[A-Z]{2} \d{2} \d{3}/);
       expect(validSpacing).not.toBeNull();
     });
+
+    test('Type is a string with no leading or trailing whitespaces', () => {
+      expect(license.trim()).toEqual(license);
+    });
   });
 });
 
@@ -83,7 +87,7 @@ describe('generateVIN', () => {
   });
 
   test('Validating string is not empty', async () => {
-    expect(vin).not.toBe("");
+    expect(vin).not.toBe('');
   });
 
   test('VIN is not null or undefined', () => {
@@ -113,6 +117,10 @@ describe('generateVIN', () => {
 
   test('VIN has correct format', () => {
     expect(vin).toMatch(/^\w{17}$/);
+  });
+
+  test('Type is a string with no leading or trailing whitespaces', () => {
+    expect(vin.trim()).toEqual(vin);
   });
 });
 

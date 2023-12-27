@@ -1,195 +1,205 @@
-import { faker } from '@faker-js/faker';
 import * as gearboxService from '../../src/Services/gearboxService'
 import { Gearbox } from '../../src/Model/Gearbox';
+
+const validGearboxTypes = ['automatic', 'MANUEL', 'eLeCtRiC'];
+const expectedGearboxTypes = ['Automatic', 'Manuel', 'Electric'];
+const unexpectedGearboxTypes = ['Semi-Automatic', 'CVT'];
+
+const shortestGearboxType = expectedGearboxTypes.reduce(function (a, b) {
+  return a.length <= b.length ? a : b;
+});
+const longestGearboxType = expectedGearboxTypes.reduce(function (a, b) {
+  return a.length > b.length ? a : b;
+});
+
+const expectedDriveTrainTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
+const unexpectedDriveTrainTypes = ['3 Wheel drive', '0 wheel drive'];
+
+const shortestDriveTrainType = expectedDriveTrainTypes.reduce(function (a, b) {
+  return a.length <= b.length ? a : b;
+});
+const longestDriveTrainType = expectedDriveTrainTypes.reduce(function (a, b) {
+  return a.length > b.length ? a : b;
+});
+
+const expectedGears = [4, 5, 6, 7];
+
+let gearbox: Gearbox;
+let gearboxType: string;
+let driveTrain: string;
+let gears: number;
 
 /* ---------------------------------------- generateType ---------------------------------------- */
 describe('generateType', () => {
 
-  test('Type is a string', () => {
-    const result = gearboxService.generateType();
-    expect(typeof result).toBe('string');
+  beforeEach(() => {
+    gearboxType = gearboxService.generateType();
   });
 
-  test('Type expected values', () => {
-    const result = gearboxService.generateType();
-    const expectedTypes = ['Automatic', 'Manuel', 'Electric'];
-    expect(expectedTypes).toContain(result);
+  test('gearboxType is a string', () => {
+    expect(typeof gearboxType).toBe('string');
   });
 
-  test('Type is not null or undefined', () => {
-    const result = gearboxService.generateType();
-    expect(result).not.toBeNull();
-    expect(result).not.toBeUndefined();
+  test('gearboxType not empty string', async () => {
+    expect(gearboxType).not.toBe('');
   });
 
-  test('Type is a valid type', () => {
-    const result = gearboxService.generateType();
-    const validTypes = ['Automatic', 'Manuel', 'Electric'];
-    expect(validTypes.includes(result)).toBe(true);
+  test('gearboxType expected values', () => {
+    expect(expectedGearboxTypes).toContain(gearboxType);
   });
 
-  test('Type is a string with correct length', () => {
-    const result = gearboxService.generateType();
-    expect(typeof result).toBe('string');
-    expect(result.length).toBeGreaterThan(0);
+  test('gearboxType is not null or undefined', () => {
+    expect(gearboxType).not.toBeNull();
+    expect(gearboxType).not.toBeUndefined();
   });
 
-  test('Type is a string with no leading or trailing whitespaces', () => {
-    const result = gearboxService.generateType();
-    expect(typeof result).toBe('string');
-    expect(result.trim()).toEqual(result);
+  test('gearboxType is a valid type', () => {
+    expect(expectedGearboxTypes.includes(gearboxType)).toBe(true);
   });
 
-  test('Generated type is not an unexpected type', () => {
-    const result = gearboxService.generateType();
-    const unexpectedTypes = ['Semi-Automatic', 'CVT'];
-    expect(unexpectedTypes).not.toContain(result);
+  test('gearboxType is a string with correct length', () => {
+    expect(gearboxType.length).toBeGreaterThan(0);
   });
 
-  test('Type is a string with valid characters', () => {
-    const result = gearboxService.generateType();
-    expect(/^[A-Za-z]+$/.test(result)).toBe(true);
+  test('gearboxType is a string with no leading or trailing whitespaces', () => {
+    expect(gearboxType.trim()).toEqual(gearboxType);
   });
 
-  test('Type is not an empty string', () => {
-    const result = gearboxService.generateType();
-    expect(result.length).toBeGreaterThan(0);
+  test('gearboxType is not an unexpected type', () => {
+    expect(unexpectedGearboxTypes).not.toContain(gearboxType);
   });
 
-  test('Model greater or equal to 6', async () => {
-    const result = gearboxService.generateType();
-    expect(result.length).toBeGreaterThanOrEqual(6);
+  test('gearboxType is a string with valid characters', () => {
+    expect(/^[A-Za-z]+$/.test(gearboxType)).toBe(true);
   });
 
-  test('Model less or equal to 9', async () => {
-    const result = gearboxService.generateType();
-    expect(result.length).toBeLessThanOrEqual(9);
+  test('gearboxType is case-insensitive', () => {
+    expect(validGearboxTypes.map(type => type.toLowerCase())).toContain(gearboxType.toLowerCase());
   });
 
-  test('Type is case-insensitive', () => {
-    const result = gearboxService.generateType();
-    const expectedTypes = ['automatic', 'MANUEL', 'eLeCtRiC'];
-    expect(expectedTypes.map(type => type.toLowerCase())).toContain(result.toLowerCase());
+  test('gearboxType greater or equal to 6', async () => {
+    expect(shortestGearboxType.length).toBeGreaterThanOrEqual(6);
+  });
+
+  test('gearboxType less or equal to 9', async () => {
+    expect(longestGearboxType.length).toBeLessThanOrEqual(9);
+  });
+
+  test('gearboxType not equal 5', async () => {
+    expect(shortestGearboxType.length).not.toBe(5);
+  });
+
+  test('gearboxType not equal 10', async () => {
+    expect(longestGearboxType.length).not.toBe(10);
   });
 });
 
 /* ---------------------------------------- generateGear ---------------------------------------- */
 describe('generateGear', () => {
 
+  beforeEach(() => {
+    gears = gearboxService.generateGear();
+  });
+
   test('Gear is a number', () => {
-    const result = gearboxService.generateGear();
-    expect(typeof result).toBe('number');
+    expect(typeof gears).toBe('number');
   });
 
   test('Gear is an integer', () => {
-    const capacity = gearboxService.generateGear();
-    expect(Number.isInteger(capacity)).toBe(true);
+    expect(Number.isInteger(gears)).toBe(true);
   });
 
   test('Gear is an integer', () => {
-    const result = gearboxService.generateGear();
-    expect(result % 1).toBe(0);
+    expect(gears % 1).toBe(0);
   });
 
   test('Gear is a positive number', () => {
-    const result = gearboxService.generateGear();
-    expect(result).toBeGreaterThan(0);
+    expect(gears).toBeGreaterThan(0);
   });
 
   test('Gear is not a floating-point number', () => {
-    const result = gearboxService.generateGear();
-    expect(result % 1).toBe(0);
+    expect(gears % 1).toBe(0);
   });
 
   test('Type is not null or undefined', () => {
-    const result = gearboxService.generateGear();
-    expect(result).not.toBeNull();
-    expect(result).not.toBeUndefined();
+    expect(gears).not.toBeNull();
+    expect(gears).not.toBeUndefined();
   });
 
   test('Gear is less than 8 upper boundary', () => {
-    const result = gearboxService.generateGear();
-    expect(result).not.toBe(8);
-    expect(result).toBeLessThan(8);
+    expect(gears).not.toBe(8);
+    expect(gears).toBeLessThan(8);
   });
 
   test('Gear greater than 3 lower boundary', () => {
-    const result = gearboxService.generateGear();
-    expect(result).toBeGreaterThan(3);
-    expect(result).not.toBe(3);
+    expect(gears).toBeGreaterThan(3);
+    expect(gears).not.toBe(3);
   });
 
   test('Valid range and valid upper and lower boundaries', () => {
-    const gears = [4, 5, 6, 7]
-    const result = gearboxService.generateGear();
-    expect(gears).toContain(result)
+    expect(expectedGears).toContain(gears)
   });
 });
 
 /* ---------------------------------------- generateDriveTrain ---------------------------------------- */
 describe('generateDriveTrain', () => {
 
+  beforeEach(() => {
+    driveTrain = gearboxService.generateDriveTrain();
+  });
+
   test('Drive train expected values', () => {
-    const result = gearboxService.generateDriveTrain();
-    const expectedTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
-    expect(expectedTypes).toContain(result);
+    expect(expectedDriveTrainTypes).toContain(driveTrain);
   });
 
   test('Drive train is not null or undefined', () => {
-    const result = gearboxService.generateDriveTrain();
-    expect(result).not.toBeNull();
-    expect(result).not.toBeUndefined();
+    expect(driveTrain).not.toBeNull();
+    expect(driveTrain).not.toBeUndefined();
   });
 
   test('Drive train is a string with correct length', () => {
-    const result = gearboxService.generateDriveTrain();
-    expect(typeof result).toBe('string');
-    expect(result.length).toBeGreaterThan(0);
+    expect(typeof driveTrain).toBe('string');
+    expect(driveTrain.length).toBeGreaterThan(0);
   });
 
   test('Drive train has valid casing', () => {
-    const result = gearboxService.generateDriveTrain();
-    expect(result).toMatch(/^(4WD|AWD|Front wheel drive|Rear wheel drive)$/);
+    expect(driveTrain).toMatch(/^(4WD|AWD|Front wheel drive|Rear wheel drive)$/);
   });
 
   test('Drive train is a string with no leading or trailing whitespaces', () => {
-    const result = gearboxService.generateDriveTrain();
-    expect(result.trim()).toEqual(result);
+    expect(driveTrain.trim()).toEqual(driveTrain);
   });
 
   test('Drive train is not an unexpected type', () => {
-    const result = gearboxService.generateDriveTrain();
-    const unexpectedTypes = ['Semi-Automatic', 'CVT'];
-    expect(unexpectedTypes).not.toContain(result);
+    expect(unexpectedDriveTrainTypes).not.toContain(driveTrain);
   });
 
-  test('Dive train is a string with valid characters (alphanumeric)', () => {
-    const result = gearboxService.generateDriveTrain();
-    expect(/^[A-Za-z0-9\s]+$/.test(result)).toBe(true);
+  test('Drive train is a string with valid characters (alphanumeric)', () => {
+    expect(/^[A-Za-z0-9\s]+$/.test(driveTrain)).toBe(true);
   });
 
-  test('Model greater or equal to 3', async () => {
-    const result = gearboxService.generateDriveTrain();
-    expect(result.length).toBeGreaterThanOrEqual(3);
+  test('Drive train greater or equal to 3', async () => {
+    expect(shortestDriveTrainType.length).toBeGreaterThanOrEqual(3);
   });
 
-  test('Model less or equal to 7', async () => {
-    const result = gearboxService.generateDriveTrain();
-    expect(result.length).toBeLessThanOrEqual(17);
+  test('Drive train less or equal to 7', async () => {
+    expect(longestDriveTrainType.length).toBeLessThanOrEqual(17);
+  });
+
+  test('driveTrain not equal 2 lower boundary', async () => {
+    expect(shortestDriveTrainType.length).not.toBe(2);
+  });
+
+  test('driveTrain not equal 17 upper boundary', async () => {
+    expect(longestDriveTrainType.length).not.toBe(18);
   });
 });
 
 /* ---------------------------------------- generateGearbox ---------------------------------------- */
 describe('generateGearbox', () => {
-  //Ville ikke Mocke Gearbox eller generateGearbox her? 
-  
-  const mockType = ['Automatic', 'Manuel', 'Electric'];
-  const mockGear = [4, 5, 6, 7];
-  const mockDriveTrain = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
-  let gearbox: Gearbox;
-  
-  beforeEach(()=>{
-     gearbox = gearboxService.generateGearbox();
+  //Ville ikke Mocke Gearbox eller generateGearbox her?  
+  beforeEach(() => {
+    gearbox = gearboxService.generateGearbox();
   });
 
   test('Gearbox instanceOf Gearbox', () => {
@@ -197,15 +207,15 @@ describe('generateGearbox', () => {
   });
 
   test('Gearbox correct type', () => {
-    expect(mockType).toContain(gearbox.getType())    
+    expect(expectedGearboxTypes).toContain(gearbox.getType())
   });
 
   test('Gearbox correct gear', () => {
-    expect(mockGear).toContain(gearbox.getGears());
+    expect(expectedGears).toContain(gearbox.getGears());
   });
 
   test('Gearbox correct driveTrain', () => {
-    expect(mockDriveTrain).toContain(gearbox.getDriveTrain());
+    expect(expectedDriveTrainTypes).toContain(gearbox.getDriveTrain());
   });
 
   test('Gearbox has id', () => {
