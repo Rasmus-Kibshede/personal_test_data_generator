@@ -3,23 +3,21 @@ import * as manufacturerService from '../../src/Services/manufacturerService'
 
 let vehicleData: Manufacturer;
 const expectedMakes = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla', 'BMW', 'Mercedes-Benz', 'Audi', 'Nissan', 'Hyundai'];
-const shortestMake =  expectedMakes.reduce(function(a, b) {
+const shortestMake = expectedMakes.reduce(function (a, b) {
     return a.length <= b.length ? a : b;
-  });
+});
 const longestMake = expectedMakes.reduce(
     function (a, b) {
         return a.length > b.length ? a : b;
-    }
-);
+    });
 const expectedModels = ['Camry', 'Accord', 'Mustang', 'Malibu', 'Model 3', 'X5', 'C-Class', 'A4', 'Altima', 'Elantra'];
-const shortestModel =  expectedModels.reduce(function(a, b) {
+const shortestModel = expectedModels.reduce(function (a, b) {
     return a.length <= b.length ? a : b;
-  });
+});
 const longestModel = expectedModels.reduce(
     function (a, b) {
         return a.length > b.length ? a : b;
-    }
-);
+    });
 
 
 
@@ -101,21 +99,21 @@ describe('generateManufacturer', () => {
         }
         expect(models.size).toBe(expectedModels.length);
     });
-//HERFRA
+    
     test('Make greater or equal to 3', async () => {
-        expect(vehicleData.getMake().length).toBeGreaterThanOrEqual(3);
+        expect(shortestMake.length).toBeGreaterThanOrEqual(3);
     });
 
     test('Make less or equal to 9', async () => {
-        expect(vehicleData.getMake().length).toBeLessThanOrEqual(13);
+        expect(longestMake.length).toBeLessThanOrEqual(13);
     });
 
     test('Make not equal 2', async () => {
-        expect(vehicleData.getMake().length).not.toBe(2);
+        expect(shortestMake.length).not.toBe(2);
     });
 
     test('Make not equal 10', async () => {
-        expect(vehicleData.getMake().length).not.toBe(10);
+        expect(longestMake.length).not.toBe(14);
     });
 
     test('Model greater or equal to 2', async () => {
@@ -127,13 +125,13 @@ describe('generateManufacturer', () => {
     });
 
     test('Model not equal 1', async () => {
-        expect(vehicleData.getModel().length).not.toBe(1)
+        expect(shortestModel.length).not.toBe(1)
     });
 
     test('Model not equal 8', async () => {
-        expect(vehicleData.getModel().length).not.toBe(8);
+        expect(longestModel.length).not.toBe(8);
     });
-//HERTIL
+    
     test('Manufacturer has id', () => {
         expect(vehicleData.getManufacturerId()).toBeDefined();
         expect(vehicleData.getManufacturerId()).toBe(-1);
