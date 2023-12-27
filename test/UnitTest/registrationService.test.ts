@@ -69,8 +69,12 @@ describe('generateLicenseNumber', () => {
       expect(validSpacing).not.toBeNull();
     });
 
-    test('Type is a string with no leading or trailing whitespaces', () => {
+    test('License is a string with no leading or trailing whitespaces', () => {
       expect(license.trim()).toEqual(license);
+    });
+
+    test('License contains only alphanumeric characters', () => {
+      expect(license).toMatch(/^[a-zA-Z0-9\s]+$/);
     });
   });
 });
@@ -94,7 +98,7 @@ describe('generateVIN', () => {
     expect(vin).toBeDefined();
   });
 
-  test('GVIN contains only alphanumeric characters', () => {
+  test('VIN contains only alphanumeric characters', () => {
     expect(vin).toMatch(/^[a-zA-Z0-9]+$/);
   });
 
@@ -119,7 +123,7 @@ describe('generateVIN', () => {
     expect(vin).toMatch(/^\w{17}$/);
   });
 
-  test('Type is a string with no leading or trailing whitespaces', () => {
+  test('VIN is a string with no leading or trailing whitespaces', () => {
     expect(vin.trim()).toEqual(vin);
   });
 });
@@ -146,7 +150,6 @@ describe('generateRegistration', () => {
 
   test('Registration has id', () => {
     expect(registration.getRegistrationId()).toBeDefined();
-    expect(registration.getRegistrationId()).toBe(-1);
   });
 
   test('RegistrationId equal -1', () => {

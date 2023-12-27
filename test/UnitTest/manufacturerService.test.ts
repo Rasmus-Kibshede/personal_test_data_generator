@@ -29,6 +29,22 @@ describe('generateManufacturer', () => {
         expect(typeof vehicleData).toBe('object');
     });
 
+    test('Vehicle is a string with no leading or trailing whitespaces', () => {
+        expect(vehicleData.getMake().trim()).toEqual(vehicleData.getMake());
+    });
+
+    test('Vehicle is a string with no leading or trailing whitespaces', () => {
+        expect(vehicleData.getModel().trim()).toEqual(vehicleData.getModel());
+    });
+
+    test('Vehicle contains only alphanumeric characters', () => {
+        expect(vehicleData.getMake()).toMatch(/^[a-zA-Z0-9]+$/);
+    });
+
+    test('Vehicle contains only alphanumeric characters', () => {
+        expect(vehicleData.getModel()).toMatch(/^[a-zA-Z0-9\s]+$/);
+    });
+
     test('Vehicle data is of type Manufacturer', () => {
         expect(vehicleData).toBeInstanceOf(Manufacturer)
     });
@@ -50,11 +66,11 @@ describe('generateManufacturer', () => {
 
     test('Make is a string with no leading or trailing whitespaces', () => {
         expect(vehicleData.getMake().trim()).toEqual(vehicleData.getMake());
-      });
+    });
 
-      test('Model is a string with no leading or trailing whitespaces', () => {
+    test('Model is a string with no leading or trailing whitespaces', () => {
         expect(vehicleData.getModel().trim()).toEqual(vehicleData.getModel());
-      });
+    });
 
     test('Vehicle data has valid year', () => {
         const currentYear = new Date().getFullYear();
@@ -82,6 +98,11 @@ describe('generateManufacturer', () => {
     test('Vehicle data model is not null or undefined', () => {
         expect(vehicleData.getModel()).not.toBeNull();
         expect(vehicleData.getModel()).not.toBeUndefined();
+    });
+
+    test('Vehicle data model is not null or undefined', () => {
+        expect(vehicleData.getYear()).not.toBeNull();
+        expect(vehicleData.getYear()).not.toBeUndefined();
     });
 
     test('Vehicle data does not have duplicate makes', () => {
