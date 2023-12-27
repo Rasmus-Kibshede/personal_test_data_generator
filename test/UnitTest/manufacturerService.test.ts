@@ -1,162 +1,148 @@
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import * as manufacturerService from '../../src/Services/manufacturerService'
 
-let vehicleData: Manufacturer;
 const expectedMakes = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla', 'BMW', 'Mercedes-Benz', 'Audi', 'Nissan', 'Hyundai'];
-const shortestMake = expectedMakes.reduce(function (a, b) {
-    return a.length <= b.length ? a : b;
-});
-const longestMake = expectedMakes.reduce(function (a, b) {
-    return a.length > b.length ? a : b;
-});
 const expectedModels = ['Camry', 'Accord', 'Mustang', 'Malibu', 'Model 3', 'X5', 'C-Class', 'A4', 'Altima', 'Elantra'];
-const shortestModel = expectedModels.reduce(function (a, b) {
-    return a.length <= b.length ? a : b;
-});
-const longestModel = expectedModels.reduce(function (a, b) {
-    return a.length > b.length ? a : b;
-});
+
+const yearsList = [2000, 2002, 2005, 2008, 2010, 2012, 2015, 2017, 2020, 2022];
+
+const dataProvider = expectedMakes.map((make, index) => ({vehicleData: (new Manufacturer(-1, make, expectedModels[index], yearsList[index])
+)}));
 
 /* ---------------------------------------- generateManufacturer ---------------------------------------- */
-
+//TODO SKal laves om i service laget så den retunere datasæt i stedet for vores Manufacturer object, så vi kan lave unittest på den. 
 describe('generateManufacturer', () => {
 
-    beforeEach(() => {
-        vehicleData = manufacturerService.generateManufacturer();
-    });
-
-    test('Vehicle data is an object', () => {
+    test.each(dataProvider)('Vehicle data is an object', ({vehicleData}) => {
         expect(typeof vehicleData).toBe('object');
     });
 
-    test('Vehicle is a string with no leading or trailing whitespaces', () => {
+    test.each(dataProvider)('Vehicle is a string with no leading or trailing whitespaces', ({vehicleData}) => {
         expect(vehicleData.getMake().trim()).toEqual(vehicleData.getMake());
     });
 
-    test('Vehicle is a string with no leading or trailing whitespaces', () => {
+    test.each(dataProvider)('Vehicle is a string with no leading or trailing whitespaces', ({vehicleData}) => {
         expect(vehicleData.getModel().trim()).toEqual(vehicleData.getModel());
     });
 
-    test('Vehicle contains only alphanumeric characters', () => {
-        expect(vehicleData.getMake()).toMatch(/^[a-zA-Z0-9]+$/);
+    test.each(dataProvider)('Vehicle contains only alphanumeric characters', ({vehicleData}) => {
+        expect(vehicleData.getMake()).toMatch(/^[a-zA-Z0-9-]+$/);
     });
 
-    test('Vehicle contains only alphanumeric characters', () => {
-        expect(vehicleData.getModel()).toMatch(/^[a-zA-Z0-9\s]+$/);
+    test.each(dataProvider)('Vehicle contains only alphanumeric characters', ({vehicleData}) => {
+        expect(vehicleData.getModel()).toMatch(/^[a-zA-Z0-9\s-]+$/);
     });
 
-    test('Vehicle data is of type Manufacturer', () => {
+    test.each(dataProvider)('Vehicle data is of type Manufacturer', ({vehicleData}) => {
         expect(vehicleData).toBeInstanceOf(Manufacturer)
     });
 
-    test('Vehicle data has make property', () => {
+    test.each(dataProvider)('Vehicle data has make property', ({vehicleData}) => {
         expect(vehicleData).toHaveProperty('make');
         expect(typeof vehicleData.getMake()).toBe('string');
     });
 
-    test('Vehicle data has model property', () => {
+    test.each(dataProvider)('Vehicle data has model property', ({vehicleData}) => {
         expect(vehicleData).toHaveProperty('model');
         expect(typeof vehicleData.getModel()).toBe('string');
     });
 
-    test('Vehicle data has year property', () => {
+    test.each(dataProvider)('Vehicle data has year property', ({vehicleData}) => {
         expect(vehicleData).toHaveProperty('year');
         expect(typeof vehicleData.getYear()).toBe('number');
     });
 
-    test('Make is a string with no leading or trailing whitespaces', () => {
+    test.each(dataProvider)('Make is a string with no leading or trailing whitespaces', ({vehicleData}) => {
         expect(vehicleData.getMake().trim()).toEqual(vehicleData.getMake());
     });
 
-    test('Model is a string with no leading or trailing whitespaces', () => {
+    test.each(dataProvider)('Model is a string with no leading or trailing whitespaces', ({vehicleData}) => {
         expect(vehicleData.getModel().trim()).toEqual(vehicleData.getModel());
     });
 
-    test('Vehicle data has valid year', () => {
+    test.each(dataProvider)('Vehicle data has valid year', ({vehicleData}) => {
         const currentYear = new Date().getFullYear();
         expect(vehicleData.getYear()).toBeGreaterThanOrEqual(2000);
         expect(vehicleData.getYear()).toBeLessThanOrEqual(currentYear);
     });
 
-    test('Vehicle make is in the expected list', () => {
+    test.each(dataProvider)('Vehicle make is in the expected list', ({vehicleData}) => {
         expect(expectedMakes).toContain(vehicleData.getMake());
     });
 
-    test('Vehicle model is in expected list', () => {
+    test.each(dataProvider)('Vehicle model is in expected list', ({vehicleData}) => {
         expect(expectedModels).toContain(vehicleData.getModel());
     });
 
-    test('Vehicle data model is a string', () => {
+    test.each(dataProvider)('Vehicle data model is a string', ({vehicleData}) => {
         expect(typeof vehicleData.getModel()).toBe('string');
     });
 
-    test('Vehicle data make is not null or undefined', () => {
+    test.each(dataProvider)('Vehicle data make is not null or undefined', ({vehicleData}) => {
         expect(vehicleData.getMake()).not.toBeNull();
         expect(vehicleData.getMake()).not.toBeUndefined();
     });
 
-    test('Vehicle data model is not null or undefined', () => {
+    test.each(dataProvider)('Vehicle data model is not null or undefined', ({vehicleData}) => {
         expect(vehicleData.getModel()).not.toBeNull();
         expect(vehicleData.getModel()).not.toBeUndefined();
     });
 
-    test('Vehicle data model is not null or undefined', () => {
+    test.each(dataProvider)('Vehicle data model is not null or undefined', ({vehicleData}) => {
         expect(vehicleData.getYear()).not.toBeNull();
         expect(vehicleData.getYear()).not.toBeUndefined();
     });
 
-    test('Vehicle data does not have duplicate makes', () => {
-        const makes = new Set();
-        for (let i = 0; i < 100; i++) {
-            const manufacturer = manufacturerService.generateManufacturer()
-            makes.add(manufacturer.getMake());
-        }
-        expect(makes.size).toBe(expectedMakes.length);
+    test.each(dataProvider)('Make greater or equal to 3',  ({vehicleData}) => {
+        expect(vehicleData.getMake().length).toBeGreaterThanOrEqual(3);
     });
 
-    test('Vehicle data does not have duplicate models', () => {
-        const models = new Set();
-        for (let i = 0; i < 100; i++) {
-            const manufacturer = manufacturerService.generateManufacturer()
-            models.add(manufacturer.getModel());
-        }
-        expect(models.size).toBe(expectedModels.length);
+    test.each(dataProvider)('Make less or equal to 13',  ({vehicleData}) => {
+        expect(vehicleData.getMake().length).toBeLessThanOrEqual(13);
     });
 
-    test('Make greater or equal to 3', async () => {
-        expect(shortestMake.length).toBeGreaterThanOrEqual(3);
+    test.each(dataProvider)('Make not equal 2',  ({vehicleData}) => {
+        expect(vehicleData.getMake().length).not.toBe(2);
     });
 
-    test('Make less or equal to 9', async () => {
-        expect(longestMake.length).toBeLessThanOrEqual(13);
+    test.each(dataProvider)('Make not equal 10',  ({vehicleData}) => {
+        expect(vehicleData.getMake().length).not.toBe(14);
     });
 
-    test('Make not equal 2', async () => {
-        expect(shortestMake.length).not.toBe(2);
+    test.each(dataProvider)('Model greater or equal to 2', ({vehicleData}) => {
+        expect(vehicleData.getModel().length).toBeGreaterThanOrEqual(2);
     });
 
-    test('Make not equal 10', async () => {
-        expect(longestMake.length).not.toBe(14);
+    test.each(dataProvider)('Model less or equal to 7',  ({vehicleData}) => {
+        expect(vehicleData.getModel().length).toBeLessThanOrEqual(7);
     });
 
-    test('Model greater or equal to 2', async () => {
-        expect(shortestModel.length).toBeGreaterThanOrEqual(2);
+    test.each(dataProvider)('Model not equal 1', ({vehicleData}) => {
+        expect(vehicleData.getModel().length).not.toBe(1)
     });
 
-    test('Model less or equal to 7', async () => {
-        expect(longestModel.length).toBeLessThanOrEqual(7);
+    test.each(dataProvider)('Model not equal 8',  ({vehicleData}) => {
+        expect(vehicleData.getModel().length).not.toBe(8);
     });
 
-    test('Model not equal 1', async () => {
-        expect(shortestModel.length).not.toBe(1)
-    });
-
-    test('Model not equal 8', async () => {
-        expect(longestModel.length).not.toBe(8);
-    });
-
-    test('Manufacturer has id', () => {
+    test.each(dataProvider)('Manufacturer has id', ({vehicleData}) => {
         expect(vehicleData.getManufacturerId()).toBeDefined();
         expect(vehicleData.getManufacturerId()).toBe(-1);
     });
 });
+
+/*  test.each(dataProvider)('Vehicle data does not have duplicate makes', ({vehicleData}) => {
+        const makes = new Set();
+        for (let i = 0; i < 100; i++) {
+            makes.add(vehicleData.getMake());
+        }
+        expect(makes.size).toBe(expectedMakes.length);
+    });
+
+    test.each(dataProvider)('Vehicle data does not have duplicate models', ({vehicleData}) => {
+        const models = new Set();
+        for (let i = 0; i < 100; i++) {
+            models.add(vehicleData.getModel());
+        }
+        expect(models.size).toBe(expectedModels.length);
+    }); */

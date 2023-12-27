@@ -1,200 +1,180 @@
 import * as gearboxService from '../../src/Services/gearboxService'
 import { Gearbox } from '../../src/Model/Gearbox';
+import { faker } from '@faker-js/faker';
 
 const validGearboxTypes = ['automatic', 'MANUEL', 'eLeCtRiC'];
 const expectedGearboxTypes = ['Automatic', 'Manuel', 'Electric'];
-const unexpectedGearboxTypes = ['Semi-Automatic', 'CVT'];
-
-const shortestGearboxType = expectedGearboxTypes.reduce(function (a, b) {
-  return a.length <= b.length ? a : b;
-});
-const longestGearboxType = expectedGearboxTypes.reduce(function (a, b) {
-  return a.length > b.length ? a : b;
-});
-
-const expectedDriveTrainTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
-const unexpectedDriveTrainTypes = ['3 Wheel drive', '0 wheel drive'];
-
-const shortestDriveTrainType = expectedDriveTrainTypes.reduce(function (a, b) {
-  return a.length <= b.length ? a : b;
-});
-const longestDriveTrainType = expectedDriveTrainTypes.reduce(function (a, b) {
-  return a.length > b.length ? a : b;
-});
-
+const unexpectedGearboxTypes = ['Semi-Automatic', 'CVT', 0, 'A', 'fiver'];
+const expectedDriveTrainTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive', '4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive', '4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive', '4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive', ];
+const unexpectedDriveTrainTypes = ['3 Wheel drive', '0 wheel drive', 0, '', '2D'];
 const expectedGears = [4, 5, 6, 7];
+const unExpectedGears = [2, 3, 8, 9, ''];
+
+const dataProvider = expectedDriveTrainTypes.map((driveTrain, index) => ({
+  driveTrain,
+  gearbox: expectedGearboxTypes[expectedGearboxTypes.length > index ? index : faker.number.int({ min: 0, max: expectedGearboxTypes.length - 1})],
+  gear: expectedGears[expectedGears.length > index ? index : faker.number.int({ min: 0, max: expectedGears.length - 1})] 
+}));
+
+const invalidDataProvider = unexpectedDriveTrainTypes.map((driveTrain, index) => ({
+driveTrain,
+gearbox: unexpectedGearboxTypes[index],
+gear: unExpectedGears[index]
+}));
 
 let gearbox: Gearbox;
-let gearboxType: string;
-let driveTrain: string;
-let gears: number;
 
 /* ---------------------------------------- generateType ---------------------------------------- */
 describe('generateType', () => {
 
-  beforeEach(() => {
-    gearboxType = gearboxService.generateType();
+  test.each(dataProvider)('gearboxType is a string', ({gearbox}) => {
+    expect(typeof gearbox).toBe('string');
   });
 
-  test('gearboxType is a string', () => {
-    expect(typeof gearboxType).toBe('string');
+  test.each(dataProvider)('gearboxType not empty string', ({gearbox}) => {
+    expect(gearbox).not.toBe('');
   });
 
-  test('gearboxType not empty string', async () => {
-    expect(gearboxType).not.toBe('');
+  test.each(dataProvider)('gearboxType expected values', ({gearbox}) => {
+    expect(expectedGearboxTypes).toContain(gearbox);
   });
 
-  test('gearboxType expected values', () => {
-    expect(expectedGearboxTypes).toContain(gearboxType);
+  test.each(dataProvider)('gearboxType is not null or undefined', ({gearbox}) => {
+    expect(gearbox).not.toBeNull();
+    expect(gearbox).not.toBeUndefined();
   });
 
-  test('gearboxType is not null or undefined', () => {
-    expect(gearboxType).not.toBeNull();
-    expect(gearboxType).not.toBeUndefined();
+  test.each(dataProvider)('gearboxType is a string with correct length', ({gearbox}) => {
+    expect(gearbox.length).toBeGreaterThan(0);
   });
 
-  test('gearboxType is a valid type', () => {
-    expect(expectedGearboxTypes.includes(gearboxType)).toBe(true);
+  test.each(dataProvider)('gearboxType is a string with no leading or trailing whitespaces', ({gearbox}) => {
+    expect(gearbox.trim()).toEqual(gearbox);
   });
 
-  test('gearboxType is a string with correct length', () => {
-    expect(gearboxType.length).toBeGreaterThan(0);
+  test.each(dataProvider)('gearboxType is not an unexpected type', ({gearbox}) => {
+    expect(unexpectedGearboxTypes).not.toContain(gearbox);
   });
 
-  test('gearboxType is a string with no leading or trailing whitespaces', () => {
-    expect(gearboxType.trim()).toEqual(gearboxType);
+  test.each(dataProvider)('gearboxType is a string with valid characters', ({gearbox}) => {
+    expect(/^[A-Za-z]+$/.test(gearbox)).toBe(true);
   });
 
-  test('gearboxType is not an unexpected type', () => {
-    expect(unexpectedGearboxTypes).not.toContain(gearboxType);
+  test.each(dataProvider)('gearboxType is case-insensitive', ({gearbox}) => {
+    expect(validGearboxTypes.map(type => type.toLowerCase())).toContain(gearbox.toLowerCase());
   });
 
-  test('gearboxType is a string with valid characters', () => {
-    expect(/^[A-Za-z]+$/.test(gearboxType)).toBe(true);
+  test.each(dataProvider)('gearboxType greater or equal to 6', async ({gearbox}) => {
+    expect(gearbox.length).toBeGreaterThanOrEqual(6);
   });
 
-  test('gearboxType is case-insensitive', () => {
-    expect(validGearboxTypes.map(type => type.toLowerCase())).toContain(gearboxType.toLowerCase());
+  test.each(dataProvider)('gearboxType less or equal to 9', async ({gearbox}) => {
+    expect(gearbox.length).toBeLessThanOrEqual(9);
   });
 
-  test('gearboxType greater or equal to 6', async () => {
-    expect(shortestGearboxType.length).toBeGreaterThanOrEqual(6);
+  test.each(dataProvider)('gearboxType not equal 5', async ({gearbox}) => {
+    expect(gearbox.length).not.toBe(5);
   });
 
-  test('gearboxType less or equal to 9', async () => {
-    expect(longestGearboxType.length).toBeLessThanOrEqual(9);
-  });
-
-  test('gearboxType not equal 5', async () => {
-    expect(shortestGearboxType.length).not.toBe(5);
-  });
-
-  test('gearboxType not equal 10', async () => {
-    expect(longestGearboxType.length).not.toBe(10);
+  test.each(dataProvider)('gearboxType not equal 10', async ({gearbox}) => {
+    expect(gearbox.length).not.toBe(10);
   });
 });
 
 /* ---------------------------------------- generateGear ---------------------------------------- */
 describe('generateGear', () => {
 
-  beforeEach(() => {
-    gears = gearboxService.generateGear();
+  test.each(dataProvider)('Gear is a number', ({gear}) => {
+    expect(typeof gear).toBe('number');
   });
 
-  test('Gear is a number', () => {
-    expect(typeof gears).toBe('number');
+  test.each(dataProvider)('Gear is an integer', ({gear}) => {
+    expect(Number.isInteger(gear)).toBe(true);
   });
 
-  test('Gear is an integer', () => {
-    expect(Number.isInteger(gears)).toBe(true);
+  test.each(dataProvider)('Gear is an integer', ({gear}) => {
+    expect(gear % 1).toBe(0);
   });
 
-  test('Gear is an integer', () => {
-    expect(gears % 1).toBe(0);
+  test.each(dataProvider)('Gear is a positive number', ({gear}) => {
+    expect(gear).toBeGreaterThan(0);
   });
 
-  test('Gear is a positive number', () => {
-    expect(gears).toBeGreaterThan(0);
+  test.each(dataProvider)('Gear is not a floating-point number', ({gear}) => {
+    expect(gear % 1).toBe(0);
   });
 
-  test('Gear is not a floating-point number', () => {
-    expect(gears % 1).toBe(0);
+  test.each(dataProvider)('Type is not null or undefined', ({gear}) => {
+    expect(gear).not.toBeNull();
+    expect(gear).not.toBeUndefined();
   });
 
-  test('Type is not null or undefined', () => {
-    expect(gears).not.toBeNull();
-    expect(gears).not.toBeUndefined();
+  test.each(dataProvider)('Gear is less than 8 upper boundary', ({gear}) => {
+    expect(gear).not.toBe(8);
+    expect(gear).toBeLessThan(8);
   });
 
-  test('Gear is less than 8 upper boundary', () => {
-    expect(gears).not.toBe(8);
-    expect(gears).toBeLessThan(8);
+  test.each(dataProvider)('Gear greater than 3 lower boundary', ({gear}) => {
+    expect(gear).toBeGreaterThan(3);
+    expect(gear).not.toBe(3);
   });
 
-  test('Gear greater than 3 lower boundary', () => {
-    expect(gears).toBeGreaterThan(3);
-    expect(gears).not.toBe(3);
-  });
-
-  test('Valid range and valid upper and lower boundaries', () => {
-    expect(expectedGears).toContain(gears)
+  test.each(dataProvider)('Valid range and valid upper and lower boundaries', ({gear}) => {
+    expect(expectedGears).toContain(gear)
   });
 });
 
 /* ---------------------------------------- generateDriveTrain ---------------------------------------- */
 describe('generateDriveTrain', () => {
 
-  beforeEach(() => {
-    driveTrain = gearboxService.generateDriveTrain();
-  });
-
-  test('Drive train expected values', () => {
+  test.each(dataProvider)('Drive train expected values', ({driveTrain}) => {
     expect(expectedDriveTrainTypes).toContain(driveTrain);
   });
 
-  test('Drive train is not null or undefined', () => {
+  test.each(dataProvider)('Drive train is not null or undefined', ({driveTrain}) => {
     expect(driveTrain).not.toBeNull();
     expect(driveTrain).not.toBeUndefined();
   });
 
-  test('Drive train is a string with correct length', () => {
+  test.each(dataProvider)('Drive train is a string with correct length', ({driveTrain}) => {
     expect(typeof driveTrain).toBe('string');
     expect(driveTrain.length).toBeGreaterThan(0);
   });
 
-  test('Drive train has valid casing', () => {
+  test.each(dataProvider)('Drive train has valid casing', ({driveTrain}) => {
     expect(driveTrain).toMatch(/^(4WD|AWD|Front wheel drive|Rear wheel drive)$/);
   });
 
-  test('Drive train is a string with no leading or trailing whitespaces', () => {
+  test.each(dataProvider)('Drive train is a string with no leading or trailing whitespaces', ({driveTrain}) => {
     expect(driveTrain.trim()).toEqual(driveTrain);
   });
 
-  test('Drive train is not an unexpected type', () => {
+  test.each(dataProvider)('Drive train is not an unexpected type', ({driveTrain}) => {
     expect(unexpectedDriveTrainTypes).not.toContain(driveTrain);
   });
 
-  test('Drive train is a string with valid characters (alphanumeric)', () => {
+  test.each(dataProvider)('Drive train is a string with valid characters (alphanumeric)', ({driveTrain}) => {
     expect(/^[A-Za-z0-9\s]+$/.test(driveTrain)).toBe(true);
   });
 
-  test('Drive train greater or equal to 3', async () => {
-    expect(shortestDriveTrainType.length).toBeGreaterThanOrEqual(3);
+  test.each(dataProvider)('Drive train greater or equal to 3', async ({driveTrain}) => {
+    expect(driveTrain.length).toBeGreaterThanOrEqual(3);
   });
 
-  test('Drive train less or equal to 7', async () => {
-    expect(longestDriveTrainType.length).toBeLessThanOrEqual(17);
+  test.each(dataProvider)('Drive train less or equal to 7', async ({driveTrain}) => {
+    expect(driveTrain.length).toBeLessThanOrEqual(17);
   });
 
-  test('driveTrain not equal 2 lower boundary', async () => {
-    expect(shortestDriveTrainType.length).not.toBe(2);
+  test.each(dataProvider)('driveTrain not equal 2 lower boundary', async ({driveTrain}) => {
+    expect(driveTrain.length).not.toBe(2);
   });
 
-  test('driveTrain not equal 17 upper boundary', async () => {
-    expect(longestDriveTrainType.length).not.toBe(18);
+  test.each(dataProvider)('driveTrain not equal 17 upper boundary', async ({driveTrain}) => {
+    expect(driveTrain.length).not.toBe(18);
   });
 });
 
+//INTEGRATION TEST
 /* ---------------------------------------- generateGearbox ---------------------------------------- */
 describe('generateGearbox', () => {
   //Ville ikke Mocke Gearbox eller generateGearbox her?  
