@@ -18,7 +18,7 @@ const vinNumbers = [
 
 /* ---------------------------------------- generateRegistration ---------------------------------------- */
 describe('generateRegistration', () => {
-  
+
   beforeEach(() => {
     registration = registrationService.generateRegistration();
   });
@@ -45,6 +45,15 @@ describe('generateRegistration', () => {
 
   test('RegistrationId equal -1', () => {
     expect(registration.getRegistrationId()).toBe(-1);
+  });
+
+  test('RegistrationId not 0', () => {
+    expect(registration.getRegistrationId()).not.toBe(0);
+  });
+
+  test('RegistrationId not null or undefined', () => {
+    expect(registration).not.toBeNull();
+    expect(registration).not.toBeUndefined();
   });
 });
 
