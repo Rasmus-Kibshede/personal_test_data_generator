@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker';
 const validGearboxTypes = ['automatic', 'MANUEL', 'eLeCtRiC'];
 const expectedGearboxTypes = ['Automatic', 'Manuel', 'Electric'];
 const unexpectedGearboxTypes = ['Semi-Automatic', 'CVT', 0, 'A', 'fiver'];
-const expectedDriveTrainTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive', '4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive', '4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive', '4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive', ];
+const expectedDriveTrainTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
 const unexpectedDriveTrainTypes = ['3 Wheel drive', '0 wheel drive', 0, '', '2D'];
 const expectedGears = [4, 5, 6, 7];
 const unExpectedGears = [2, 3, 8, 9, ''];
@@ -13,9 +13,11 @@ const unExpectedGears = [2, 3, 8, 9, ''];
 const dataProvider = expectedDriveTrainTypes.map((driveTrain, index) => ({
   driveTrain,
   gearbox: expectedGearboxTypes[expectedGearboxTypes.length > index ? index : faker.number.int({ min: 0, max: expectedGearboxTypes.length - 1})],
-  gear: expectedGears[expectedGears.length > index ? index : faker.number.int({ min: 0, max: expectedGears.length - 1})] 
+  gear: expectedGears[expectedGears.length > index ? index : faker.number.int({ min: 0, max: expectedGears.length - 1})],
+  expected: true
 }));
 
+//Skal bruges til at teste invalid data... 
 const invalidDataProvider = unexpectedDriveTrainTypes.map((driveTrain, index) => ({
 driveTrain,
 gearbox: unexpectedGearboxTypes[index],
@@ -28,6 +30,7 @@ let gearbox: Gearbox;
 describe('generateType', () => {
 
   test.each(dataProvider)('gearboxType is a string', ({gearbox}) => {
+    const result = gearboxService.generateType();
     expect(typeof gearbox).toBe('string');
   });
 
