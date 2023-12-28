@@ -5,8 +5,8 @@ const expectedPowerData = [672, 856, 301, 420, 488, 611, 541, 993, 278, 879]
 const expectedTypeData = ['V8', '4cyl', 'V12', 'V6', 'Electric', 'V10']
 const expectedFuelTypeData = ['Diesel', 'Petrol', 'Hybrid', 'Petrol', 'AC']
 
-const dataProvider = expectedPowerData.map((HP, index) => ({
-  HP,
+const dataProvider = expectedPowerData.map((hp, index) => ({
+  hp,
   engine: expectedTypeData[expectedTypeData.length > index ? index : faker.number.int({ min: 0, max: expectedTypeData.length - 1 })],
   fuelType: expectedFuelTypeData[expectedFuelTypeData.length > index ? index : faker.number.int({ min: 0, max: expectedFuelTypeData.length - 1 })]
 }));
@@ -21,48 +21,48 @@ describe('generatePower', () => {
     expect(expectedTypeData).toContain(result);
   })
 
-  test.each(dataProvider)('Generated power is within the specified range', ({ HP }) => {
-    expect(HP).toBeGreaterThanOrEqual(150);
-    expect(HP).toBeLessThanOrEqual(1100);
+  test.each(dataProvider)('Generated power is within the specified range', ({ hp }) => {
+    expect(hp).toBeGreaterThanOrEqual(150);
+    expect(hp).toBeLessThanOrEqual(1100);
   });
 
-  test.each(dataProvider)('Power is less than 1101 upper boundary', ({ HP }) => {
-    expect(HP).not.toBe(1101);
-    expect(HP).toBeLessThan(1100);
+  test.each(dataProvider)('Power is less than 1101 upper boundary', ({ hp }) => {
+    expect(hp).not.toBe(1101);
+    expect(hp).toBeLessThan(1100);
   });
 
-  test.each(dataProvider)('Power greater than 149 lower boundary', ({ HP }) => {
-    expect(HP).toBeGreaterThan(150);
-    expect(HP).not.toBe(149);
+  test.each(dataProvider)('Power greater than 149 lower boundary', ({  hp }) => {
+    expect(hp).toBeGreaterThan(150);
+    expect(hp).not.toBe(149);
   });
 
-  test.each(dataProvider)('Power is in expected range', ({ HP }) => {
-    expect(expectedPowerData).toContain(HP);
+  test.each(dataProvider)('Power is in expected range', ({  hp }) => {
+    expect(expectedPowerData).toContain(hp);
   });
 
-  test.each(dataProvider)('Power is a number', ({ HP }) => {
-    expect(typeof HP).toBe('number');
+  test.each(dataProvider)('Power is a number', ({  hp }) => {
+    expect(typeof hp).toBe('number');
   });
 
-  test.each(dataProvider)('Power is an integer', ({ HP }) => {
-    expect(Number.isInteger(HP)).toBe(true);
+  test.each(dataProvider)('Power is an integer', ({ hp }) => {
+    expect(Number.isInteger(hp)).toBe(true);
   });
 
-  test.each(dataProvider)('Power is not a string', ({ HP }) => {
-    expect(HP).not.toBe('string');
+  test.each(dataProvider)('Power is not a string', ({ hp }) => {
+    expect(hp).not.toBe('string');
   });
 
-  test.each(dataProvider)('Power is a positive number', ({ HP }) => {
-    expect(HP).toBeGreaterThan(0);
+  test.each(dataProvider)('Power is a positive number', ({ hp }) => {
+    expect(hp).toBeGreaterThan(0);
   });
 
-  test.each(dataProvider)('Power is not a floating-point number', ({ HP }) => {
-    expect(HP % 1).toBe(0);
+  test.each(dataProvider)('Power is not a floating-point number', ({ hp }) => {
+    expect(hp % 1).toBe(0);
   });
 
-  test.each(dataProvider)('Type is not null or undefined', ({ HP }) => {
-    expect(HP).not.toBeNull();
-    expect(HP).not.toBeUndefined();
+  test.each(dataProvider)('Type is not null or undefined', ({ hp }) => {
+    expect(hp).not.toBeNull();
+    expect(hp).not.toBeUndefined();
   });
 });
 
