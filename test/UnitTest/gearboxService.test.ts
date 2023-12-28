@@ -1,5 +1,5 @@
 import * as gearboxService from '../../src/Services/gearboxService'
-import { faker } from '@faker-js/faker';
+
 
 let gearboxType: string
 let gear: number;

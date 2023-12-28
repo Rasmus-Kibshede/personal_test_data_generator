@@ -1,66 +1,63 @@
-import { faker } from '@faker-js/faker';
 import * as engineService from '../../src/Services/engineService'
 
-const expectedPowerData = [672, 856, 301, 420, 488, 611, 541, 993, 278, 879]
+let hp: number;
+let engine: string;
+let fuelType: string;
+
 const expectedTypeData = ['V8', '4cyl', 'V12', 'V6', 'Electric', 'V10']
 const expectedFuelTypeData = ['Diesel', 'Petrol', 'Hybrid', 'Petrol', 'AC']
-
-const dataProvider = expectedPowerData.map((hp, index) => ({
-  hp,
-  engine: expectedTypeData[expectedTypeData.length > index ? index : faker.number.int({ min: 0, max: expectedTypeData.length - 1 })],
-  fuelType: expectedFuelTypeData[expectedFuelTypeData.length > index ? index : faker.number.int({ min: 0, max: expectedFuelTypeData.length - 1 })]
-}));
 
 
 /* ---------------------------------------- generatePower ---------------------------------------- */
 
 
 describe('generatePower', () => {
+
+  beforeEach(() => {
+    hp = engineService.generatePower();
+  });
+
   test('test coverage', () => {
     const result = engineService.generateType();
     expect(expectedTypeData).toContain(result);
   })
 
-  test.each(dataProvider)('Generated power is within the specified range', ({ hp }) => {
+  test('Generated power is within the specified range', () => {
     expect(hp).toBeGreaterThanOrEqual(150);
     expect(hp).toBeLessThanOrEqual(1100);
   });
 
-  test.each(dataProvider)('Power is less than 1101 upper boundary', ({ hp }) => {
+  test('Power is less than 1101 upper boundary', () => {
     expect(hp).not.toBe(1101);
     expect(hp).toBeLessThan(1100);
   });
 
-  test.each(dataProvider)('Power greater than 149 lower boundary', ({  hp }) => {
+  test('Power greater than 149 lower boundary', () => {
     expect(hp).toBeGreaterThan(150);
     expect(hp).not.toBe(149);
   });
 
-  test.each(dataProvider)('Power is in expected range', ({  hp }) => {
-    expect(expectedPowerData).toContain(hp);
-  });
-
-  test.each(dataProvider)('Power is a number', ({  hp }) => {
+  test('Power is a number', () => {
     expect(typeof hp).toBe('number');
   });
 
-  test.each(dataProvider)('Power is an integer', ({ hp }) => {
+  test('Power is an integer', () => {
     expect(Number.isInteger(hp)).toBe(true);
   });
 
-  test.each(dataProvider)('Power is not a string', ({ hp }) => {
+  test('Power is not a string', () => {
     expect(hp).not.toBe('string');
   });
 
-  test.each(dataProvider)('Power is a positive number', ({ hp }) => {
+  test('Power is a positive number', () => {
     expect(hp).toBeGreaterThan(0);
   });
 
-  test.each(dataProvider)('Power is not a floating-point number', ({ hp }) => {
+  test('Power is not a floating-point number', () => {
     expect(hp % 1).toBe(0);
   });
 
-  test.each(dataProvider)('Type is not null or undefined', ({ hp }) => {
+  test('Type is not null or undefined', () => {
     expect(hp).not.toBeNull();
     expect(hp).not.toBeUndefined();
   });
@@ -71,42 +68,46 @@ describe('generatePower', () => {
 
 describe('generateType', () => {
 
-  test.each(dataProvider)('Engine type is one of the defined types', ({ engine }) => {
+  beforeEach(() => {
+    engine = engineService.generateType();
+  });
+
+  test('Engine type is one of the defined types', () => {
     expect(expectedTypeData).toContain(engine);
   });
 
-  test.each(dataProvider)('Engine type is a string', ({ engine }) => {
+  test('Engine type is a string', () => {
     expect(typeof engine).toBe('string');
   });
 
-  test.each(dataProvider)('Engine type is not an empty string', ({ engine }) => {
+  test('Engine type is not an empty string', () => {
     expect(engine).not.toBe('');
   });
 
-  test.each(dataProvider)('Engine type is not null or undefined', ({ engine }) => {
+  test('Engine type is not null or undefined', () => {
     expect(engine).not.toBeNull();
     expect(engine).not.toBeUndefined();
   });
 
-  test.each(dataProvider)('Engine type is a string with no leading or trailing whitespaces', ({ engine }) => {
+  test('Engine type is a string with no leading or trailing whitespaces', () => {
     expect(engine.trim()).toEqual(engine);
   });
 
-  test.each(dataProvider)('Engine type is not an unexpected type', ({ engine }) => {
+  test('Engine type is not an unexpected type', () => {
     const unexpectedTypes = ['2cyl', 'rotery'];
     expect(unexpectedTypes).not.toContain(engine);
   });
 
-  test.each(dataProvider)('Engine is a string with valid characters', ({ engine }) => {
+  test('Engine is a string with valid characters', () => {
     expect(/^[A-Za-z0-9\s]+$/.test(engine)).toBe(true);
   });
 
-  test.each(dataProvider)('Engine is less than 8 upper boundary', ({ engine }) => {
+  test('Engine is less than 8 upper boundary', () => {
     expect(engine.length).not.toBe(9);
     expect(engine.length).toBeLessThan(9);
   });
 
-  test.each(dataProvider)('Engine greater than 3 lower boundary', ({ engine }) => {
+  test('Engine greater than 3 lower boundary', () => {
     expect(engine.length).toBeGreaterThan(1);
     expect(engine.length).not.toBe(1);
   });
@@ -116,24 +117,29 @@ describe('generateType', () => {
 /* ---------------------------------------- generateFuelType ---------------------------------------- */
 
 describe('generateType', () => {
-  test.each(dataProvider)('Fuel type is a string', ({ fuelType }) => {
-    expect(typeof fuelType).toBe('string');
+
+  beforeEach(() => {
+    fuelType = engineService.generateFuelType('v8');
   });
 
-  test.each(dataProvider)('Fuel Type is not an empty string', ({ fuelType }) => {
+  test('Fuel type is a string', () => {
+    expect(typeof engineService.generateFuelType(engine)).toBe('string');
+  });
+
+  test('Fuel Type is not an empty string', () => {
     expect(fuelType).not.toBe('');
   });
 
-  test.each(dataProvider)('Fuel type is not null or undefined', ({ fuelType }) => {
+  test('Fuel type is not null or undefined', () => {
     expect(fuelType).not.toBeNull();
     expect(fuelType).not.toBeUndefined();
   });
 
-  test.each(dataProvider)('Type is a string with no leading or trailing whitespaces', ({ fuelType }) => {
+  test('Type is a string with no leading or trailing whitespaces', () => {
     expect(fuelType.trim()).toEqual(fuelType);
   });
 
-  test.each(dataProvider)('Fuel type is not an unexpected type', ({ fuelType }) => {
+  test('Fuel type is not an unexpected type', () => {
     const unexpectedTypes = ['Biodiesel', 'Random fuel'];
     expect(unexpectedTypes).not.toContain(fuelType);
   });
@@ -143,15 +149,15 @@ describe('generateType', () => {
     expect(generatedFuelType).toBe('AC');
   });
 
-  test.each(dataProvider)('Fuel type greater or equal to 2', async ({ fuelType }) => {
+  test('Fuel type greater or equal to 2', async () => {
     expect(fuelType.length).toBeGreaterThanOrEqual(2);
   });
 
-  test.each(dataProvider)('Fuel type less or equal to 6', async ({ fuelType }) => {
+  test('Fuel type less or equal to 6', async () => {
     expect(fuelType.length).toBeLessThanOrEqual(6);
   });
 
-  test.each(dataProvider)('Fuel type contains', ({ fuelType }) => {
+  test('Fuel type contains', () => {
     const expectedTypes = ['Diesel', 'Petrol', 'Hybrid', 'AC'];
     expect(expectedTypes).toContain(fuelType);
   });

@@ -62,8 +62,4 @@ describe('generateChassis', () => {
         expect(chassis.getWheel()).not.toBeNull();
         expect(chassis.getWheel()).not.toBeUndefined();
       });
-
-      
-
-
 });

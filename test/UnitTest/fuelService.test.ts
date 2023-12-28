@@ -1,57 +1,59 @@
-const expectedRangeData = [511, 672, 589, 764, 385, 824, 554, 389, 745, 551]
-const expectedFuelTankData = [48, 55, 61, 57, 50, 59, 56, 52, 64, 53]
+import * as fuelService from '../../src/Services/fuelService'
 
-const dataProvider = expectedRangeData.map((range, index) => ({
-  range,
-  fuelTank: expectedFuelTankData[index]
-}))
+let range: number;
+let fuelTank: number;
+
 
 /* ---------------------------------------- generateRange ---------------------------------------- */
 describe('generateRange', () => {
 
-  test.each(dataProvider)('Range is a number', ({range}) => {
+  beforeEach(() => {
+    range = fuelService.generateRange();
+  });
+
+  test('Range is a number', () => {
     expect(typeof range).toBe('number');
   });
 
-  test.each(dataProvider)('Range is an integer', ({range}) => {
+  test('Range is an integer', () => {
     expect(Number.isInteger(range)).toBe(true);
   });
 
-  test.each(dataProvider)('Range is not null or undefined', ({range}) => {
+  test('Range is not null or undefined', () => {
     expect(range).not.toBeNull();
     expect(range).not.toBeUndefined();
   });
 
-  test.each(dataProvider)('Range is within the expected range', ({range}) => {
+  test('Range is within the expected range', () => {
     const expectedMin = 350;
     const expectedMax = 900;
     expect(range).toBeGreaterThanOrEqual(expectedMin);
     expect(range).toBeLessThanOrEqual(expectedMax);
   });
 
-  test.each(dataProvider)('Range is an integer', ({range}) => {
+  test('Range is an integer', () => {
     expect(range % 1).toBe(0);
   });
 
-  test.each(dataProvider)('Range is a positive number', ({range}) => {
+  test('Range is a positive number', () => {
     expect(range).toBeGreaterThan(0);
   });
 
-  test.each(dataProvider)('Range is less than 901', ({range}) => {
+  test('Range is less than 901', () => {
     expect(range).toBeLessThan(901);
   });
 
-  test.each(dataProvider)('Range is not a floating-point number', ({range}) => {
+  test('Range is not a floating-point number', () => {
     expect(range % 1).toBe(0);
   });
 
 
-  test.each(dataProvider)('Range is less than 901 upper boundary', ({range}) => {
+  test('Range is less than 901 upper boundary', () => {
     expect(range).not.toBe(901);
     expect(range).toBeLessThan(901);
   });
 
-  test.each(dataProvider)('Range greater than 349 lower boundary', ({range}) => {
+  test('Range greater than 349 lower boundary', () => {
     expect(range).toBeGreaterThan(349);
     expect(range).not.toBe(349);
   });
@@ -61,45 +63,49 @@ describe('generateRange', () => {
 /* ---------------------------------------- generateFuelTank ---------------------------------------- */
 describe('generateFuelTank', () => {
 
-  test.each(dataProvider)('Fuel tank is a number', ({fuelTank}) => {
+  beforeEach(() => {
+    fuelTank = fuelService.generateFuelTank();
+  });
+
+  test('Fuel tank is a number', () => {
     expect(typeof fuelTank).toBe('number');
   });
 
-  test.each(dataProvider)('Fuel tank is an integer', ({fuelTank}) => {
+  test('Fuel tank is an integer', () => {
     expect(Number.isInteger(fuelTank)).toBe(true);
   });
 
-  test.each(dataProvider)('Fuel tank is not null or undefined', ({fuelTank}) => {
+  test('Fuel tank is not null or undefined', () => {
     expect(fuelTank).not.toBeNull();
     expect(fuelTank).not.toBeUndefined();
   });
 
-  test.each(dataProvider)('Fuel tank is an integer', ({fuelTank}) => {
+  test('Fuel tank is an integer', () => {
     expect(fuelTank % 1).toBe(0);
   });
 
-  test.each(dataProvider)('Fuel tank is within the expected range', ({fuelTank}) => {
+  test('Fuel tank is within the expected range', () => {
     const expectedMin = 45;
     const expectedMax = 65;
     expect(fuelTank).toBeGreaterThanOrEqual(expectedMin);
     expect(fuelTank).toBeLessThanOrEqual(expectedMax);
   });
 
-  test.each(dataProvider)('Fuel tank is a positive number', ({fuelTank}) => {
+  test('Fuel tank is a positive number', () => {
     expect(fuelTank).toBeGreaterThan(0);
   });
 
-  test.each(dataProvider)('Fuel tank is less than 66 upper boundary', ({fuelTank}) => {
+  test('Fuel tank is less than 66 upper boundary', () => {
     expect(fuelTank).toBeLessThan(66);
     expect(fuelTank).not.toBe(66)
   });
 
-  test.each(dataProvider)('Fuel tank is less than 44 lower boundary', ({fuelTank}) => {
+  test('Fuel tank is less than 44 lower boundary', () => {
     expect(fuelTank).toBeGreaterThan(44);
     expect(fuelTank).not.toBe(44)
   });
 
-  test.each(dataProvider)('Fuel tank is not a floating-point number', ({fuelTank}) => {
+  test('Fuel tank is not a floating-point number', () => {
     expect(fuelTank % 1).toBe(0);
   });
 });

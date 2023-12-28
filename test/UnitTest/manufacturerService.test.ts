@@ -132,19 +132,3 @@ describe('generateManufacturer', () => {
         expect(vehicleData.getManufacturerId()).toBe(-1);
     });
 });
-
-/*  test.each(dataProvider)('Vehicle data does not have duplicate makes', ({vehicleData}) => {
-        const makes = new Set();
-        for (let i = 0; i < 100; i++) {
-            makes.add(vehicleData.getMake());
-        }
-        expect(makes.size).toBe(expectedMakes.length);
-    });
-
-    test.each(dataProvider)('Vehicle data does not have duplicate models', ({vehicleData}) => {
-        const models = new Set();
-        for (let i = 0; i < 100; i++) {
-            models.add(vehicleData.getModel());
-        }
-        expect(models.size).toBe(expectedModels.length);
-    }); */
