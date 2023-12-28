@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { Registration } from '../../src/Model/Registration';
 import * as registrationService from '../../src/Services/registrationService';
+
 const plates = [
   'AB 34 567', 'CD 56 789', 'EF 78 901', 'GH 90 123', 'IJ 12 345', 'KL 23 456', 'MN 45 678',
   'OP 67 890', 'QR 89 012', 'ST 01 234', 'UV 12 345', 'WX 34 567', 'YZ 56 789', 'AA 78 901',
@@ -18,7 +18,7 @@ const dataProvider = plates.map((plate, index) => ({
   vin: vinNumbers[vinNumbers.length > index ? index : faker.number.int({ min: 0, max: vinNumbers.length - 1})],
 }));
 
-let registration: Registration;
+
 
 /* ---------------------------------------- generateLicenseNumber ---------------------------------------- */
 describe('generateLicenseNumber', () => {
@@ -121,36 +121,5 @@ describe('generateVIN', () => {
 
   test.each(dataProvider)('VIN is a string with no leading or trailing whitespaces', ({vin}) => {
     expect(vin.trim()).toEqual(vin);
-  });
-});
-
-
-//INTEGRATION TEST!
-/* ---------------------------------------- generateRegistration ---------------------------------------- */
-describe('generateRegistration', () => {
-  //Ville ikke Mocke Registraition eller generateRegistration her? 
-
-  beforeEach(() => {
-    registration = registrationService.generateRegistration();
-  });
-
-  test('Registration instanceOf Registration', () => {
-    expect(registration).toBeInstanceOf(Registration);
-  });
-
-  test('Registration correct licensNumber', () => {
-    expect(plates).toContain(registration.getLicenseNumber())
-  });
-
-  test('Registration correct VIN', () => {
-    expect(vinNumbers).toContain(registration.getVIN());
-  });
-
-  test('Registration has id', () => {
-    expect(registration.getRegistrationId()).toBeDefined();
-  });
-
-  test('RegistrationId equal -1', () => {
-    expect(registration.getRegistrationId()).toBe(-1);
   });
 });
