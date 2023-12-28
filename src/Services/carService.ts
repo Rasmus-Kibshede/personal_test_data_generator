@@ -21,9 +21,6 @@ export const generateCar =  async () => {
 };
 
 export const generateCars = (choice: number) => {
-    if(!choice){
-        return failed(new Error('No cars generated.'))
-    }
    const cars: Car[] = [];
     Array.from({ length: choice }, () => {
         const door = generateDoor();
@@ -31,8 +28,8 @@ export const generateCars = (choice: number) => {
         cars.push(car);
         car.setVehicleId(cars.length)
       });
-      return success(cars)
-}
+      return cars;
+};
 
 export const getCarById =async (id:number) => {
     return carRepository.getCarById(id);

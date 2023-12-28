@@ -1,18 +1,24 @@
+import 'dotenv/config'
+import { connection } from '../../src/Repositories/data-source';
 import { Car } from '../../src/Model/Vehicle';
 import * as carService from '../../src/Services/carService'
+import { after } from 'node:test';
 
 //let car: Car;
 
-let car: any;
+let car: Car;
+let cars: Car[];
+let choice: number;
+
+afterAll(() => {
+    connection.end();
+})
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
 
-    beforeEach(() => {
+    beforeEach(async () => {
         const door = [3, 5]
-         car = carService.generateCar();
-         if(!car){
-
-         }
+        car = await carService.generateCar() as unknown as Car;
     });
 
     test('car is an object', () => {
@@ -27,8 +33,12 @@ describe('generatecar', () => {
         expect(car.getVehicleId()).toBeDefined();
     });
 
-    test('carId equal -1', () => {
-        expect(car.getVehicleId()).toBe(-1);
+    test('carId greater then -1', () => {
+        expect(car.getVehicleId()).toBeGreaterThan(-1);
+    });
+
+    test('carId greater then -1', () => {
+        expect(car.getVehicleId()).not.toBe(-1);
     });
 
     test('carId not 0', () => {
@@ -80,3 +90,29 @@ describe('generatecar', () => {
         expect(car.getRegistration()).not.toBeUndefined();
     });
 });
+
+/* ---------------------------------------- generateCars ---------------------------------------- */
+
+describe('generatecars', () => {
+
+    beforeEach(() => {
+        choice = 10;
+        cars = carService.generateCars(10);
+    });
+
+    test('Color not null or undefined', () => {
+        expect(cars.length).toBe(choice);
+        
+    });
+});
+
+describe('generatecars', () => {
+
+    test('Color not null or undefined', () => {
+        car = carService.getCarById(1) as unknown as Car;
+        expect(typeof car.getVehicleId()).toBe('number');
+        
+    });
+
+});
+
