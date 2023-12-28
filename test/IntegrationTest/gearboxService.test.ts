@@ -3,8 +3,11 @@ import * as gearboxService from '../../src/Services/gearboxService'
 
 let gearbox: Gearbox;
 
+const expectedGearboxTypes = ['Automatic', 'Manuel', 'Electric'];
+const expectedGears = [4, 5, 6, 7];
+const expectedDriveTrainTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
 
-/* ---------------------------------------- generateRegistration ---------------------------------------- */
+/* ---------------------------------------- generateGearbox ---------------------------------------- */
 describe('generateRegistration', () => {
 
     beforeEach(() => {
@@ -13,7 +16,7 @@ describe('generateRegistration', () => {
 
     test('Registration',()=>{
         expect(typeof gearbox).toBe('object')
-      })
+      });
     
       test('Registration instanceOf Registration', () => {
         expect(gearbox).toBeInstanceOf(Gearbox);
@@ -37,3 +40,29 @@ describe('generateRegistration', () => {
       });
 
 });
+
+//INTEGRATION TEST
+/* ---------------------------------------- generateGearbox ---------------------------------------- */
+describe('generateGearbox', () => {
+    //Ville ikke Mocke Gearbox eller generateGearbox her?  
+    beforeEach(() => {
+      gearbox = gearboxService.generateGearbox();
+    });
+  
+    test('Gearbox correct type', () => {
+      expect(expectedGearboxTypes).toContain(gearbox.getType())
+    });
+  
+    test('Gearbox correct gear', () => {
+      expect(expectedGears).toContain(gearbox.getGears());
+    });
+  
+    test('Gearbox correct driveTrain', () => {
+      expect(expectedDriveTrainTypes).toContain(gearbox.getDriveTrain());
+    });
+  
+    test('Gearbox has id', () => {
+      expect(gearbox.getGearboxId()).toBeDefined();
+      expect(gearbox.getGearboxId()).toBe(-1);
+    });
+  });

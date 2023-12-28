@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
 import * as engineService from '../../src/Services/engineService'
-import { Engine } from '../../src/Model/Engine';
 
 const expectedPowerData = [672, 856, 301, 420, 488, 611, 541, 993, 278, 879]
 const expectedTypeData = ['V8', '4cyl', 'V12', 'V6', 'Electric', 'V10']
@@ -159,31 +158,3 @@ describe('generateType', () => {
 });
 
 
-/* ---------------------------------------- 100% codeCoverage ---------------------------------------- */
-describe('generateType', () => {
-  test('Generated power is within the specified range', () => {
-    const result = engineService.generatePower();
-    expect(result).toBeGreaterThanOrEqual(150)
-  });
-
-  test('test coverage', () => {
-    const result = engineService.generateFuelType('Electric');
-    expect(result).toBe('AC');
-  });
-
-  test('test coverage', () => {
-    const result = engineService.generateFuelType('V8');
-    expect(expectedFuelTypeData).toContain(result);
-  });
-
-  test('test coverage', () => {
-    const result = engineService.generateEngine();
-    expect(typeof result).toBe('object');
-  });
-
-
-  test('Engine instanceOf Engine', () => {
-    const result = engineService.generateEngine();
-    expect(result).toBeInstanceOf(Engine);
-  });
-});

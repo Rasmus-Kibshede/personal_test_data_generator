@@ -176,33 +176,3 @@ describe('generateDriveTrain', () => {
     expect(driveTrain.length).not.toBe(18);
   });
 });
-
-//INTEGRATION TEST
-/* ---------------------------------------- generateGearbox ---------------------------------------- */
-describe('generateGearbox', () => {
-  //Ville ikke Mocke Gearbox eller generateGearbox her?  
-  beforeEach(() => {
-    gearbox = gearboxService.generateGearbox();
-  });
-
-  test('Gearbox instanceOf Gearbox', () => {
-    expect(gearbox).toBeInstanceOf(Gearbox);
-  });
-
-  test('Gearbox correct type', () => {
-    expect(expectedGearboxTypes).toContain(gearbox.getType())
-  });
-
-  test('Gearbox correct gear', () => {
-    expect(expectedGears).toContain(gearbox.getGears());
-  });
-
-  test('Gearbox correct driveTrain', () => {
-    expect(expectedDriveTrainTypes).toContain(gearbox.getDriveTrain());
-  });
-
-  test('Gearbox has id', () => {
-    expect(gearbox.getGearboxId()).toBeDefined();
-    expect(gearbox.getGearboxId()).toBe(-1);
-  });
-});

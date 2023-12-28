@@ -5,36 +5,65 @@ import * as chassisService from '../../src/Services/chassisService'
 let chassis: Chassis;
 
 
-/* ---------------------------------------- generateRegistration ---------------------------------------- */
-describe('generateRegistration', () => {
+/* ---------------------------------------- generateChassis ---------------------------------------- */
+describe('generateChassis', () => {
 
     beforeEach(() => {
         const door = [3,5]
         chassis = chassisService.generateChassis(door[faker.number.int({ min: 0, max: door.length - 1})]);
     });
 
-    test('Registration',()=>{
+    test('Chassis is an object',()=>{
         expect(typeof chassis).toBe('object')
       })
     
-      test('Registration instanceOf Registration', () => {
+      test('Chassis instanceOf Chassis', () => {
         expect(chassis).toBeInstanceOf(Chassis);
       });
 
-      test('Registration has id', () => {
+      test('Chassis has id', () => {
         expect(chassis.getChassisId()).toBeDefined();
       });
 
-      test('RegistrationId equal -1', () => {
+      test('ChassisId equal -1', () => {
         expect(chassis.getChassisId()).toBe(-1);
       });
     
-      test('RegistrationId not 0', () => {
+      test('ChassisId not 0', () => {
         expect(chassis.getChassisId()).not.toBe(0);
       });
     
-      test('RegistrationId not null or undefined', () => {
+      test('Chassis not null or undefined', () => {
         expect(chassis).not.toBeNull();
         expect(chassis).not.toBeUndefined();
       });
+
+      test('ChassisId not null or undefined', () => {
+        expect(chassis.getChassisId()).not.toBeNull();
+        expect(chassis.getChassisId()).not.toBeUndefined();
+      });
+
+      test('Capacity not null or undefined', () => {
+        expect(chassis.getCapacity()).not.toBeNull();
+        expect(chassis.getCapacity()).not.toBeUndefined();
+      });
+
+      test('Color not null or undefined', () => {
+        expect(chassis.getColor()).not.toBeNull();
+        expect(chassis.getColor()).not.toBeUndefined();
+      });
+
+      test('Color not null or undefined', () => {
+        expect(chassis.getWheel()).not.toBeNull();
+        expect(chassis.getWheel()).not.toBeUndefined();
+      });
+
+      test('Color not null or undefined', () => {
+        expect(chassis.getWheel()).not.toBeNull();
+        expect(chassis.getWheel()).not.toBeUndefined();
+      });
+
+      
+
+
 });
