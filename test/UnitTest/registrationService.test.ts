@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
 import * as registrationService from '../../src/Services/registrationService';
 
+let licence: string;
+let vin: string;
 const plates = [
   'AB 34 567', 'CD 56 789', 'EF 78 901', 'GH 90 123', 'IJ 12 345', 'KL 23 456', 'MN 45 678',
   'OP 67 890', 'QR 89 012', 'ST 01 234', 'UV 12 345', 'WX 34 567', 'YZ 56 789', 'AA 78 901',
@@ -15,7 +17,7 @@ const vinNumbers = [
 
 const dataProvider = plates.map((plate, index) => ({
   plate,
-  vin: vinNumbers[vinNumbers.length > index ? index : faker.number.int({ min: 0, max: vinNumbers.length - 1})],
+  vin: vinNumbers[vinNumbers.length > index ? index : faker.number.int({ min: 0, max: vinNumbers.length - 1 })],
 }));
 
 
@@ -23,58 +25,62 @@ const dataProvider = plates.map((plate, index) => ({
 /* ---------------------------------------- generateLicenseNumber ---------------------------------------- */
 describe('generateLicenseNumber', () => {
 
+  beforeEach(() => {
+    licence = registrationService.generateLicenseNumber();
+  });
+
   describe('Testing valid data in generateLicenseNumber', () => {
 
-    test.each(dataProvider)('String validation', ({plate}) => {
+    test.each(dataProvider)('String validation', ({ plate }) => {
       expect(typeof plate).toBe('string');
     });
 
-    test.each(dataProvider)('Validating string is not empty', ({plate}) => {
+    test.each(dataProvider)('Validating string is not empty', ({ plate }) => {
       expect(plate).not.toBe('');
     });
 
-    test.each(dataProvider)('License has correct length', ({plate}) => {
+    test.each(dataProvider)('License has correct length', ({ plate }) => {
       expect(plate.length).toBe(9);
     });
 
-    test.each(dataProvider)('Testing License format AA 12 345', ({plate}) => {
+    test.each(dataProvider)('Testing License format AA 12 345', ({ plate }) => {
       const pattern = /^[A-Z]{2} \d{2} \d{3}$/;
       expect(plate).toMatch(pattern);
     });
 
-    test.each(dataProvider)('License number invalid characters', ({plate}) => {
+    test.each(dataProvider)('License number invalid characters', ({ plate }) => {
       expect(plate).not.toMatch(/[^A-Z\d\s]/);
     });
 
-    test.each(dataProvider)('License number within expected range', ({plate}) => {
+    test.each(dataProvider)('License number within expected range', ({ plate }) => {
       expect(plates).toContain(plate);
     });
 
-    test.each(dataProvider)('License number correct number of spaces', ({plate}) => {
+    test.each(dataProvider)('License number correct number of spaces', ({ plate }) => {
       const spaceCount = plate.split(' ').length - 1;
       expect(spaceCount).toBe(2);
     });
 
-    test.each(dataProvider)('License number has uppercase letters', ({plate}) => {
+    test.each(dataProvider)('License number has uppercase letters', ({ plate }) => {
       const uppercaseLetters = plate.match(/[A-Z]/g);
       expect(uppercaseLetters).not.toBeNull();
     });
 
-    test.each(dataProvider)('License number has digits', ({plate}) => {
+    test.each(dataProvider)('License number has digits', ({ plate }) => {
       const digits = plate.match(/\d/g);
       expect(digits).not.toBeNull();
     });
 
-    test.each(dataProvider)('License number has valid spacing', ({plate}) => {
+    test.each(dataProvider)('License number has valid spacing', ({ plate }) => {
       const validSpacing = plate.match(/[A-Z]{2} \d{2} \d{3}/);
       expect(validSpacing).not.toBeNull();
     });
 
-    test.each(dataProvider)('License is a string with no leading or trailing whitespaces', ({plate}) => {
+    test.each(dataProvider)('License is a string with no leading or trailing whitespaces', ({ plate }) => {
       expect(plate.trim()).toEqual(plate);
     });
 
-    test.each(dataProvider)('License contains only alphanumeric characters', ({plate}) => {
+    test.each(dataProvider)('License contains only alphanumeric characters', ({ plate }) => {
       expect(plate).toMatch(/^[a-zA-Z0-9\s]+$/);
     });
   });
@@ -82,44 +88,49 @@ describe('generateLicenseNumber', () => {
 
 /* ---------------------------------------- generateVIN ---------------------------------------- */
 describe('generateVIN', () => {
-  test.each(dataProvider)('String validation', ({vin}) => {
+
+  beforeEach(() => {
+    vin = registrationService.generateVIN();
+  });
+
+  test.each(dataProvider)('String validation', ({ vin }) => {
     expect(typeof vin).toBe('string');
   });
 
-  test.each(dataProvider)('Validating string is not empty', async ({vin}) => {
+  test.each(dataProvider)('Validating string is not empty', async ({ vin }) => {
     expect(vin).not.toBe('');
   });
 
-  test.each(dataProvider)('VIN is not null or undefined', ({vin}) => {
+  test.each(dataProvider)('VIN is not null or undefined', ({ vin }) => {
     expect(vin).toBeDefined();
   });
 
-  test.each(dataProvider)('VIN contains only alphanumeric characters', ({vin}) => {
+  test.each(dataProvider)('VIN contains only alphanumeric characters', ({ vin }) => {
     expect(vin).toMatch(/^[a-zA-Z0-9]+$/);
   });
 
-  test.each(dataProvider)('VIN not invalid format', ({vin}) => {
+  test.each(dataProvider)('VIN not invalid format', ({ vin }) => {
     expect(vin).not.toMatch(/^[\W_]+$/);
   });
 
-  test.each(dataProvider)('VIN correct format', ({vin}) => {
+  test.each(dataProvider)('VIN correct format', ({ vin }) => {
     const vinPattern = /^[A-HJ-NPR-Z0-9]{17}$/;
     expect(vin).toMatch(vinPattern);
   });
 
-  test.each(dataProvider)('VIN within expected range', ({vin}) => {
+  test.each(dataProvider)('VIN within expected range', ({ vin }) => {
     expect(vinNumbers).toContain(vin);
   });
 
-  test.each(dataProvider)('VIN has correct length', ({vin}) => {
+  test.each(dataProvider)('VIN has correct length', ({ vin }) => {
     expect(vin.length).toBe(17);
   });
 
-  test.each(dataProvider)('VIN has correct format', ({vin}) => {
+  test.each(dataProvider)('VIN has correct format', ({ vin }) => {
     expect(vin).toMatch(/^\w{17}$/);
   });
 
-  test.each(dataProvider)('VIN is a string with no leading or trailing whitespaces', ({vin}) => {
+  test.each(dataProvider)('VIN is a string with no leading or trailing whitespaces', ({ vin }) => {
     expect(vin.trim()).toEqual(vin);
   });
 });
