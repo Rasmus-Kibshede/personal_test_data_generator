@@ -2,7 +2,6 @@ import 'dotenv/config'
 import { connection } from '../../src/Repositories/data-source';
 import { Car } from '../../src/Model/Vehicle';
 import * as carService from '../../src/Services/carService'
-import { after } from 'node:test';
 
 //let car: Car;
 
@@ -10,9 +9,7 @@ let car: Car;
 let cars: Car[];
 let choice: number;
 
-afterAll(() => {
-    connection.end();
-})
+
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
 
@@ -113,6 +110,9 @@ describe('generatecars', () => {
         expect(typeof car.getVehicleId()).toBe('number');
         
     });
-
 });
+
+afterAll(() => {
+    connection.end();
+})
 
