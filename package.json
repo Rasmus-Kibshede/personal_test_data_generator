@@ -8,7 +8,7 @@
     "dev": "nodemon src/index.ts",
     "build": "npx tsc",
     "test": "jest --watchAll --collect-coverage",
-    "test-prod": "jest"
+    "test-prod": "jest --coverage"
   },
   "repository": {
     "type": "git",
