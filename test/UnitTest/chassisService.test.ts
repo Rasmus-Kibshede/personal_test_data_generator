@@ -75,7 +75,6 @@ describe('generateColor', () => {
 });
 
 /* ---------------------------------------- generateCapacity ---------------------------------------- */
-//FLERE TEST
 describe('generateCapacity', () => {
 
   beforeEach(() => {
@@ -148,7 +147,6 @@ describe('generateCapacity', () => {
 
 /* ---------------------------------------- generateWheel ---------------------------------------- */
 
-//FLERE TEST
 describe('generateWheel', () => {
 
   beforeEach(() => {

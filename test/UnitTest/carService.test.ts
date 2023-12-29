@@ -5,7 +5,6 @@ const expectedDoor = [3, 5]
 let doors: number;
 
 /* ---------------------------------------- generateDoor ---------------------------------------- */
-//FLERE TEST
 describe('generateDoor', () => {
 
   beforeEach(()=>{
