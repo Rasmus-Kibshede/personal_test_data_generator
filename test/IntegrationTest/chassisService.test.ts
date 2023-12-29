@@ -52,68 +52,6 @@ describe('generateChassis', () => {
       test('Wheels not undefined', () => {
         expect(chassis.getWheel()).not.toBeUndefined();
       });
-  
-    /*
-     test('ChassisId equal -1', () => {
-        expect(chassis.getChassisId()).toBe(-1);
-      });
-    
-      test('ChassisId not 0', () => {
-        expect(chassis.getChassisId()).not.toBe(0);
-      });
-
-      test('Chassis not null or undefined', () => {
-        expect(chassis).not.toBeNull();
-        expect(chassis).not.toBeUndefined();
-      });
-
-      test('ChassisId not null or undefined', () => {
-        expect(chassis.getChassisId()).not.toBeNull();
-        expect(chassis.getChassisId()).not.toBeUndefined();
-      });
-
-      test('Capacity not null or undefined', () => {
-        expect(chassis.getCapacity()).not.toBeNull();
-        expect(chassis.getCapacity()).not.toBeUndefined();
-      });
-
-      test('Color not null or undefined', () => {
-        expect(chassis.getColor()).not.toBeNull();
-        expect(chassis.getColor()).not.toBeUndefined();
-      });
-
-      test('Color not null or undefined', () => {
-        expect(chassis.getWheel()).not.toBeNull();
-        expect(chassis.getWheel()).not.toBeUndefined();
-      });
-
-      test('Color not null or undefined', () => {
-        expect(chassis.getWheel()).not.toBeNull();
-        expect(chassis.getWheel()).not.toBeUndefined();
-      });
-
-      test('Chassis Capacity is a positive number', () => {
-        const capacity = chassis.getCapacity();
-        expect(capacity).toBeDefined();
-        expect(capacity).toBeGreaterThan(0);
-    });
-
-    test('Chassis Color is a string', () => {
-        const color = chassis.getColor();
-        expect(color).toBeDefined();
-        expect(typeof color).toBe('string');
-    });
-
-    test('Chassis Wheel is a positive number', () => {
-        const wheel = chassis.getWheel();
-        expect(wheel).toBeDefined();
-        expect(wheel).toBeGreaterThan(0);
-    });
-
-    test('Chassis Wheel is not null or undefined', () => {
-        expect(chassis.getWheel()).not.toBeNull();
-        expect(chassis.getWheel()).not.toBeUndefined();
-    });*/
 });
 
 /* ---------------------------------------- chassis Setters ---------------------------------------- */

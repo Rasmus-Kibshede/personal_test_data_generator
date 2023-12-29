@@ -49,25 +49,6 @@ describe('Generate fuel', () => {
       test('Range not undefined', () => {
         expect(fuel.getRange()).not.toBeUndefined();
       });
-
-    /*
-    test('Generated power is within the specified range', () => {
-        const expectedMin = 45;
-        const expectedMax = 65;
-        expect(fuel.getFuelTank()).toBeGreaterThanOrEqual(expectedMin);
-        expect(fuel.getFuelTank()).toBeLessThanOrEqual(expectedMax);
-    });
-
-    test('test coverage', () => {
-        expect(fuel.getFuelStatsId).not.toBe(-1);
-    });
-
-    test('test coverage', () => {
-        const expectedMin = 350;
-        const expectedMax = 900;
-        expect(fuel.getRange()).toBeGreaterThanOrEqual(expectedMin);
-        expect(fuel.getRange()).toBeLessThanOrEqual(expectedMax);
-    });*/
 });
 
 /* ---------------------------------------- Fuel Setters ---------------------------------------- */

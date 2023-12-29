@@ -66,23 +66,6 @@ describe('Generate Engine', () => {
     test('Torque not undefined', () => {
       expect(engine.getTorque()).not.toBeUndefined();
     });
-
-/*test('Generated power is within the specified range', () => {
-      const result = engineService.generatePower();
-      expect(result).toBeGreaterThanOrEqual(150)
-    });
-  
-    test('test coverage', () => {
-      const result = engineService.generateFuelType('Electric');
-      expect(result).toBe('AC');
-    });
-  
-    test('test coverage', () => {
-      const result = engineService.generateFuelType('V8');
-      expect(expectedFuelTypeData).toContain(result);
-    }); */
-
-
   });
 
   /* ---------------------------------------- engine Setters ---------------------------------------- */

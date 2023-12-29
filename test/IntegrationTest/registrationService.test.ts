@@ -64,26 +64,6 @@ describe('generateRegistration', () => {
   test('Registration VIN not undefined', () => {
     expect(registration.getVIN()).not.toBeUndefined();
   });
-
-  /*test('Registration correct licensNumber', () => {
-    expect(plates).toContain(registration.getLicenseNumber())
-  });
-
-  test('Registration correct VIN', () => {
-    expect(vinNumbers).toContain(registration.getVIN());
-  });
-
-  test('Registration has id', () => {
-    expect(registration.getRegistrationId()).toBeDefined();
-  });
-
-  test('RegistrationId equal -1', () => {
-    expect(registration.getRegistrationId()).toBe(-1);
-  });
-
-  test('RegistrationId not 0', () => {
-    expect(registration.getRegistrationId()).not.toBe(0);
-  });*/
 });
 
 

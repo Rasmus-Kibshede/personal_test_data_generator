@@ -61,15 +61,6 @@ describe('generateGearbox', () => {
       test('Type not undefined', () => {
         expect(gearbox.getType()).not.toBeUndefined();
       });
-
-      /*test('GearboxId equal -1', () => {
-        expect(gearbox.getGearboxId()).toBe(-1);
-      });
-    
-      test('GearboxId not 0', () => {
-        expect(gearbox.getGearboxId()).not.toBe(0);
-      }); */
-
 });
 
 
