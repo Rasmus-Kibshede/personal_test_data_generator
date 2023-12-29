@@ -36,7 +36,7 @@ describe('generatecar', () => {
         expect(typeof car.getChassis()).toBe('object')
     })
 
-    test('Chassis instanceOf Car', () => {
+    test('Chassis instanceOf Chassis', () => {
         expect(car.getChassis()).toBeInstanceOf(Chassis);
     });
 
@@ -44,7 +44,7 @@ describe('generatecar', () => {
         expect(typeof car.getEngine()).toBe('object')
     })
 
-    test('Engine instanceOf Car', () => {
+    test('Engine instanceOf Engine', () => {
         expect(car.getEngine()).toBeInstanceOf(Engine);
     }); 
     
@@ -52,31 +52,31 @@ describe('generatecar', () => {
         expect(typeof car.getFuel()).toBe('object')
     })
 
-    test('Fuel instanceOf Car', () => {
+    test('Fuel instanceOf Fuel', () => {
         expect(car.getFuel()).toBeInstanceOf(FuelStats);
     });
 
-    test('car is an object', () => {
+    test('Gearbox is an object', () => {
         expect(typeof car.getGear()).toBe('object')
     })
 
-    test('car instanceOf Car', () => {
+    test('Gearbox instanceOf Gearbox', () => {
         expect(car.getGear()).toBeInstanceOf(Gearbox);
     });
 
-    test('car is an object', () => {
+    test('Manufacturer is an object', () => {
         expect(typeof car.getManufacturer()).toBe('object')
     })
 
-    test('car instanceOf Car', () => {
+    test('Manufacturer instanceOf Manufacturer', () => {
         expect(car.getManufacturer()).toBeInstanceOf(Manufacturer);
     });
 
-    test('car is an object', () => {
+    test('Registration is an object', () => {
         expect(typeof car.getRegistration()).toBe('object')
     })
 
-    test('car instanceOf Car', () => {
+    test('Registration instanceOf Registration', () => {
         expect(car.getRegistration()).toBeInstanceOf(Registration);
     });
 
@@ -100,11 +100,11 @@ describe('generatecar', () => {
         expect(car.getVehicleId()).not.toBe(0);
     });
 
-    test('car not null', () => {
+    test('Car not null', () => {
         expect(car).not.toBeNull();
     });
 
-    test('car not undefined', () => {
+    test('Car not undefined', () => {
         expect(car).not.toBeUndefined();
     });
 
@@ -140,11 +140,11 @@ describe('generatecar', () => {
         expect(car.getFuel()).not.toBeNull();
     });
 
-    test('Gears not undefined', () => {
+    test('Gearbox not undefined', () => {
         expect(car.getGear()).toBeDefined();
     });
 
-    test('Gears not null', () => {
+    test('Gearbox not null', () => {
         expect(car.getGear()).not.toBeNull();
     });
 

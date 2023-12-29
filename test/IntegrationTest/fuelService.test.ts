@@ -18,11 +18,11 @@ describe('Generate fuel', () => {
         expect(fuel).toBeInstanceOf(FuelStats);
     });
 
-    test('FuelID has id', () => {
+    test('Fuel has id', () => {
         expect(fuel.getFuelStatsId()).toBeDefined();
       });
 
-      test('FuelID has id', () => {
+      test('Fuel has id', () => {
         expect(fuel.getFuelStatsId()).not.toBeNull();
       });
     

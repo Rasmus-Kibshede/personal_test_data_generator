@@ -33,7 +33,6 @@ describe('generateRegistration', () => {
     expect(registration).toBeInstanceOf(Registration);
   });
 
-  //Lav på hver attribut id, vin, plate
   test('Registration not null', () => {
     expect(registration).not.toBeNull();
   });

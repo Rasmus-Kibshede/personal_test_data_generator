@@ -19,19 +19,19 @@ describe('Generate Engine', () => {
       expect(result).toBeInstanceOf(Engine);
     });
 
-    test('engine has id', () => {
+    test('Engine has id', () => {
       expect(engine.getEngineId()).toBeDefined();
     });
 
-    test('engine has id', () => {
+    test('Engine has id', () => {
       expect(engine.getEngineId()).not.toBeNull();
     });
   
-    test('engine not null', () => {
+    test('Engine not null', () => {
       expect(engine).not.toBeNull();
     });
 
-    test('engine not undefined', () => {
+    test('Engine not undefined', () => {
       expect(engine).not.toBeUndefined();
     });
 

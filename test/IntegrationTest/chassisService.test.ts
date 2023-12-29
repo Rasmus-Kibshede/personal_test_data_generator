@@ -29,11 +29,11 @@ describe('generateChassis', () => {
         expect(chassis.getChassisId()).not.toBeNull();
       });
     
-      test('chassis not null', () => {
+      test('Chassis not null', () => {
         expect(chassis).not.toBeNull();
       });
   
-      test('chassis not undefined', () => {
+      test('Chassis not undefined', () => {
         expect(chassis).not.toBeUndefined();
       });
   
