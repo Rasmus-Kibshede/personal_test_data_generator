@@ -10,7 +10,7 @@ describe('Generate fuel', () => {
         fuel = fuelService.generateFuelStats();
     });
 
-    test('test coverage', () => {
+    test('test if object', () => {
         expect(typeof fuel).toBe('object');
     });
 
