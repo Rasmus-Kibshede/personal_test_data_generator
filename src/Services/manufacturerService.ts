@@ -25,7 +25,7 @@ export const generateManufacturer = async () => {
 }
 
 export const generateVehicleData = async () => {
-    const year = 2020;
+    const year = generateRandomNumber(2000, 2024);
     const models = await fetchVehicleData(year);
 
     if (!models)
