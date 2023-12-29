@@ -41,7 +41,7 @@ describe('generateRegistration', () => {
 
 });
 
-//INTEGRATION TEST
+
 /* ---------------------------------------- generateGearbox ---------------------------------------- */
 describe('generateGearbox', () => {
     //Ville ikke Mocke Gearbox eller generateGearbox her?  
@@ -64,5 +64,35 @@ describe('generateGearbox', () => {
     test('Gearbox has id', () => {
       expect(gearbox.getGearboxId()).toBeDefined();
       expect(gearbox.getGearboxId()).toBe(-1);
+    });
+  });
+
+
+  /* ---------------------------------------- Gearbox Setters ---------------------------------------- */
+
+  describe('Gearbox Setters', () => {
+
+    beforeEach(() => {
+      gearbox = gearboxService.generateGearbox();
+    });
+  
+    test('Registration setLicenseNumber',()=>{
+      gearbox.setDriveTrain('test');
+      expect(gearbox.getDriveTrain()).toBe('test');
+    });
+  
+    test('Registration setVIN',()=>{
+      gearbox.setGearboxId(-1);
+      expect(gearbox.getGearboxId()).toBe(-1);
+    });
+  
+    test('Registration setRegistrationId',()=>{
+      gearbox.setGears(-1);
+      expect(gearbox.getGears()).toBe(-1);
+    });
+
+    test('Registration setRegistrationId',()=>{
+      gearbox.setType('test');
+      expect(gearbox.getType()).toBe('test');
     });
   });
