@@ -76,6 +76,14 @@ beforeEach(()=>{
   test('gearboxType not equal 10', async () => {
     expect(gearboxType.length).not.toBe(10);
   });
+
+  test('gearboxType not equal 5', async () => {
+    expect(gearboxType.length).toBeGreaterThan(5);
+  });
+
+  test('gearboxType not equal 10', async () => {
+    expect(gearboxType.length).toBeLessThan(10);
+  });
 });
 
 /* ---------------------------------------- generateGear ---------------------------------------- */
@@ -113,14 +121,28 @@ describe('generateGear', () => {
     expect(gear).not.toBeNull();
   });
 
-  test('Gear is less than 8 upper boundary', () => {
+  test('Gear is not 8 upper boundary', () => {
     expect(gear).not.toBe(8);
+  });
+
+  test('Gear is less than 8 upper boundary', () => {
     expect(gear).toBeLessThan(8);
   });
 
   test('Gear greater than 3 lower boundary', () => {
     expect(gear).toBeGreaterThan(3);
+  });
+
+  test('Gear not 3 lower boundary', () => {
     expect(gear).not.toBe(3);
+  });
+
+  test('Gear greater than 3 lower boundary', () => {
+    expect(gear).toBeGreaterThanOrEqual(4);
+  });
+
+  test('Gear not 3 lower boundary', () => {
+    expect(gear).toBeLessThanOrEqual(7);
   });
 
   test('Valid range and valid upper and lower boundaries', () => {
@@ -185,5 +207,13 @@ describe('generateDriveTrain', () => {
 
   test('driveTrain not equal 17 upper boundary', async () => {
     expect(driveTrain.length).not.toBe(18);
+  });
+
+  test('driveTrain greater then 2 lower boundary', async () => {
+    expect(driveTrain.length).toBeGreaterThan(2);
+  });
+
+  test('driveTrain lower then 17 upper boundary', async () => {
+    expect(driveTrain.length).toBeLessThan(18);
   });
 });
