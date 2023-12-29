@@ -53,17 +53,17 @@ describe('generateRandomFloor', () => {
   describe('generateStreetName', () => {
       describe('testing valid data in generateStreetName', () => {
         test('Testing street name type', async () => {
-          const result = await generateStreetName();
+          const result = await generateStreetName(4);
           expect(typeof result).toBe('string');
         });
   
         test('Greater then 4', async () => {
-          const result = await generateStreetName();
+          const result = await generateStreetName(4);
           expect(result.length).toBeGreaterThanOrEqual(4);
         });
   
         test('Less then or equal 9', async () => {
-          const result = await generateStreetName();
+          const result = await generateStreetName(9);
           expect(result.length).toBeLessThanOrEqual(9);
         });
     });
@@ -74,23 +74,23 @@ describe('generateRandomFloor', () => {
     describe('generateStreetVariation', () => {
       describe('testing valid data in generateStreetVariation', () => {
         test('Generate a streetname that is not empty', async () => {
-          const result = await generateStreetVariation();
+          const result = await generateStreetVariation(4);
           expect(result).not.toBe("");
         });
       });
     
       test('Testing streetVariation type', async () => {
-        const result = await generateStreetVariation();
+        const result = await generateStreetVariation(4);
         expect(typeof result).toBe('string');
       });
     
       test('Greater or equal to 2', async () => {
-        const result = await generateStreetVariation();
+        const result = await generateStreetVariation(2);
         expect(result.length).toBeGreaterThanOrEqual(2);
       });
     
       test('Less or equal to 9', async () => {
-        const result = await generateStreetVariation();
+        const result = await generateStreetVariation(2);
         expect(result.length).toBeLessThanOrEqual(9);
       });
     });

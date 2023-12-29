@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { AddressDTO } from '../Model/Address';
 import { getRandomAddress, getAddressByPostalCode } from '../Repositories/addressRepository';
+import { generaterandomNumber } from '../util/generateNumber';
 
 export const getAddress = async (postalCode: number) => {
   const address = await getAddressByPostalCode(postalCode);
@@ -22,7 +23,7 @@ export const setRandomAddress = async () => {
   const address: AddressDTO = {
     postalCode: getCityAndPostalCode.postalCode,
     city: getCityAndPostalCode.city,
-    street: await generateRandomStreetName(),
+    street: await generateRandomStreetName(generaterandomNumber(4, 9), generaterandomNumber(2, 9)),
     houseNumber: await generateHouseNumber()
   }
 
@@ -84,28 +85,42 @@ export const generateRandomHouseNumber = async () => {
   }
 };
 
-export const generateRandomStreetName = async () => {
-  const generateName = await generateStreetName()
-  const generateVariation = await generateStreetVariation()
+export const generateRandomStreetName = async (streetNameLength: number, variationLength: number) => {
+  const generateName = await generateStreetName(streetNameLength);
+  const generateVariation = await generateStreetVariation(variationLength);
 
   return generateName + ' ' + generateVariation;
 };
 
-export const generateStreetName = async () => {
+export const generateStreetName = async (length: number) => {
+
   const streetNames: string[] = [
     'Larsens', 'Jensens', 'Andersens', 'Peters',
     'Nielsens', 'Henriks', 'Oles', 'Sørens',
     'Mikkels', 'Kristians', 'Strand'
   ];
-  return streetNames[Math.floor(Math.random() * streetNames.length)];;
+
+  const names = streetNames.filter((streetName) => streetName.length === length);
+
+  if (names.length === 0)
+    throw new Error('No street name found with that length');
+
+
+  return names[Math.floor(Math.random() * names.length)];
 };
 
-export const generateStreetVariation = async () => {
+export const generateStreetVariation = async (length: number) => {
   const streetVariations: string[] = [
     'Gade', 'Vej', 'Boulevard', 'Alle', 'Plads', 'Torv',
     'Stræde', 'Sti', 'Vænge', 'Mark', 'Eng', 'Bakke', 'Bred',
     'Bjerg', 'Skov', 'Høj', 'Kær', 'Mose', 'Sø', 'Hus', 'Haven',
     'Park', 'Vold', 'Grøft',
   ];
+
+  const names = streetVariations.filter((streetVariations) => streetVariations.length === length);
+
+  if (names.length === 0)
+    throw new Error('No street name found with that length');
+
   return streetVariations[faker.number.int({ min: 0, max: streetVariations.length - 1 })];
 };
