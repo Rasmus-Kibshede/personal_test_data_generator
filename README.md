@@ -18,8 +18,8 @@ One member of the group will write an SRS (Software Requirements Specification) 
 The remaining members will conduct a formal review and generate a review document.
 
 #### Deliverables
-- [ ] The SRS (pdf file)
-- [ ] The review document (pdf file), including the roles assigned to each group member
+- [x] The SRS (pdf file)
+- [x] The review document (pdf file), including the roles assigned to each group member
 
 ## Risk assessment
 #### Deliverables (both in a single pdf file):
