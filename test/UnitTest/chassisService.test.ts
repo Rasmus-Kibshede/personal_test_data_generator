@@ -92,18 +92,6 @@ describe('generateCapacity', () => {
     expect(result).toBe(expected);
   });
 
-  //ER disse 2 ikke ligegyldige? 
-  test.each(capacities)('Capacity is 2 or 5', ({ door, expected }) => {
-    const result = chassisService.generateCapacity(door);
-    expect(result).toBeLessThanOrEqual(expected);
-  });
-
-  test.each(capacities)('Capacity is 2 or 5', ({ door, expected }) => {
-    const result = chassisService.generateCapacity(door);
-    expect(result).toBeGreaterThan(expected);
-  });
-//HERTIL
-
   test('Capacity is 2 or 5', () => {
     expect(expectedCapacity).toContain(capacity);
   });
