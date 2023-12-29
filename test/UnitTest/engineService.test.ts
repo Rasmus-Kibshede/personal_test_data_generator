@@ -189,19 +189,19 @@ describe('generateFuelType', () => {
   });
 
   test('Fuel type  is less than 8 upper boundary', () => {
-    expect(engine.length).toBeLessThan(8);
+    expect(fuelType.length).toBeLessThan(8);
   });
 
   test('Fuel type  not 9 upper boundary', () => {
-    expect(engine.length).not.toBe(8);
+    expect(fuelType.length).not.toBe(8);
   });
 
   test('Fuel type  greater than 1 lower boundary', () => {
-    expect(engine.length).toBeGreaterThan(1);
+    expect(fuelType.length).toBeGreaterThan(1);
   });
 
   test('Fuel type  not 1 lower boundary', () => {
-    expect(engine.length).not.toBe(1);
+    expect(fuelType.length).not.toBe(1);
   });
 
   test('Fuel type contains', () => {
