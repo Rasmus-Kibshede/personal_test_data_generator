@@ -34,9 +34,11 @@ describe('ID', () => {
         expect(manufacturer.getManufacturerId()).toBe(-1);
     });
 
-
-    test('Manufacturer Id is not null or undefined', () => {
+    test('Manufacturer Id is not null', () => {
         expect(manufacturer.getManufacturerId()).not.toBeNull();
+    });
+
+    test('Manufacturer Id is not undefined', () => {
         expect(manufacturer.getManufacturerId()).not.toBeUndefined();
     });
 
@@ -47,7 +49,6 @@ describe('ID', () => {
     test('Manufacturer Id is initialized to -1', () => {
         expect(manufacturer.getManufacturerId()).toBe(-1);
     });
-
 });
 
 /* ----------------------------------------generateManufacturer Make ---------------------------------------- */
@@ -66,10 +67,12 @@ describe('Make', () => {
         expect(typeof manufacturer.getMake()).toBe('string');
     });
 
+    test('Make defined', () => {
+        expect(manufacturer.getMake()).toBeDefined();
+    });
+
     test('Make non-empty', () => {
-        const make = manufacturer.getMake();
-        expect(make).toBeDefined();
-        expect(make.trim()).not.toEqual('');
+        expect(manufacturer.getMake().trim()).not.toEqual('');
     });
 
     test('Make is in the expected list', () => {

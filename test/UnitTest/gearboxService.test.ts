@@ -1,6 +1,5 @@
 import * as gearboxService from '../../src/Services/gearboxService'
 
-
 let gearboxType: string
 let gear: number;
 let driveTrain: string
@@ -34,9 +33,12 @@ beforeEach(()=>{
     expect(expectedGearboxTypes).toContain(gearboxType);
   });
 
-  test('gearboxType is not null or undefined', () => {
-    expect(gearboxType).not.toBeNull();
+  test('gearboxType is not undefined', () => {
     expect(gearboxType).not.toBeUndefined();
+  });
+
+  test('gearboxType is not null', () => {
+    expect(gearboxType).not.toBeNull();
   });
 
   test('gearboxType is a string with correct length', () => {
@@ -103,9 +105,12 @@ describe('generateGear', () => {
     expect(gear % 1).toBe(0);
   });
 
-  test('Type is not null or undefined', () => {
-    expect(gear).not.toBeNull();
+  test('Type is not undefined', () => {
     expect(gear).not.toBeUndefined();
+  });
+
+  test('Type is not null', () => {
+    expect(gear).not.toBeNull();
   });
 
   test('Gear is less than 8 upper boundary', () => {
@@ -134,13 +139,19 @@ describe('generateDriveTrain', () => {
     expect(expectedDriveTrainTypes).toContain(driveTrain);
   });
 
-  test('Drive train is not null or undefined', () => {
-    expect(driveTrain).not.toBeNull();
+  test('Drive train is not undefined', () => {
     expect(driveTrain).not.toBeUndefined();
   });
 
-  test('Drive train is a string with correct length', () => {
+  test('Drive train is not null', () => {
+    expect(driveTrain).not.toBeNull();
+  });
+
+  test('Drive train is a string', () => {
     expect(typeof driveTrain).toBe('string');
+  });
+
+  test('Drive train correct length', () => {
     expect(driveTrain.length).toBeGreaterThan(0);
   });
 
