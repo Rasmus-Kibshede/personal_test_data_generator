@@ -15,7 +15,7 @@ const vinNumbers = [
   'KNMAT2MV5KP509788', 'LFGTCKPMXBP008810', 'MHFSA03J0KN009465', 'NMTKHMBX9JR044186', '5UXKR2C58G0R70603',
   'WAUBFAFL7BA003901', 'XWBEN10EX9VS74136', 'YV1RS592672591003', 'ZFA25000001692412',
 ];
-//FIX CONST I GENERATE
+
 //Auto generate vin numbers og plader i service laget? 
 /* ---------------------------------------- generateLicenseNumber ---------------------------------------- */
 describe('generateLicenseNumber', () => {
@@ -52,7 +52,7 @@ describe('generateLicenseNumber', () => {
       expect(plate.length).toBeGreaterThan(8);
     });
 
-    test('Testing License format AA 12 345', () => {
+    test('License format AA 12 345', () => {
       const pattern = /^[A-Z]{2} \d{2} \d{3}$/;
       expect(plate).toMatch(pattern);
     });
