@@ -34,7 +34,7 @@ describe('generatecar', () => {
         expect(car.getVehicleId()).toBeGreaterThan(-1);
     });
 
-    test('carId greater then -1', () => {
+    test('carId not -1', () => {
         expect(car.getVehicleId()).not.toBe(-1);
     });
 
@@ -85,6 +85,38 @@ describe('generatecar', () => {
     test('Color not null or undefined', () => {
         expect(car.getRegistration()).not.toBeNull();
         expect(car.getRegistration()).not.toBeUndefined();
+    });
+
+    test('Engine Horsepower is a positive number', () => {
+        const horsepower = car.getEngine().getHP();
+        expect(horsepower).toBeDefined();
+        expect(horsepower).toBeGreaterThan(0);
+    });
+
+    test('Fuel Tank Size is a positive number', () => {
+        const fuelTankSize = car.getFuel().getFuelTank();
+        expect(fuelTankSize).toBeDefined();
+        expect(fuelTankSize).toBeGreaterThan(0);
+    });
+
+    test('Manufacturer Year is a valid year', () => {
+        const year = car.getManufacturer().getYear();
+        const currentYear = new Date().getFullYear();
+        expect(year).toBeDefined();
+        expect(year).toBeGreaterThanOrEqual(2000); 
+        expect(year).toBeLessThanOrEqual(currentYear);
+    });
+
+    test('Chassis Color is a string', () => {
+        const color = car.getChassis().getColor();
+        expect(color).toBeDefined();
+        expect(typeof color).toBe('string');
+    });
+
+    test('Registration License Number is a string', () => {
+        const licenseNumber = car.getRegistration().getLicenseNumber();
+        expect(licenseNumber).toBeDefined();
+        expect(typeof licenseNumber).toBe('string');
     });
 });
 

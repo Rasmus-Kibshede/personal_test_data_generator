@@ -6,129 +6,130 @@ const expectedModels = ['Camry', 'Accord', 'Mustang', 'Malibu', 'Model 3', 'X5',
 
 const yearsList = [2000, 2002, 2005, 2008, 2010, 2012, 2015, 2017, 2020, 2022];
 
-const dataProvider = expectedMakes.map((make, index) => ({
-    vehicleData: (new Manufacturer(-1, make, expectedModels[index], yearsList[index])
-    )
-}));
+let manufacturer: Manufacturer
 
 /* ---------------------------------------- generateManufacturer ---------------------------------------- */
 //TODO SKal laves om i service laget så den retunere datasæt i stedet for vores Manufacturer object, så vi kan lave unittest på den. 
 describe('generateManufacturer', () => {
 
-    test.each(dataProvider)('Vehicle data is an object', ({ vehicleData }) => {
-        expect(typeof vehicleData).toBe('object');
+    beforeEach(() => {
+        manufacturer = manufacturerService.generateManufacturer();
     });
 
-    test.each(dataProvider)('Vehicle is a string with no leading or trailing whitespaces', ({ vehicleData }) => {
-        expect(vehicleData.getMake().trim()).toEqual(vehicleData.getMake());
+    test('Vehicle data is an object', () => {
+        expect(typeof manufacturer).toBe('object');
     });
 
-    test.each(dataProvider)('Vehicle is a string with no leading or trailing whitespaces', ({ vehicleData }) => {
-        expect(vehicleData.getModel().trim()).toEqual(vehicleData.getModel());
+    test('Vehicle is a string with no leading or trailing whitespaces', () => {
+        expect(manufacturer.getMake().trim()).toEqual(manufacturer.getMake());
     });
 
-    test.each(dataProvider)('Vehicle contains only alphanumeric characters', ({ vehicleData }) => {
-        expect(vehicleData.getMake()).toMatch(/^[a-zA-Z0-9-]+$/);
+    test('Vehicle is a string with no leading or trailing whitespaces', () => {
+        expect(manufacturer.getModel().trim()).toEqual(manufacturer.getModel());
     });
 
-    test.each(dataProvider)('Vehicle contains only alphanumeric characters', ({ vehicleData }) => {
-        expect(vehicleData.getModel()).toMatch(/^[a-zA-Z0-9\s-]+$/);
+    test('Vehicle contains only alphanumeric characters', () => {
+        expect(manufacturer.getMake()).toMatch(/^[a-zA-Z0-9-]+$/);
     });
 
-    test.each(dataProvider)('Vehicle data is of type Manufacturer', ({ vehicleData }) => {
-        expect(vehicleData).toBeInstanceOf(Manufacturer)
+    test('Vehicle contains only alphanumeric characters', () => {
+        expect(manufacturer.getModel()).toMatch(/^[a-zA-Z0-9\s-]+$/);
     });
 
-    test.each(dataProvider)('Vehicle data has make property', ({ vehicleData }) => {
-        expect(vehicleData).toHaveProperty('make');
-        expect(typeof vehicleData.getMake()).toBe('string');
+    test('Vehicle data is of type Manufacturer', () => {
+        expect(manufacturer).toBeInstanceOf(Manufacturer)
     });
 
-    test.each(dataProvider)('Vehicle data has model property', ({ vehicleData }) => {
-        expect(vehicleData).toHaveProperty('model');
-        expect(typeof vehicleData.getModel()).toBe('string');
+    test('Vehicle data has make property', () => {
+        expect(manufacturer).toHaveProperty('make');
+        expect(typeof manufacturer.getMake()).toBe('string');
     });
 
-    test.each(dataProvider)('Vehicle data has year property', ({ vehicleData }) => {
-        expect(vehicleData).toHaveProperty('year');
-        expect(typeof vehicleData.getYear()).toBe('number');
+    test('Vehicle data has model property', () => {
+        expect(manufacturer).toHaveProperty('model');
+        expect(typeof manufacturer.getModel()).toBe('string');
     });
 
-    test.each(dataProvider)('Make is a string with no leading or trailing whitespaces', ({ vehicleData }) => {
-        expect(vehicleData.getMake().trim()).toEqual(vehicleData.getMake());
+    test('Vehicle data has year property', () => {
+        expect(manufacturer).toHaveProperty('year');
+        expect(typeof manufacturer.getYear()).toBe('number');
     });
 
-    test.each(dataProvider)('Model is a string with no leading or trailing whitespaces', ({ vehicleData }) => {
-        expect(vehicleData.getModel().trim()).toEqual(vehicleData.getModel());
+    test('Make is a string with no leading or trailing whitespaces', () => {
+        expect(manufacturer.getMake().trim()).toEqual(manufacturer.getMake());
     });
 
-    test.each(dataProvider)('Vehicle data has valid year', ({ vehicleData }) => {
+    test('Model is a string with no leading or trailing whitespaces', () => {
+        expect(manufacturer.getModel().trim()).toEqual(manufacturer.getModel());
+    });
+
+    test('Vehicle data has valid year', () => {
         const currentYear = new Date().getFullYear();
-        expect(vehicleData.getYear()).toBeGreaterThanOrEqual(2000);
-        expect(vehicleData.getYear()).toBeLessThanOrEqual(currentYear);
+        expect(manufacturer.getYear()).toBeGreaterThanOrEqual(2000);
+        expect(manufacturer.getYear()).toBeLessThanOrEqual(currentYear);
     });
 
-    test.each(dataProvider)('Vehicle make is in the expected list', ({ vehicleData }) => {
-        expect(expectedMakes).toContain(vehicleData.getMake());
+    test('Vehicle make is in the expected list', () => {
+        expect(expectedMakes).toContain(manufacturer.getMake());
     });
 
-    test.each(dataProvider)('Vehicle model is in expected list', ({ vehicleData }) => {
-        expect(expectedModels).toContain(vehicleData.getModel());
+    test('Vehicle model is in expected list', () => {
+        expect(expectedModels).toContain(manufacturer.getModel());
     });
 
-    test.each(dataProvider)('Vehicle data model is a string', ({ vehicleData }) => {
-        expect(typeof vehicleData.getModel()).toBe('string');
+    test('Vehicle data model is a string', () => {
+        expect(typeof manufacturer.getModel()).toBe('string');
     });
 
-    test.each(dataProvider)('Vehicle data make is not null or undefined', ({ vehicleData }) => {
-        expect(vehicleData.getMake()).not.toBeNull();
-        expect(vehicleData.getMake()).not.toBeUndefined();
+    test('Vehicle data make is not null or undefined', () => {
+        expect(manufacturer.getMake()).not.toBeNull();
+        expect(manufacturer.getMake()).not.toBeUndefined();
     });
 
-    test.each(dataProvider)('Vehicle data model is not null or undefined', ({ vehicleData }) => {
-        expect(vehicleData.getModel()).not.toBeNull();
-        expect(vehicleData.getModel()).not.toBeUndefined();
+    test('Vehicle data model is not null or undefined', () => {
+        expect(manufacturer.getModel()).not.toBeNull();
+        expect(manufacturer.getModel()).not.toBeUndefined();
     });
 
-    test.each(dataProvider)('Vehicle data model is not null or undefined', ({ vehicleData }) => {
-        expect(vehicleData.getYear()).not.toBeNull();
-        expect(vehicleData.getYear()).not.toBeUndefined();
+    test('Vehicle data model is not null or undefined', () => {
+        expect(manufacturer.getYear()).not.toBeNull();
+        expect(manufacturer.getYear()).not.toBeUndefined();
     });
 
-    test.each(dataProvider)('Make greater or equal to 3', ({ vehicleData }) => {
-        expect(vehicleData.getMake().length).toBeGreaterThanOrEqual(3);
+    test('Make greater or equal to 3', () => {
+        expect(manufacturer.getMake().length).toBeGreaterThanOrEqual(3);
     });
 
-    test.each(dataProvider)('Make less or equal to 13', ({ vehicleData }) => {
-        expect(vehicleData.getMake().length).toBeLessThanOrEqual(13);
+    test('Make less or equal to 13', () => {
+        expect(manufacturer.getMake().length).toBeLessThanOrEqual(13);
     });
 
-    test.each(dataProvider)('Make not equal 2', ({ vehicleData }) => {
-        expect(vehicleData.getMake().length).not.toBe(2);
+    test('Make not equal 2', () => {
+        expect(manufacturer.getMake().length).not.toBe(2);
     });
 
-    test.each(dataProvider)('Make not equal 10', ({ vehicleData }) => {
-        expect(vehicleData.getMake().length).not.toBe(14);
+    test('Make not equal 10', () => {
+        expect(manufacturer.getMake().length).not.toBe(14);
     });
 
-    test.each(dataProvider)('Model greater or equal to 2', ({ vehicleData }) => {
-        expect(vehicleData.getModel().length).toBeGreaterThanOrEqual(2);
+    test('Model greater or equal to 2', () => {
+        expect(manufacturer.getModel().length).toBeGreaterThanOrEqual(2);
     });
 
-    test.each(dataProvider)('Model less or equal to 7', ({ vehicleData }) => {
-        expect(vehicleData.getModel().length).toBeLessThanOrEqual(7);
+    test('Model less or equal to 7', () => {
+        expect(manufacturer.getModel().length).toBeLessThanOrEqual(7);
     });
 
-    test.each(dataProvider)('Model not equal 1', ({ vehicleData }) => {
-        expect(vehicleData.getModel().length).not.toBe(1)
+    test('Model not equal 1', () => {
+        expect(manufacturer.getModel().length).not.toBe(1)
     });
 
-    test.each(dataProvider)('Model not equal 8', ({ vehicleData }) => {
-        expect(vehicleData.getModel().length).not.toBe(8);
+    test('Model not equal 8', () => {
+        expect(manufacturer.getModel().length).not.toBe(8);
     });
 
-    test.each(dataProvider)('Manufacturer has id', ({ vehicleData }) => {
-        expect(vehicleData.getManufacturerId()).toBeDefined();
-        expect(vehicleData.getManufacturerId()).toBe(-1);
+    test('Manufacturer has id', () => {
+        expect(manufacturer.getManufacturerId()).toBeDefined();
+        expect(manufacturer.getManufacturerId()).toBe(-1);
     });
 });

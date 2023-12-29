@@ -62,6 +62,29 @@ describe('generateChassis', () => {
         expect(chassis.getWheel()).not.toBeNull();
         expect(chassis.getWheel()).not.toBeUndefined();
       });
+
+      test('Chassis Capacity is a positive number', () => {
+        const capacity = chassis.getCapacity();
+        expect(capacity).toBeDefined();
+        expect(capacity).toBeGreaterThan(0);
+    });
+
+    test('Chassis Color is a string', () => {
+        const color = chassis.getColor();
+        expect(color).toBeDefined();
+        expect(typeof color).toBe('string');
+    });
+
+    test('Chassis Wheel is a positive number', () => {
+        const wheel = chassis.getWheel();
+        expect(wheel).toBeDefined();
+        expect(wheel).toBeGreaterThan(0);
+    });
+
+    test('Chassis Wheel is not null or undefined', () => {
+        expect(chassis.getWheel()).not.toBeNull();
+        expect(chassis.getWheel()).not.toBeUndefined();
+    });
 });
 
 /* ---------------------------------------- chassis Setters ---------------------------------------- */
