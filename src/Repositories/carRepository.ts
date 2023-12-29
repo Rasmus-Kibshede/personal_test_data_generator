@@ -80,6 +80,7 @@ export const getCarById = async (id: number) => {
         'JOIN manufacturer ON car.manufacturer_id = manufacturer.manufacturer_id ' +
         'WHERE ' +
         'car.vehicle_id = ?;', [id]);
+        
     const result = JSON.parse(JSON.stringify(rows[0]))
     const manufacture = new Manufacturer(result.manufacturer_id, result.make, result.model, result.year);
     const chassis = new Chassis(result.chassis_id, result.color, result.wheel, result.capacity);
@@ -88,8 +89,7 @@ export const getCarById = async (id: number) => {
     const engine = new Engine(result.engine_id, result.engine_type, result.horsepower, result.torque, result.fuel_type);
     const gearbox = new Gearbox(result.gearbox_id, result.gearbox_type, result.gears, result.drive_train);
     const car = new Car(manufacture, result.door, result.vehicle_id, chassis, fuel, registration, engine, gearbox);
-    console.log(car);
-    
+
     return car;
 };
 
