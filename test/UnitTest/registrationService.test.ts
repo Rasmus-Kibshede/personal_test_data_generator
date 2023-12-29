@@ -32,11 +32,24 @@ describe('generateLicenseNumber', () => {
       expect(plate).not.toBe('');
     });
 
-
-    //Tester ikke må være 8 og ikke være 7
-
     test('License has correct length', () => {
       expect(plate.length).toBe(9);
+    });
+
+    test('License not 10 upper', () => {
+      expect(plate.length).not.toBe(10);
+    });
+
+    test('License less then 10 upper', () => {
+      expect(plate.length).toBeLessThan(10);
+    });
+
+    test('License not 8 lower', () => {
+      expect(plate.length).not.toBe(8);
+    });
+
+    test('License has greater then 8 lower', () => {
+      expect(plate.length).toBeGreaterThan(8);
     });
 
     test('Testing License format AA 12 345', () => {
@@ -65,6 +78,14 @@ describe('generateLicenseNumber', () => {
     test('License number has digits', () => {
       const digits = plate.match(/\d/g);
       expect(digits).not.toBeNull();
+    });
+
+    test('License train is not undefined', () => {
+      expect(plate).not.toBeUndefined();
+    });
+  
+    test('License train is not null', () => {
+      expect(plate).not.toBeNull();
     });
 
     test('License number has valid spacing', () => {
@@ -124,6 +145,22 @@ describe('generateVIN', () => {
   //Må ikke være 16 må ikke være 18
   test('VIN has correct length', () => {
     expect(vin.length).toBe(17);
+  });
+
+  test('VIN has correct length', () => {
+    expect(vin.length).not.toBe(16);
+  });
+
+  test('VIN has correct length', () => {
+    expect(vin.length).toBeGreaterThan(16);
+  });
+
+  test('VIN has correct length', () => {
+    expect(vin.length).not.toBe(18);
+  });
+
+  test('VIN has correct length', () => {
+    expect(vin.length).toBeLessThan(18);
   });
 
   test('VIN has correct format', () => {
