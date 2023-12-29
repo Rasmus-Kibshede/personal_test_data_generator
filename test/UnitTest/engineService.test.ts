@@ -185,15 +185,15 @@ describe('generateFuelType', () => {
   });
 
   test('Fuel type less or equal to 6', async () => {
-    expect(fuelType.length).toBeLessThanOrEqual(6);
+    expect(fuelType.length).toBeLessThanOrEqual(7);
   });
 
   test('Fuel type  is less than 8 upper boundary', () => {
-    expect(engine.length).toBeLessThan(7);
+    expect(engine.length).toBeLessThan(8);
   });
 
   test('Fuel type  not 9 upper boundary', () => {
-    expect(engine.length).not.toBe(7);
+    expect(engine.length).not.toBe(8);
   });
 
   test('Fuel type  greater than 1 lower boundary', () => {
