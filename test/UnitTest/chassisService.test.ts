@@ -10,7 +10,6 @@ const expectedColors = [
   'Gray', 'Teal', 'Black', 'White'
 ];
 const expectedCapacity = [2, 5]
-const expectedWheels = 4;
 const excludedColors = ['Magenta', 'Cyan', 'Lime'];
 
 /* ---------------------------------------- generateColor ---------------------------------------- */
