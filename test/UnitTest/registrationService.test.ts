@@ -142,7 +142,6 @@ describe('generateVIN', () => {
     expect(vinNumbers).toContain(vin);
   });
 
-  //Må ikke være 16 må ikke være 18
   test('VIN has correct length', () => {
     expect(vin.length).toBe(17);
   });
