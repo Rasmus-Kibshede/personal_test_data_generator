@@ -4,7 +4,6 @@ import * as chassisService from '../../src/Services/chassisService'
 
 let chassis: Chassis;
 
-
 /* ---------------------------------------- generateChassis ---------------------------------------- */
 describe('generateChassis', () => {
 

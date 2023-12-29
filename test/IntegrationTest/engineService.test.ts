@@ -1,8 +1,6 @@
 import * as engineService from '../../src/Services/engineService'
 import { Engine } from '../../src/Model/Engine';
 
-const expectedFuelTypeData = ['Diesel', 'Petrol', 'Hybrid', 'Petrol', 'AC']
-
 let engine: Engine;
 
 

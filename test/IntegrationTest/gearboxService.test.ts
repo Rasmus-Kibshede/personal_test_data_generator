@@ -2,11 +2,7 @@ import { Gearbox } from '../../src/Model/Gearbox';
 import * as gearboxService from '../../src/Services/gearboxService'
 
 let gearbox: Gearbox;
-/*
-const expectedGearboxTypes = ['Automatic', 'Manuel', 'Electric'];
-const expectedGears = [4, 5, 6, 7];
-const expectedDriveTrainTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
-*/
+
 /* ---------------------------------------- generateGearbox ---------------------------------------- */
 describe('generateGearbox', () => {
 
