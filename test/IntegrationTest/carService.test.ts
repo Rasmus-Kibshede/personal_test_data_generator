@@ -3,8 +3,6 @@ import { connection } from '../../src/Repositories/data-source';
 import { Car } from '../../src/Model/Vehicle';
 import * as carService from '../../src/Services/carService'
 
-//let car: Car;
-
 let car: Car;
 let cars: Car[];
 let choice: number;
@@ -15,7 +13,9 @@ describe('generatecar', () => {
 
     beforeEach(async () => {
         const door = [3, 5]
-        car = await carService.generateCar() as unknown as Car;
+        const result = await carService.generateCar();
+        if(result.success)
+        car = result.result.data as Car
     });
 
     test('car is an object', () => {
@@ -95,30 +95,27 @@ describe('generateCars', () => {
     beforeEach(() => {
         choice = 10;
         const result = carService.generateCars(10);
-        if (result.success) {
-            const test = result.result.data
-        }
-        cars = test as unknown as Car[];
-        console.log();
+        if (result.success)
+         cars = result.result.data as Car[]
         
     });
-
+    
     test('Color not null or undefined', () => {
         expect(cars.length).toBe(choice);
-
     });
 });
 
-describe('generatecars', () => {
+/* ---------------------------------------- Get Car by ID ---------------------------------------- */
 
-    test('Color not null or undefined', () => {
-        car = carService.getCarById(1) as unknown as Car;
-        expect(typeof car.getVehicleId()).toBe('number');
+describe('GetCarByID success', () => {
 
+    test('Color not null or undefined', async () => {
+        const test = await carService.getCarById(1);
+        expect(test.success).toBe(true);
     });
 });
 
 afterAll(() => {
     connection.end();
-})
+});
 
