@@ -73,7 +73,7 @@ The tests must be in code. Scripting tools like Selenium IDE are forbidden
 #### Deliverables:
 - [x] Source code of the end-to-end tests
 
-#### Stress performance testing. 
+## Stress performance testing. 
 Implement load, stress, and spike testing on the application with a stress performance testing application (e.g., Apache JMeter).
-#### Deliverables
+### Deliverables
 - [x] Reports or screenshots documenting the tests.
