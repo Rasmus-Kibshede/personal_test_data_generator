@@ -11,9 +11,9 @@ The topic, business idea, specifications, type of application (web, mobile, stan
 - [ ] A connection to an external, public API (could be something simple like a weather widget)
 	- We are using the sendgrid api.
 
-## Task list
+# Task list
 
-#### Review
+## Review
 One member of the group will write an SRS (Software Requirements Specification) for the application in the format chosen by the students (it can be a series of user stories).
 The remaining members will conduct a formal review and generate a review document.
 
