@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 
 export const generateEngine = () => {
     const engineType = generateType();
-    const engine = new Engine(-1, enginType, generatePower(), generatePower(), generateFuelType(enginType));
+    const engine = new Engine(-1, engineType, generatePower(), generatePower(), generateFuelType(engineType));
     return engine;
 };
 
@@ -17,9 +17,9 @@ export const generateType = () => {
     return random;
 };
 
-export const generateFuelType = (enginType: string) =>{
+export const generateFuelType = (engineType: string) =>{
     const types = ['Diesel', 'Petrol', 'Hybrid'];
-    if(enginType === 'Electric'){
+    if(engineType === 'Electric'){
         return 'AC';
     } else {
         return types[faker.number.int({min:0, max: types.length -1})];
