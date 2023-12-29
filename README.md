@@ -2,10 +2,6 @@
 This is a project about KEA software test lecture mandatory
 
 
-# personal_test_data_generator
-This is a project about KEA software test lecture mandatory
-
-
 ## Requirements
 The topic, business idea, specifications, type of application (web, mobile, standalone), programming language(s), DBMSs, test tools, continuous integration tools, and IDEs used will be decided by the students. However, the application must include the following:
 
