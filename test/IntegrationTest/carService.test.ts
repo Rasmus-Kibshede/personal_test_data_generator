@@ -94,12 +94,16 @@ describe('generatecars', () => {
 
     beforeEach(() => {
         choice = 10;
-        cars = carService.generateCars(10);
+        const result = carService.generateCars(10);
+        if (result.success) {
+            const test = result.result.data
+        }
+        cars = test as unknown as Car[];
     });
 
     test('Color not null or undefined', () => {
         expect(cars.length).toBe(choice);
-        
+
     });
 });
 
@@ -108,7 +112,7 @@ describe('generatecars', () => {
     test('Color not null or undefined', () => {
         car = carService.getCarById(1) as unknown as Car;
         expect(typeof car.getVehicleId()).toBe('number');
-        
+
     });
 });
 
