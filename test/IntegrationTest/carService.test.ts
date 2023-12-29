@@ -90,7 +90,7 @@ describe('generatecar', () => {
 
 /* ---------------------------------------- generateCars ---------------------------------------- */
 
-describe('generatecars', () => {
+describe('generateCars', () => {
 
     beforeEach(() => {
         choice = 10;
@@ -99,6 +99,8 @@ describe('generatecars', () => {
             const test = result.result.data
         }
         cars = test as unknown as Car[];
+        console.log();
+        
     });
 
     test('Color not null or undefined', () => {
