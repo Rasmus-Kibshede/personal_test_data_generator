@@ -29,7 +29,7 @@ The remaining members will conduct a formal review and generate a review documen
 - [x] Risk matrices. Several illustrating the state of the risks at several phases of the project
 
 ## Black-box test design. Black-box techniques will help identify test cases.
-### Deliverables (all in a single pdf file):
+#### Deliverables (all in a single pdf file):
 
 - [ ] Equivalence partitioning analysis
 - [ ] Boundary value analysis
@@ -55,14 +55,14 @@ Pay attention to the following:
 - [ ] The test cases identified in the black-box design phase must serve as a starting point
 - [ ] Use parameterised tests/data providers
 
-### Deliverables:
+#### Deliverables:
 - [ ] Source code of the application
 - [ ] Source code of the unit tests and integration tests
 
 ## Continuous testing. 
 Create an online code repository and a continuous integration job or pipeline that checks potential integration errors.
 The CI job must automate the execution of the unit tests and integration tests in code
-### Deliverables:
+#### Deliverables:
 
 - [x] CI job script (xml/yaml file or similar)
 - [ ] Output of the integration project (if the CI tool does not generate a file, copy the output and paste it on a text file)
@@ -75,5 +75,5 @@ The tests must be in code. Scripting tools like Selenium IDE are forbidden
 
 ## Stress performance testing. 
 Implement load, stress, and spike testing on the application with a stress performance testing application (e.g., Apache JMeter).
-### Deliverables
+#### Deliverables
 - [x] Reports or screenshots documenting the tests.
