@@ -113,7 +113,7 @@ describe('generateCapacity', () => {
   });
 
   test('Capacity has a valid range', () => {
-    expect(capacity).toBeGreaterThan(2);
+    expect(capacity).toBeGreaterThanOrEqual(2);
 
   });
 
@@ -129,13 +129,19 @@ describe('generateCapacity', () => {
     expect(capacity).toBeGreaterThan(0);
   });
 
-  test('Capacity is less than 6 upper boundary', () => {
+  test('Capacity is not 6 upper boundary', () => {
     expect(capacity).not.toBe(6);
+  });
+
+  test('Capacity is less than 6 upper boundary', () => {
     expect(capacity).toBeLessThan(6);
   });
 
   test('Capacity greater than 1 lower boundary', () => {
     expect(capacity).toBeGreaterThan(1);
+  });
+
+  test('Capacity is not 1 lower boundary', () => {
     expect(capacity).not.toBe(1);
   });
 });
