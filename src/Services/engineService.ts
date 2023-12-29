@@ -2,7 +2,7 @@ import { Engine } from "../Model/Engine";
 import { faker } from '@faker-js/faker';
 
 export const generateEngine = () => {
-    const enginType = generateType();
+    const engineType = generateType();
     const engine = new Engine(-1, enginType, generatePower(), generatePower(), generateFuelType(enginType));
     return engine;
 };
