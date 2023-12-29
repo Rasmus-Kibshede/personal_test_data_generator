@@ -122,9 +122,11 @@ describe('Model', () => {
     });
 
     test('Model non-empty', () => {
-        const model = manufacturer.getModel();
-        expect(model).toBeDefined();
-        expect(model.trim()).not.toEqual('');
+        expect(manufacturer.getModel().trim()).not.toEqual('');
+    });
+
+    test('Model non-empty', () => {
+        expect(manufacturer.getModel()).toBeDefined();
     });
 
     test('Model is a string with no leading or trailing whitespaces', () => {
