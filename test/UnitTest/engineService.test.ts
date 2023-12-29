@@ -5,7 +5,6 @@ let engine: string;
 let fuelType: string;
 
 const expectedTypeData = ['V8', '4cyl', 'V12', 'V6', 'Electric', 'V10']
-const expectedFuelTypeData = ['Diesel', 'Petrol', 'Hybrid', 'Petrol', 'AC']
 
 
 /* ---------------------------------------- generatePower ---------------------------------------- */
@@ -23,17 +22,26 @@ describe('generatePower', () => {
   })
 
   test('Generated power is within the specified range', () => {
-    expect(hp).toBeGreaterThanOrEqual(150);
     expect(hp).toBeLessThanOrEqual(1100);
   });
 
-  test('Power is less than 1101 upper boundary', () => {
-    expect(hp).not.toBe(1101);
-    expect(hp).toBeLessThan(1100);
+  test('Generated power is within the specified range', () => {
+    expect(hp).toBeGreaterThanOrEqual(150);
   });
 
-  test('Power greater than 149 lower boundary', () => {
+  test('Power is less than 1101 upper boundary', () => {
+    expect(hp).toBeLessThan(1101);
+  });
+
+  test('Power is not 1101 upper boundary', () => {
+    expect(hp).not.toBe(1101);
+  });
+
+  test('Power greater than 150 lower boundary', () => {
     expect(hp).toBeGreaterThan(150);
+  });
+
+  test('Power is not 149 lower boundary', () => {
     expect(hp).not.toBe(149);
   });
 
@@ -57,9 +65,12 @@ describe('generatePower', () => {
     expect(hp % 1).toBe(0);
   });
 
-  test('Type is not null or undefined', () => {
+  test('Type is not undefined', () => {
+    expect(hp).toBeDefined()
+  });
+
+  test('Type is not null', () => {
     expect(hp).not.toBeNull();
-    expect(hp).not.toBeUndefined();
   });
 });
 
@@ -84,9 +95,12 @@ describe('generateType', () => {
     expect(engine).not.toBe('');
   });
 
-  test('Engine type is not null or undefined', () => {
+  test('Engine type not undefined', () => {
+    expect(engine).toBeDefined()
+  });
+
+  test('Engine type is not null', () => {
     expect(engine).not.toBeNull();
-    expect(engine).not.toBeUndefined();
   });
 
   test('Engine type is a string with no leading or trailing whitespaces', () => {
@@ -103,20 +117,34 @@ describe('generateType', () => {
   });
 
   test('Engine is less than 8 upper boundary', () => {
-    expect(engine.length).not.toBe(9);
     expect(engine.length).toBeLessThan(9);
   });
 
-  test('Engine greater than 3 lower boundary', () => {
+  test('Engine not 9 upper boundary', () => {
+    expect(engine.length).not.toBe(9);
+  });
+
+  test('Engine greater than 1 lower boundary', () => {
     expect(engine.length).toBeGreaterThan(1);
+  });
+
+  test('Engine not 1 lower boundary', () => {
     expect(engine.length).not.toBe(1);
+  });
+
+  test('Engine is within the specified range', () => {
+    expect(engine.length).toBeLessThanOrEqual(8);
+  });
+
+  test('Engine is within the specified range', () => {
+    expect(engine.length).toBeGreaterThanOrEqual(2);
   });
 });
 
 
 /* ---------------------------------------- generateFuelType ---------------------------------------- */
 
-describe('generateType', () => {
+describe('generateFuelType', () => {
 
   beforeEach(() => {
     fuelType = engineService.generateFuelType('v8');
@@ -130,9 +158,12 @@ describe('generateType', () => {
     expect(fuelType).not.toBe('');
   });
 
-  test('Fuel type is not null or undefined', () => {
+  test('Fuel type is not undefined', () => {
+    expect(fuelType).toBeDefined()
+  });
+
+  test('Fuel type is not null', () => {
     expect(fuelType).not.toBeNull();
-    expect(fuelType).not.toBeUndefined();
   });
 
   test('Type is a string with no leading or trailing whitespaces', () => {
@@ -155,6 +186,22 @@ describe('generateType', () => {
 
   test('Fuel type less or equal to 6', async () => {
     expect(fuelType.length).toBeLessThanOrEqual(6);
+  });
+
+  test('Fuel type  is less than 8 upper boundary', () => {
+    expect(engine.length).toBeLessThan(7);
+  });
+
+  test('Fuel type  not 9 upper boundary', () => {
+    expect(engine.length).not.toBe(7);
+  });
+
+  test('Fuel type  greater than 1 lower boundary', () => {
+    expect(engine.length).toBeGreaterThan(1);
+  });
+
+  test('Fuel type  not 1 lower boundary', () => {
+    expect(engine.length).not.toBe(1);
   });
 
   test('Fuel type contains', () => {

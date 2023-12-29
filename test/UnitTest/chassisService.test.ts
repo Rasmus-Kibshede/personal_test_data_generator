@@ -13,12 +13,6 @@ const expectedCapacity = [2, 5]
 const expectedWheels = 4;
 const excludedColors = ['Magenta', 'Cyan', 'Lime'];
 
-const dataProvider = expectedColors.map((color) => ({
-  color,
-  capacity: expectedCapacity[faker.number.int({ min: 0, max: expectedCapacity.length - 1 })],
-  wheels: expectedWheels
-}));
-
 /* ---------------------------------------- generateColor ---------------------------------------- */
 describe('generateColor', () => {
 
@@ -84,6 +78,12 @@ describe('generateColor', () => {
 /* ---------------------------------------- generateCapacity ---------------------------------------- */
 //FLERE TEST
 describe('generateCapacity', () => {
+
+  beforeEach(() => {
+    const choices = [3, 5]
+    capacity = chassisService.generateCapacity(choices[faker.number.int({ min: 0, max: choices.length - 1 })])
+  });
+
   const capacities = [{ door: 2, expected: 5 }, { door: 5, expected: 5 }, { door: 1, expected: 5 }, { door: 3, expected: 2 },
   { door: 6, expected: 5 }, { door: 4, expected: 5 }];
 
@@ -92,15 +92,17 @@ describe('generateCapacity', () => {
     expect(result).toBe(expected);
   });
 
+  //ER disse 2 ikke ligegyldige? 
   test.each(capacities)('Capacity is 2 or 5', ({ door, expected }) => {
     const result = chassisService.generateCapacity(door);
     expect(result).toBeLessThanOrEqual(expected);
   });
 
-  beforeEach(() => {
-    const choices = [3, 5]
-    capacity = chassisService.generateCapacity(choices[faker.number.int({ min: 0, max: choices.length - 1 })])
+  test.each(capacities)('Capacity is 2 or 5', ({ door, expected }) => {
+    const result = chassisService.generateCapacity(door);
+    expect(result).toBeGreaterThan(expected);
   });
+//HERTIL
 
   test('Capacity is 2 or 5', () => {
     expect(expectedCapacity).toContain(capacity);
@@ -114,13 +116,20 @@ describe('generateCapacity', () => {
     expect(capacity % 1).toBe(0);
   });
 
-  test('Capacity is not undefined & not null', () => {
-    expect(capacity).not.toBeUndefined();
+  test('Capacity is not undefined', () => {
+    expect(capacity).toBeDefined()
+  });
+
+  test('Capacity is not null', () => {
     expect(capacity).not.toBeNull();
   });
 
   test('Capacity has a valid range', () => {
     expect(capacity).toBeGreaterThan(2);
+
+  });
+
+  test('Capacity has a valid range', () => {
     expect(capacity).toBeLessThanOrEqual(5);
   });
 
@@ -169,8 +178,11 @@ describe('generateWheel', () => {
     expect(wheels % 1).toBe(0);
   });
 
-  test('Wheels is not undefined & not null', () => {
-    expect(wheels).not.toBeUndefined();
+  test('Wheels is not undefined', () => {
+    expect(wheels).toBeDefined()
+  });
+
+  test('Wheels is not null', () => {
     expect(wheels).not.toBeNull();
   });
 
@@ -179,12 +191,18 @@ describe('generateWheel', () => {
   });
 
   test('Wheels is less than 5 upper boundary', () => {
-    expect(wheels).not.toBe(5);
     expect(wheels).toBeLessThan(5);
+  });
+
+  test('Wheels not 5 upper boundary', () => {
+    expect(wheels).not.toBe(5);
+  });
+
+  test('Wheels not 3 lower boundary', () => {
+    expect(wheels).not.toBe(3);
   });
 
   test('Wheels greater than 3 lower boundary', () => {
     expect(wheels).toBeGreaterThan(3);
-    expect(wheels).not.toBe(3);
   });
 });
