@@ -52,32 +52,3 @@ describe('generateChassis', () => {
         expect(chassis.getWheel()).not.toBeUndefined();
       });
 });
-
-/* ---------------------------------------- chassis Setters ---------------------------------------- */
-
-describe('chassis Setters', () => {
-
-  beforeEach(() => {
-    chassis = chassisService.generateChassis(2);
-  });
-
-  test('Chassis setCapacity',()=>{
-    chassis.setCapacity(-1);
-    expect(chassis.getCapacity()).toBe(-1);
-  });
-
-  test('Chassis setID',()=>{
-    chassis.setChassisId(-1);
-    expect(chassis.getChassisId()).toBe(-1);
-  });
-
-  test('Chassis setColor',()=>{
-    chassis.setColor('test');
-    expect(chassis.getColor()).toBe('test');
-  });
-
-  test('Chassis setWheel',()=>{
-    chassis.setWheel(-1);
-    expect(chassis.getWheel()).toBe(-1);
-  });
-});

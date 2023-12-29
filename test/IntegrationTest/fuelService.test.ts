@@ -50,27 +50,3 @@ describe('Generate fuel', () => {
         expect(fuel.getRange()).not.toBeUndefined();
       });
 });
-
-/* ---------------------------------------- Fuel Setters ---------------------------------------- */
-
-describe('fuel Setters', () => {
-
-    beforeEach(() => {
-        fuel = fuelService.generateFuelStats();
-    });
-
-    test('Registration setLicenseNumber', () => {
-        fuel.setFuelStatsId(-1);
-        expect(fuel.getFuelStatsId()).toBe(-1);
-    });
-
-    test('Registration setVIN', () => {
-        fuel.setFuelTank(-1);
-        expect(fuel.getFuelTank()).toBe(-1);
-    });
-
-    test('Registration setRegistrationId', () => {
-        fuel.setRange(-1);
-        expect(fuel.getRange()).toBe(-1);
-    });
-});

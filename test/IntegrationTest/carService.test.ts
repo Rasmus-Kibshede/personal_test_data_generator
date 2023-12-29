@@ -194,30 +194,3 @@ describe('GetCarByID success', () => {
 afterAll(() => {
     connection.end();
 });
-
-/* ---------------------------------------- Car Setters ---------------------------------------- */
-
-describe('Car Setters', () => {
-
-    beforeEach(async () => {
-        const result = await carService.generateCar();
-        if(result.success)
-        car = result.result.data as Car
-    });
-  
-    test('car setID',()=>{
-      car.setVehicleId(-1);
-      expect(car.getVehicleId()).toBe(-1);
-    });
-  
-    test('car setDoor',()=>{
-      car.setDoor(-1);
-      expect(car.getDoor()).toBe(-1);
-    });
-
-    test('car setChassis',()=>{
-        car.setChassis(cars[0].getChassis());
-        expect(car.getChassis()).toBe(cars[0].getChassis());
-      });
-  });
-

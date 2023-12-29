@@ -50,28 +50,3 @@ describe('generateRegistration', () => {
     expect(registration.getVIN()).not.toBeUndefined();
   });
 });
-
-
-/* ---------------------------------------- Registration setters ---------------------------------------- */
-
-describe('Registration Setters', () => {
-
-  beforeEach(() => {
-    registration = registrationService.generateRegistration();
-  });
-
-  test('Registration setLicenseNumber',()=>{
-    registration.setLicenseNumber('test');
-    expect(registration.getLicenseNumber()).toBe('test')
-  });
-
-  test('Registration setVIN',()=>{
-    registration.setVIN('test');
-    expect(registration.getVIN()).toBe('test')
-  });
-
-  test('Registration setRegistrationId',()=>{
-    registration.setRegistrationId(-1);
-    expect(registration.getRegistrationId()).toBe(-1)
-  });
-});

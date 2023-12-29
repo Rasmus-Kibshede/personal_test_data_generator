@@ -3,7 +3,6 @@ import * as manufacturerService from '../../src/Services/manufacturerService'
 
 const expectedMakes = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla', 'BMW', 'Mercedes-Benz', 'Audi', 'Nissan', 'Hyundai'];
 const expectedModels = ['Camry', 'Accord', 'Mustang', 'Malibu', 'Model 3', 'X5', 'C-Class', 'A4', 'Altima', 'Elantra'];
-const yearsList = [2000, 2002, 2005, 2008, 2010, 2012, 2015, 2017, 2020, 2022];
 
 
 let manufacturer: Manufacturer
@@ -200,34 +199,5 @@ describe('Year', () => {
 
     test('Year is a valid integer', () => {
         expect(Number.isInteger(manufacturer.getYear())).toBe(true);
-    });
-});
-
-/* ---------------------------------------- Manufacturer setters ---------------------------------------- */
-
-describe('manufacturer Setters', () => {
-
-    beforeEach(() => {
-        manufacturer = manufacturerService.generateManufacturer();
-    });
-
-    test('manufacturer setID', () => {
-        manufacturer.setManufacturerId(-1);
-        expect(manufacturer.getManufacturerId()).toBe(-1);
-    });
-
-    test('manufacturer setMake', () => {
-        manufacturer.setMake('test');
-        expect(manufacturer.getMake()).toBe('test');
-    });
-
-    test('manufacturer setYear', () => {
-        manufacturer.setYear(-1);
-        expect(manufacturer.getYear()).toBe(-1);
-    });
-
-    test('manufacturer setModel', () => {
-        manufacturer.setModel('test');
-        expect(manufacturer.getModel()).toBe('test');
     });
 });

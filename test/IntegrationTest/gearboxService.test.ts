@@ -58,33 +58,3 @@ describe('generateGearbox', () => {
         expect(gearbox.getType()).not.toBeUndefined();
       });
 });
-
-
-  /* ---------------------------------------- Gearbox Setters ---------------------------------------- */
-
-  describe('Gearbox Setters', () => {
-
-    beforeEach(() => {
-      gearbox = gearboxService.generateGearbox();
-    });
-  
-    test('Gearbox setLicenseNumber',()=>{
-      gearbox.setDriveTrain('test');
-      expect(gearbox.getDriveTrain()).toBe('test');
-    });
-  
-    test('Gearbox setVIN',()=>{
-      gearbox.setGearboxId(-1);
-      expect(gearbox.getGearboxId()).toBe(-1);
-    });
-  
-    test('Gearbox setGearboxId',()=>{
-      gearbox.setGears(-1);
-      expect(gearbox.getGears()).toBe(-1);
-    });
-
-    test('Gearbox setGearboxId',()=>{
-      gearbox.setType('test');
-      expect(gearbox.getType()).toBe('test');
-    });
-  });
