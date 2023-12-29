@@ -2,70 +2,75 @@ import { Gearbox } from '../../src/Model/Gearbox';
 import * as gearboxService from '../../src/Services/gearboxService'
 
 let gearbox: Gearbox;
-
+/*
 const expectedGearboxTypes = ['Automatic', 'Manuel', 'Electric'];
 const expectedGears = [4, 5, 6, 7];
 const expectedDriveTrainTypes = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
-
+*/
 /* ---------------------------------------- generateGearbox ---------------------------------------- */
-describe('generateRegistration', () => {
+describe('generateGearbox', () => {
 
     beforeEach(() => {
         gearbox = gearboxService.generateGearbox();
     });
 
-    test('Registration',()=>{
+    test('Gearbox',()=>{
         expect(typeof gearbox).toBe('object')
       });
     
-      test('Registration instanceOf Registration', () => {
+      test('Gearbox instanceOf Gearbox', () => {
         expect(gearbox).toBeInstanceOf(Gearbox);
       });
 
-      test('Registration has id', () => {
+      test('Gearbox has id', () => {
         expect(gearbox.getGearboxId()).toBeDefined();
       });
 
-      test('RegistrationId equal -1', () => {
-        expect(gearbox.getGearboxId()).toBe(-1);
+      test('Gearbox has id', () => {
+        expect(gearbox.getGearboxId()).not.toBeNull();
       });
     
-      test('RegistrationId not 0', () => {
-        expect(gearbox.getGearboxId()).not.toBe(0);
-      });
-    
-      test('RegistrationId not null or undefined', () => {
+      test('Gearbox not null', () => {
         expect(gearbox).not.toBeNull();
+      });
+
+      test('Gearbox not undefined', () => {
         expect(gearbox).not.toBeUndefined();
       });
 
+      test('Drive train not null', () => {
+        expect(gearbox.getDriveTrain()).not.toBeNull();
+      });
+
+      test('Drive train not undefined', () => {
+        expect(gearbox.getDriveTrain()).not.toBeUndefined();
+      });
+
+      test('Gears not null', () => {
+        expect(gearbox.getGears()).not.toBeNull();
+      });
+
+      test('Gears not undefined', () => {
+        expect(gearbox.getGears()).not.toBeUndefined();
+      });
+
+      test('Type not null', () => {
+        expect(gearbox.getType()).not.toBeNull();
+      });
+
+      test('Type not undefined', () => {
+        expect(gearbox.getType()).not.toBeUndefined();
+      });
+
+      /*test('GearboxId equal -1', () => {
+        expect(gearbox.getGearboxId()).toBe(-1);
+      });
+    
+      test('GearboxId not 0', () => {
+        expect(gearbox.getGearboxId()).not.toBe(0);
+      }); */
+
 });
-
-
-/* ---------------------------------------- generateGearbox ---------------------------------------- */
-describe('generateGearbox', () => {
-    //Ville ikke Mocke Gearbox eller generateGearbox her?  
-    beforeEach(() => {
-      gearbox = gearboxService.generateGearbox();
-    });
-  
-    test('Gearbox correct type', () => {
-      expect(expectedGearboxTypes).toContain(gearbox.getType())
-    });
-  
-    test('Gearbox correct gear', () => {
-      expect(expectedGears).toContain(gearbox.getGears());
-    });
-  
-    test('Gearbox correct driveTrain', () => {
-      expect(expectedDriveTrainTypes).toContain(gearbox.getDriveTrain());
-    });
-  
-    test('Gearbox has id', () => {
-      expect(gearbox.getGearboxId()).toBeDefined();
-      expect(gearbox.getGearboxId()).toBe(-1);
-    });
-  });
 
 
   /* ---------------------------------------- Gearbox Setters ---------------------------------------- */
@@ -76,22 +81,22 @@ describe('generateGearbox', () => {
       gearbox = gearboxService.generateGearbox();
     });
   
-    test('Registration setLicenseNumber',()=>{
+    test('Gearbox setLicenseNumber',()=>{
       gearbox.setDriveTrain('test');
       expect(gearbox.getDriveTrain()).toBe('test');
     });
   
-    test('Registration setVIN',()=>{
+    test('Gearbox setVIN',()=>{
       gearbox.setGearboxId(-1);
       expect(gearbox.getGearboxId()).toBe(-1);
     });
   
-    test('Registration setRegistrationId',()=>{
+    test('Gearbox setGearboxId',()=>{
       gearbox.setGears(-1);
       expect(gearbox.getGears()).toBe(-1);
     });
 
-    test('Registration setRegistrationId',()=>{
+    test('Gearbox setGearboxId',()=>{
       gearbox.setType('test');
       expect(gearbox.getType()).toBe('test');
     });

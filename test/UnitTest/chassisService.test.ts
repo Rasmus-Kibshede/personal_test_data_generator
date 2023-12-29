@@ -51,9 +51,24 @@ describe('generateColor', () => {
     expect(excludedColors.includes(color)).toBe(false);
   });
 
-  test('Color has a valid length', () => {
+  test('Color has a valid lower length', () => {
     expect(color.length).toBeGreaterThanOrEqual(3);
+  });
+
+  test('Color has a valid upper length', () => {
     expect(color.length).toBeLessThanOrEqual(6);
+  });
+
+  test('Color not less then lower', () => {
+    expect(color.length).not.toBeLessThan(3);
+  });
+
+  test('Color not greater then upper', () => {
+    expect(color.length).not.toBeGreaterThan(6);
+  });
+
+  test('Color not 0', () => {
+    expect(color.length).not.toBe(0);
   });
 
   test('Color starts with an uppercase letter', () => {
@@ -70,7 +85,7 @@ describe('generateColor', () => {
 //FLERE TEST
 describe('generateCapacity', () => {
   const capacities = [{ door: 2, expected: 5 }, { door: 5, expected: 5 }, { door: 1, expected: 5 }, { door: 3, expected: 2 },
-    { door: 6, expected: 5 }, { door: 4, expected: 5 }];
+  { door: 6, expected: 5 }, { door: 4, expected: 5 }];
 
   test.each(capacities)('Capacity is 2 or 5', ({ door, expected }) => {
     const result = chassisService.generateCapacity(door);
@@ -82,7 +97,7 @@ describe('generateCapacity', () => {
     expect(result).toBeLessThanOrEqual(expected);
   });
 
-  beforeEach(()=>{
+  beforeEach(() => {
     const choices = [3, 5]
     capacity = chassisService.generateCapacity(choices[faker.number.int({ min: 0, max: choices.length - 1 })])
   });
@@ -105,7 +120,7 @@ describe('generateCapacity', () => {
   });
 
   test('Capacity has a valid range', () => {
-    expect(capacity).toBeGreaterThan(1);
+    expect(capacity).toBeGreaterThan(2);
     expect(capacity).toBeLessThanOrEqual(5);
   });
 

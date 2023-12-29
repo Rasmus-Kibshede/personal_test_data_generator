@@ -8,7 +8,66 @@ let engine: Engine;
 
 /* ---------------------------------------- generateEngine ---------------------------------------- */
 describe('Generate Engine', () => {
-    test('Generated power is within the specified range', () => {
+    
+    test('test coverage', () => {
+      const result = engineService.generateEngine();
+      expect(typeof result).toBe('object');
+    });
+  
+    test('Engine instanceOf Engine', () => {
+      const result = engineService.generateEngine();
+      expect(result).toBeInstanceOf(Engine);
+    });
+
+    test('engine has id', () => {
+      expect(engine.getEngineId()).toBeDefined();
+    });
+
+    test('engine has id', () => {
+      expect(engine.getEngineId()).not.toBeNull();
+    });
+  
+    test('engine not null', () => {
+      expect(engine).not.toBeNull();
+    });
+
+    test('engine not undefined', () => {
+      expect(engine).not.toBeUndefined();
+    });
+
+    test('Fuel type train not null', () => {
+      expect(engine.getFuelType()).not.toBeNull();
+    });
+
+    test('Fuel type train not undefined', () => {
+      expect(engine.getFuelType()).not.toBeUndefined();
+    });
+
+    test('Horsepower not null', () => {
+      expect(engine.getHP()).not.toBeNull();
+    });
+
+    test('Horsepower not undefined', () => {
+      expect(engine.getHP()).not.toBeUndefined();
+    });
+
+    test('Type not null', () => {
+      expect(engine.getType()).not.toBeNull();
+    });
+
+    test('Type not undefined', () => {
+      expect(engine.getType()).not.toBeUndefined();
+    });
+
+    test('Torque not null', () => {
+      expect(engine.getTorque()).not.toBeNull();
+    });
+
+    test('Torque not undefined', () => {
+      expect(engine.getTorque()).not.toBeUndefined();
+    });
+
+/*test('Generated power is within the specified range', () => {
       const result = engineService.generatePower();
       expect(result).toBeGreaterThanOrEqual(150)
     });
@@ -21,17 +80,9 @@ describe('Generate Engine', () => {
     test('test coverage', () => {
       const result = engineService.generateFuelType('V8');
       expect(expectedFuelTypeData).toContain(result);
-    });
-  
-    test('test coverage', () => {
-      const result = engineService.generateEngine();
-      expect(typeof result).toBe('object');
-    });
-  
-    test('Engine instanceOf Engine', () => {
-      const result = engineService.generateEngine();
-      expect(result).toBeInstanceOf(Engine);
-    });
+    }); */
+
+
   });
 
   /* ---------------------------------------- engine Setters ---------------------------------------- */

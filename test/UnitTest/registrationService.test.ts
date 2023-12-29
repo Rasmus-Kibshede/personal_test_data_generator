@@ -32,6 +32,9 @@ describe('generateLicenseNumber', () => {
       expect(plate).not.toBe('');
     });
 
+
+    //Tester ikke må være 8 og ikke være 7
+
     test('License has correct length', () => {
       expect(plate.length).toBe(9);
     });
@@ -118,6 +121,7 @@ describe('generateVIN', () => {
     expect(vinNumbers).toContain(vin);
   });
 
+  //Må ikke være 16 må ikke være 18
   test('VIN has correct length', () => {
     expect(vin.length).toBe(17);
   });

@@ -4,7 +4,7 @@ import { Registration } from "../Model/Registration";
 export const generateRegistration = () => {
     const registration = new Registration(-1, generateVIN(), generateLicenseNumber());
     return registration;
-}
+};
 
 export const generateLicenseNumber = () => {
     const plates = [
@@ -13,7 +13,7 @@ export const generateLicenseNumber = () => {
         'BB 90 123', 'CC 12 345', 'DD 23 456', 'EE 45 678', 'FF 67 890', 'GG 89 012'
     ];
     return plates[faker.number.int({ min: 0, max: plates.length - 1 })]
-}
+};
 
 export const generateVIN = () => {
     const vinNumbers = [
@@ -23,4 +23,4 @@ export const generateVIN = () => {
         'WAUBFAFL7BA003901', 'XWBEN10EX9VS74136', 'YV1RS592672591003', 'ZFA25000001692412'
     ];
     return vinNumbers[faker.number.int({ min: 0, max: vinNumbers.length - 1 })]
-}
+};

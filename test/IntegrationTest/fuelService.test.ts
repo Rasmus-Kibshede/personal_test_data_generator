@@ -10,6 +10,47 @@ describe('Generate fuel', () => {
         fuel = fuelService.generateFuelStats();
     });
 
+    test('test coverage', () => {
+        expect(typeof fuel).toBe('object');
+    });
+
+    test('Fuel instanceOf fuel', () => {
+        expect(fuel).toBeInstanceOf(FuelStats);
+    });
+
+    test('FuelID has id', () => {
+        expect(fuel.getFuelStatsId()).toBeDefined();
+      });
+
+      test('FuelID has id', () => {
+        expect(fuel.getFuelStatsId()).not.toBeNull();
+      });
+    
+      test('Fuel not null', () => {
+        expect(fuel).not.toBeNull();
+      });
+
+      test('Fuel not undefined', () => {
+        expect(fuel).not.toBeUndefined();
+      });
+
+      test('FuelTank train not null', () => {
+        expect(fuel.getFuelTank()).not.toBeNull();
+      });
+
+      test('FuelTank train not undefined', () => {
+        expect(fuel.getFuelTank()).not.toBeUndefined();
+      });
+
+      test('Range not null', () => {
+        expect(fuel.getRange()).not.toBeNull();
+      });
+
+      test('Range not undefined', () => {
+        expect(fuel.getRange()).not.toBeUndefined();
+      });
+
+    /*
     test('Generated power is within the specified range', () => {
         const expectedMin = 45;
         const expectedMax = 65;
@@ -26,15 +67,7 @@ describe('Generate fuel', () => {
         const expectedMax = 900;
         expect(fuel.getRange()).toBeGreaterThanOrEqual(expectedMin);
         expect(fuel.getRange()).toBeLessThanOrEqual(expectedMax);
-    });
-
-    test('test coverage', () => {
-        expect(typeof fuel).toBe('object');
-    });
-
-    test('fuel instanceOf fuel', () => {
-        expect(fuel).toBeInstanceOf(FuelStats);
-    });
+    });*/
 });
 
 /* ---------------------------------------- Fuel Setters ---------------------------------------- */

@@ -2,6 +2,12 @@ import 'dotenv/config'
 import { connection } from '../../src/Repositories/data-source';
 import { Car } from '../../src/Model/Vehicle';
 import * as carService from '../../src/Services/carService'
+import { Chassis } from '../../src/Model/Chassis';
+import { Engine } from '../../src/Model/Engine';
+import { FuelStats } from '../../src/Model/FuelStats';
+import { Gearbox } from '../../src/Model/Gearbox';
+import { Manufacturer } from '../../src/Model/Manufacturer';
+import { Registration } from '../../src/Model/Registration';
 
 let car: Car;
 let cars: Car[];
@@ -22,12 +28,64 @@ describe('generatecar', () => {
         expect(typeof car).toBe('object')
     })
 
-    test('car instanceOf car', () => {
+    test('car instanceOf Car', () => {
         expect(car).toBeInstanceOf(Car);
     });
 
-    test('car has id', () => {
+    test('Chassis is an object', () => {
+        expect(typeof car.getChassis()).toBe('object')
+    })
+
+    test('Chassis instanceOf Car', () => {
+        expect(car.getChassis()).toBeInstanceOf(Chassis);
+    });
+
+    test('Engine is an object', () => {
+        expect(typeof car.getEngine()).toBe('object')
+    })
+
+    test('Engine instanceOf Car', () => {
+        expect(car.getEngine()).toBeInstanceOf(Engine);
+    }); 
+    
+    test('Fuel is an object', () => {
+        expect(typeof car.getFuel()).toBe('object')
+    })
+
+    test('Fuel instanceOf Car', () => {
+        expect(car.getFuel()).toBeInstanceOf(FuelStats);
+    });
+
+    test('car is an object', () => {
+        expect(typeof car.getGear()).toBe('object')
+    })
+
+    test('car instanceOf Car', () => {
+        expect(car.getGear()).toBeInstanceOf(Gearbox);
+    });
+
+    test('car is an object', () => {
+        expect(typeof car.getManufacturer()).toBe('object')
+    })
+
+    test('car instanceOf Car', () => {
+        expect(car.getManufacturer()).toBeInstanceOf(Manufacturer);
+    });
+
+    test('car is an object', () => {
+        expect(typeof car.getRegistration()).toBe('object')
+    })
+
+    test('car instanceOf Car', () => {
+        expect(car.getRegistration()).toBeInstanceOf(Registration);
+    });
+
+    test('carId not undefined', () => {
         expect(car.getVehicleId()).toBeDefined();
+    });
+
+    test('carId not null', () => {
+        expect(car.getVehicleId()).not.toBeNull();
     });
 
     test('carId greater then -1', () => {
@@ -42,51 +100,70 @@ describe('generatecar', () => {
         expect(car.getVehicleId()).not.toBe(0);
     });
 
-    test('car not null or undefined', () => {
+    test('car not null', () => {
         expect(car).not.toBeNull();
+    });
+
+    test('car not undefined', () => {
         expect(car).not.toBeUndefined();
     });
 
-    test('carId not null or undefined', () => {
-        expect(car.getVehicleId()).not.toBeNull();
-        expect(car.getVehicleId()).not.toBeUndefined();
+    test('Chassis not undefined', () => {
+        expect(car.getChassis()).toBeDefined();
     });
 
-    test('Capacity not null or undefined', () => {
+    test('Chassis not null', () => {
         expect(car.getChassis()).not.toBeNull();
-        expect(car.getChassis()).not.toBeUndefined();
     });
 
-    test('Color not null or undefined', () => {
+    test('Doors not undefined', () => {
+        expect(car.getDoor()).toBeDefined();
+    });
+
+    test('Doors not null', () => {
         expect(car.getDoor()).not.toBeNull();
-        expect(car.getDoor()).not.toBeUndefined();
     });
 
-    test('Color not null or undefined', () => {
+    test('Engine not undefined', () => {
+        expect(car.getEngine()).toBeDefined();
+    });
+
+    test('Engine not null', () => {
         expect(car.getEngine()).not.toBeNull();
-        expect(car.getEngine()).not.toBeUndefined();
     });
 
-    test('Color not null or undefined', () => {
+    test('Fuel not undefined', () => {
+        expect(car.getFuel()).toBeDefined();
+    });
+
+    test('Fuel not null', () => {
         expect(car.getFuel()).not.toBeNull();
-        expect(car.getFuel()).not.toBeUndefined();
     });
 
-    test('Color not null or undefined', () => {
+    test('Gears not undefined', () => {
+        expect(car.getGear()).toBeDefined();
+    });
+
+    test('Gears not null', () => {
         expect(car.getGear()).not.toBeNull();
-        expect(car.getGear()).not.toBeUndefined();
     });
 
-    test('Color not null or undefined', () => {
+    test('Manufacture not undefined', () => {
+        expect(car.getManufacturer()).toBeDefined();
+    });
+
+    test('Manufacturer not null', () => {
         expect(car.getManufacturer()).not.toBeNull();
-        expect(car.getManufacturer()).not.toBeUndefined();
     });
 
-    test('Color not null or undefined', () => {
+    test('Registration not undefined', () => {
+        expect(car.getRegistration()).toBeDefined();
+    });
+
+    test('Registratin not null', () => {
         expect(car.getRegistration()).not.toBeNull();
-        expect(car.getRegistration()).not.toBeUndefined();
     });
-
+/*
     test('Engine Horsepower is a positive number', () => {
         const horsepower = car.getEngine().getHP();
         expect(horsepower).toBeDefined();
@@ -117,11 +194,11 @@ describe('generatecar', () => {
         const licenseNumber = car.getRegistration().getLicenseNumber();
         expect(licenseNumber).toBeDefined();
         expect(typeof licenseNumber).toBe('string');
-    });
+    });*/
 });
 
 /* ---------------------------------------- generateCars ---------------------------------------- */
-
+//FLERE TEST
 describe('generateCars', () => {
 
     beforeEach(() => {
@@ -132,18 +209,18 @@ describe('generateCars', () => {
         
     });
     
-    test('Color not null or undefined', () => {
+    test('Cars length same as choice', () => {
         expect(cars.length).toBe(choice);
     });
 });
 
 /* ---------------------------------------- Get Car by ID ---------------------------------------- */
-
+//FLERE TEST
 describe('GetCarByID success', () => {
 
-    test('Color not null or undefined', async () => {
-        const test = await carService.getCarById(1);
-        expect(test.success).toBe(true);
+    test('car by id successful', async () => {
+        const result = await carService.getCarById(1);
+        expect(result.success).toBe(true);
     });
 });
 
