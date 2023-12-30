@@ -42,7 +42,7 @@ export const generateCars = async (choice: number) => {
         };
         return success(cars);
     } catch (error) {
-        throw error;
+        return error;
     }
 };
 
