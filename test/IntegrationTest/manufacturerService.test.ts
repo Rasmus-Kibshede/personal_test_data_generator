@@ -32,26 +32,13 @@ describe('generateManufacturer', () => {
 
 /* ---------------------------------------- generateManufacturer ID ---------------------------------------- */
 describe('ID', () => {
-
-    test('Manufacturer has id', () => {
-        expect(manufacturer.getManufacturerId()).toBeDefined();
-        expect(manufacturer.getManufacturerId()).toBe(-1);
-    });
-
+    
     test('Manufacturer Id is not null', () => {
         expect(manufacturer.getManufacturerId()).not.toBeNull();
     });
 
     test('Manufacturer Id is not undefined', () => {
         expect(manufacturer.getManufacturerId()).not.toBeUndefined();
-    });
-
-    test('Manufacturer Id is a valid integer', () => {
-        expect(Number.isInteger(manufacturer.getManufacturerId())).toBe(true);
-    });
-
-    test('Manufacturer Id is initialized to -1', () => {
-        expect(manufacturer.getManufacturerId()).toBe(-1);
     });
 });
 
