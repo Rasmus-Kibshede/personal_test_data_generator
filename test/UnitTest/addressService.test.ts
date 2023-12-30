@@ -78,28 +78,26 @@ describe('generateStreetName', () => {
 
   describe('testing invalid data in generateStreetName', () => {
 
-    const error = 'No street name found with that length';
-
     const data = [
-      { length: 0, error: error },
-      { length: 1, error: error },
-      { length: 2, error: error },
-      { length: 10, error: error },
-      { length: 11, error: error },
-      { length: -1, error: error },
-      { length: 1.5, error: error },
-      { length: 'a' as unknown as number, error: error },
-      { length: '&' as unknown as number, error: error },
-      { length: true as unknown as number, error: error },
-      { length: false as unknown as number, error: error },
-      { length: null as unknown as number, error: error },
-      { length: undefined as unknown as number, error: error },
-      { length: [] as unknown as number, error: error },
-      { length: {} as unknown as number, error: error },
+      { length: 0 },
+      { length: 1 },
+      { length: 2 },
+      { length: 10 },
+      { length: 11 },
+      { length: -1 },
+      { length: 1.5 },
+      { length: Number('a') },
+      { length: Number('&') },
+      { length: Number(true) },
+      { length: Number(false) },
+      { length: Number(null) },
+      { length: Number(undefined) },
+      { length: Number([]) },
+      { length: Number({}) },
     ];
 
-    test.each(data)('throws error for invalid length $length', async ({ length, error }) => {
-      await expect(generateStreetName(length)).rejects.toThrow(error);
+    test.each(data)('throws error for invalid length $length', async ({ length }) => {
+      await expect(generateStreetName(length)).rejects.toThrow('No street name found with that length');
     });
   });
 });
@@ -138,29 +136,27 @@ describe('generateStreetVariation', () => {
 
   describe('testing invalid data in generateStreetVariation', () => {
 
-    const error = 'No street variation was found. Please try again later';
-
     const data = [
-      { length: -1, error: error },
-      { length: 1.5, error: error},
-      { length: 0, error: error },
-      { length: 1, error: error },
-      { length: 7, error: error },
-      { length: 8, error: error },
-      { length: 10, error: error },
-      { length: 11, error: error },
-      { length: Number('a'), error: error },
-      { length: Number('&'), error: error },
-      { length: Number(true), error: error },
-      { length: Number(false), error: error },
-      { length: Number(null), error: error },
-      { length: Number(undefined), error: error },
-      { length: Number([]), error: error },
-      { length: Number({}), error: error },
+      { length: -1 },
+      { length: 1.5 },
+      { length: 0 },
+      { length: 1 },
+      { length: 7},
+      { length: 8 },
+      { length: 10 },
+      { length: 11 },
+      { length: Number('a') },
+      { length: Number('&') },
+      { length: Number(true) },
+      { length: Number(false) },
+      { length: Number(null) },
+      { length: Number(undefined) },
+      { length: Number([]) },
+      { length: Number({}) },
     ];
 
-    test.each(data)('throws error for invalid length $length', async ({ length, error }) => {
-      await expect(generateStreetVariation(length)).rejects.toThrow(error);
+    test.each(data)('throws error for invalid length $length', async ({ length }) => {
+      await expect(generateStreetVariation(length)).rejects.toThrow('No street variation was found. Please try again later');
     });
   });
 });
