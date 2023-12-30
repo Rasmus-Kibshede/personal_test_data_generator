@@ -97,14 +97,14 @@ export const generateStreetName = async (length: number) => {
   const streetNames: string[] = [
     'Larsens', 'Jensens', 'Andersens', 'Peters',
     'Nielsens', 'Henriks', 'Oles', 'Sørens',
-    'Mikkels', 'Kristians', 'Strand'
+    'Mikkels', 'Kristians', 'Strand', 'Sønder',
+    'Nørre', 'Vest', 'Øst', 'Nord',
   ];
 
   const names = streetNames.filter((streetName) => streetName.length === length);
 
   if (names.length === 0)
     throw new Error('No street name found with that length');
-
 
   return names[Math.floor(Math.random() * names.length)];
 };
@@ -120,7 +120,7 @@ export const generateStreetVariation = async (length: number) => {
   const names = streetVariations.filter((streetVariations) => streetVariations.length === length);
 
   if (names.length === 0)
-    throw new Error('No street name found with that length');
+    throw new Error('No street variation found with that length');
 
   return streetVariations[faker.number.int({ min: 0, max: streetVariations.length - 1 })];
 };
