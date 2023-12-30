@@ -21,29 +21,31 @@ export const generateCar = async () => {
     }
 };
 
-export const generateCars = (choice: number) => {
+export const generateCars = async (choice: number) => {
     if (!choice) {
         return failed(new Error('No cars generated.'))
     }
 
-    if(choice >= 100 || choice <= 1){
+    if (choice >= 100 || choice <= 1) {
         return failed(new Error('Only 1-100 cars allowed!'));
     }
-    
+
     const cars: Car[] = [];
-    Array.from({ length: choice }, async () => {
+
+    for (let index = 0; index < choice; index++) {
         const door = generateDoor();
-        const car = new Car(await generateManufacturer(), door, -1, generateChassis(door), 
-        generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
-        cars.push(car);
+        const car = new Car(await generateManufacturer(), door, -1, generateChassis(door),
+            generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
         car.setVehicleId(cars.length);
-    });
+        cars.push(car);
+    }
+
     return success(cars);
 };
 
 export const getCarById = async (id: number) => {
     try {
-        if(!id || typeof id !== 'number' ){
+        if (!id || typeof id !== 'number') {
             failed(new Error('Not a valid id'))
         }
         return success(await carRepository.getCarById(id));
@@ -58,13 +60,13 @@ export const generateDoor = () => {
 };
 
 export const saveCar = async (car: Car) => {
-        const ids = await carRepository.saveCar(car);
-        car.getChassis().setChassisId(Number(ids?.chassisId));
-        car.getFuel().setFuelStatsId(Number(ids?.fuelId));
-        car.getRegistration().setRegistrationId(Number(ids?.registrationId));
-        car.getEngine().setEngineId(Number(ids?.engineId));
-        car.getGear().setGearboxId(Number(ids?.gearboxId));
-        car.setVehicleId(Number(ids?.vehicleId));
-        car.getManufacturer().setManufacturerId(Number(ids?.manufacturerId));
-        return car;
+    const ids = await carRepository.saveCar(car);
+    car.getChassis().setChassisId(Number(ids?.chassisId));
+    car.getFuel().setFuelStatsId(Number(ids?.fuelId));
+    car.getRegistration().setRegistrationId(Number(ids?.registrationId));
+    car.getEngine().setEngineId(Number(ids?.engineId));
+    car.getGear().setGearboxId(Number(ids?.gearboxId));
+    car.setVehicleId(Number(ids?.vehicleId));
+    car.getManufacturer().setManufacturerId(Number(ids?.manufacturerId));
+    return car;
 };
