@@ -137,20 +137,22 @@ describe('generateStreetVariation', () => {
   describe('testing invalid data in generateStreetVariation', () => {
 
     const data = [
-      { length: 0, error: 'No street variation found with that length' },
-      { length: 1, error: 'No street variation found with that length' },
-      { length: 7, error: 'No street variation found with that length' },
-      { length: 8, error: 'No street variation found with that length' },
-      { length: 10, error: 'No street variation found with that length' },
-      { length: 11, error: 'No street variation found with that length' },
-      { length: Number('a'), error: 'No street variation found with that length' },
-      { length: Number('&'), error: 'No street variation found with that length' },
-      { length: Number(true), error: 'No street variation found with that length' },
-      { length: Number(false), error: 'No street variation found with that length' },
-      { length: Number(null), error: 'No street variation found with that length' },
-      { length: Number(undefined), error: 'No street variation found with that length' },
-      { length: Number([]), error: 'No street variation found with that length' },
-      { length: Number({}), error: 'No street variation found with that length' },
+      { length: -1, error: 'No street variation was found. Please try again later' },
+      { length: 1.5, error: 'No street variation was found. Please try again later'},
+      { length: 0, error: 'No street variation was found. Please try again later' },
+      { length: 1, error: 'No street variation was found. Please try again later' },
+      { length: 7, error: 'No street variation was found. Please try again later' },
+      { length: 8, error: 'No street variation was found. Please try again later' },
+      { length: 10, error: 'No street variation was found. Please try again later' },
+      { length: 11, error: 'No street variation was found. Please try again later' },
+      { length: Number('a'), error: 'No street variation was found. Please try again later' },
+      { length: Number('&'), error: 'No street variation was found. Please try again later' },
+      { length: Number(true), error: 'No street variation was found. Please try again later' },
+      { length: Number(false), error: 'No street variation was found. Please try again later' },
+      { length: Number(null), error: 'No street variation was found. Please try again later' },
+      { length: Number(undefined), error: 'No street variation was found. Please try again later' },
+      { length: Number([]), error: 'No street variation was found. Please try again later' },
+      { length: Number({}), error: 'No street variation was found. Please try again later' },
     ];
 
     test.each(data)('throws error for invalid length $length', async ({ length, error }) => {
@@ -170,12 +172,12 @@ describe('generateRandomDoor', () => {
 
     test('Generate a door that is either tv or th or mf', async () => {
       const result = await generateRandomDoor();
-      expect(result).toMatch(/^(tv|th|mf)$/);
+      expect(result).toMatch(/^\s*(tv|th|mf)\s*$/);
     });
 
     test('Generate a door that is a string', async () => {
       const result = await generateRandomDoor();
-      expect(result.length).toEqual(2);
+      expect(result.length).toEqual(3);
     });
   });
 });

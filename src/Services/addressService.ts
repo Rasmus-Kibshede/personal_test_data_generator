@@ -54,7 +54,7 @@ export const generateRandomFloor = async () => {
   const floor = Math.floor(Math.random() * 31).toString(); // Higest floor in Denmark is 30
 
   if (floor == '0') {
-    return 'st';
+    return ' st';
   } else {
     return floor;
   }
@@ -64,11 +64,11 @@ export const generateRandomDoor = async () => {
   /* 40% th, 40% tv, 20% mf */
   const door = Math.floor(Math.random() * 15);
   if (door >= 0 && door <= 5) {
-    return 'th';
+    return ' th';
   } else if (door >= 6 && door <= 11) {
-    return 'tv';
+    return ' tv';
   } else {
-    return 'mf';
+    return ' mf';
   }
 };
 
@@ -120,7 +120,7 @@ export const generateStreetVariation = async (length: number) => {
   const names = streetVariations.filter((streetVariations) => streetVariations.length === length);
 
   if (names.length === 0)
-    throw new Error('No street variation found with that length');
+    throw new Error('No street variation was found. Please try again later');
 
-  return streetVariations[faker.number.int({ min: 0, max: streetVariations.length - 1 })];
+  return names[faker.number.int({ min: 0, max: names.length - 1})];
 };
