@@ -78,22 +78,24 @@ describe('generateStreetName', () => {
 
   describe('testing invalid data in generateStreetName', () => {
 
+    const error = 'No street name found with that length';
+
     const data = [
-      { length: 0, error: 'No street name found with that length' },
-      { length: 1, error: 'No street name found with that length' },
-      { length: 2, error: 'No street name found with that length' },
-      { length: 10, error: 'No street name found with that length' },
-      { length: 11, error: 'No street name found with that length' },
-      { length: -1, error: 'No street name found with that length' },
-      { length: 1.5, error: 'No street name found with that length' },
-      { length: Number('a'), error: 'No street name found with that length' },
-      { length: Number('&'), error: 'No street name found with that length' },
-      { length: Number(true), error: 'No street name found with that length' },
-      { length: Number(false), error: 'No street name found with that length' },
-      { length: Number(null), error: 'No street name found with that length' },
-      { length: Number(undefined), error: 'No street name found with that length' },
-      { length: Number([]), error: 'No street name found with that length' },
-      { length: Number({}), error: 'No street name found with that length' },
+      { length: 0, error: error },
+      { length: 1, error: error },
+      { length: 2, error: error },
+      { length: 10, error: error },
+      { length: 11, error: error },
+      { length: -1, error: error },
+      { length: 1.5, error: error },
+      { length: Number('a'), error: error },
+      { length: Number('&'), error: error },
+      { length: Number(true), error: error },
+      { length: Number(false), error: error },
+      { length: Number(null), error: error },
+      { length: Number(undefined), error: error },
+      { length: Number([]), error: error },
+      { length: Number({}), error: error },
     ];
 
     test.each(data)('throws error for invalid length $length', async ({ length, error }) => {
@@ -136,23 +138,25 @@ describe('generateStreetVariation', () => {
 
   describe('testing invalid data in generateStreetVariation', () => {
 
+    const error = 'No street variation was found. Please try again later';
+
     const data = [
-      { length: -1, error: 'No street variation was found. Please try again later' },
-      { length: 1.5, error: 'No street variation was found. Please try again later'},
-      { length: 0, error: 'No street variation was found. Please try again later' },
-      { length: 1, error: 'No street variation was found. Please try again later' },
-      { length: 7, error: 'No street variation was found. Please try again later' },
-      { length: 8, error: 'No street variation was found. Please try again later' },
-      { length: 10, error: 'No street variation was found. Please try again later' },
-      { length: 11, error: 'No street variation was found. Please try again later' },
-      { length: Number('a'), error: 'No street variation was found. Please try again later' },
-      { length: Number('&'), error: 'No street variation was found. Please try again later' },
-      { length: Number(true), error: 'No street variation was found. Please try again later' },
-      { length: Number(false), error: 'No street variation was found. Please try again later' },
-      { length: Number(null), error: 'No street variation was found. Please try again later' },
-      { length: Number(undefined), error: 'No street variation was found. Please try again later' },
-      { length: Number([]), error: 'No street variation was found. Please try again later' },
-      { length: Number({}), error: 'No street variation was found. Please try again later' },
+      { length: -1, error: error },
+      { length: 1.5, error: error},
+      { length: 0, error: error },
+      { length: 1, error: error },
+      { length: 7, error: error },
+      { length: 8, error: error },
+      { length: 10, error: error },
+      { length: 11, error: error },
+      { length: Number('a'), error: error },
+      { length: Number('&'), error: error },
+      { length: Number(true), error: error },
+      { length: Number(false), error: error },
+      { length: Number(null), error: error },
+      { length: Number(undefined), error: error },
+      { length: Number([]), error: error },
+      { length: Number({}), error: error },
     ];
 
     test.each(data)('throws error for invalid length $length', async ({ length, error }) => {
