@@ -8,7 +8,7 @@ The topic, business idea, specifications, type of application (web, mobile, stan
 - [x] A frontend
 - [x] A backend
 - [x] A database	
-- [ ] A connection to an external, public API (could be something simple like a weather widget)
+- [x] A connection to an external, public API (could be something simple like a weather widget)
 	- We are using the sendgrid api.
 
 # Task list
