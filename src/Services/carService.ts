@@ -25,6 +25,11 @@ export const generateCars = (choice: number) => {
     if (!choice) {
         return failed(new Error('No cars generated.'))
     }
+
+    if(choice >= 100){
+        return failed(new Error('Only 100 cars allowed!'))
+    }
+    
     const cars: Car[] = [];
     Array.from({ length: choice }, () => {
         const door = generateDoor();
