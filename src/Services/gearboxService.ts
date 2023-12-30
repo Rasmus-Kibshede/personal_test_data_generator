@@ -16,6 +16,6 @@ export const generateGear = () => {
 }
 
 export const generateDriveTrain = () => {
-    const types = ['4WD', 'AWD', 'FrontWD', 'RearWD'];
+    const types = ['4WD', 'AWD', 'Front wheel drive', 'Rear wheel drive'];
     return types[faker.number.int({ min: 0, max: types.length -1 })];
 }

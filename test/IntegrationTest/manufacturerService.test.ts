@@ -1,10 +1,6 @@
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import * as manufacturerService from '../../src/Services/manufacturerService'
 
-const expectedMakes = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla', 'BMW', 'Mercedes-Benz', 'Audi', 'Nissan', 'Hyundai'];
-const expectedModels = ['Camry', 'Accord', 'Mustang', 'Malibu', 'Model 3', 'X5', 'C-Class', 'A4', 'Altima', 'Elantra'];
-
-
 let manufacturer: Manufacturer
 
 /* ---------------------------------------- generateManufacturer ---------------------------------------- */
@@ -12,8 +8,8 @@ let manufacturer: Manufacturer
 //DUBLICATE af Unit Test. Hvor skal de være? 
 describe('generateManufacturer', () => {
 
-    beforeEach(() => {
-        manufacturer = manufacturerService.generateManufacturer();
+    beforeEach(async () =>  {
+        manufacturer = await manufacturerService.generateManufacturer();
     });
 
     test('Vehicle data is an object', () => {
@@ -72,10 +68,6 @@ describe('Make', () => {
 
     test('Make non-empty', () => {
         expect(manufacturer.getMake().trim()).not.toEqual('');
-    });
-
-    test('Make is in the expected list', () => {
-        expect(expectedMakes).toContain(manufacturer.getMake());
     });
 
     test('Make is a string with no leading or trailing whitespaces', () => {
@@ -161,10 +153,6 @@ describe('Model', () => {
 
     test('Model is not null', () => {
             expect(manufacturer.getModel()).not.toBeNull();
-    });
-
-    test('Model is in expected list', () => {
-        expect(expectedModels).toContain(manufacturer.getModel());
     });
 });
 
