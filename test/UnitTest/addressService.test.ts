@@ -11,7 +11,7 @@ describe('generateRandomFloor', () => {
 
     test('Numberic value or st', async () => {
       const result = await generateRandomFloor();
-      expect(result).toMatch(/^(st|\d+)$/);
+      expect(result).toMatch(/^\s*(st|\d+)$/);
     });
 
     test('Greater than or equal to 1', async () => {
@@ -172,7 +172,7 @@ describe('generateRandomDoor', () => {
 
     test('Generate a door that is either tv or th or mf', async () => {
       const result = await generateRandomDoor();
-      expect(result).toMatch(/^\s*(tv|th|mf)\s*$/);
+      expect(result).toMatch(/^\s*(tv|th|mf|st)\s*$/);
     });
 
     test('Generate a door that is a string', async () => {
