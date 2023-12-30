@@ -22,19 +22,15 @@ export const generateCar = async () => {
 };
 
 export const generateCars = async (choice: number) => {
-    console.log(choice);
-    
     try {
 
         if (choice > 100 || choice < 1) {
             throw new Error('Only 1-100 cars allowed!');
-       }
-       
+        }
+
         if (!choice) {
             throw new Error('No cars generated.');
-       }
-   
-      
+        }
         const cars: Car[] = [];
 
         for (let index = 0; index < choice; index++) {
@@ -43,15 +39,11 @@ export const generateCars = async (choice: number) => {
                 generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
             car.setVehicleId(cars.length);
             cars.push(car);
-        }
-    
+        };
         return success(cars);
     } catch (error) {
-        return failed(error);
+        throw new Error('Only 1-100 cars allowed!');
     }
-    
-
-   
 };
 
 export const getCarById = async (id: number) => {
