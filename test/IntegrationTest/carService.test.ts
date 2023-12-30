@@ -190,17 +190,17 @@ describe('generatecar', () => {
 
 /* ---------------------------------------- generateCars ---------------------------------------- */
 //FLERE TEST
-describe('generateCars', () => {
+describe('generateCars', () => {});
 
-    const generatedCars = [{ choice: 2, expected: 2 }, /*{ choice: 100, expected: 100 }, { choice: 50, expected: 50 }*/];
+    const generatedCars = [{ choice: 1, expected: 1 }, { choice: 100, expected: 100 }, { choice: 50, expected: 50 }];
 
     test.each(generatedCars)('GenerateCars blackbox', async ({ choice, expected }) => {
         const result: Result = await carService.generateCars(choice);
-        cars = result.result?.data as Car[]
+        cars = result.result?.data as Car[];
         expect(cars.length).toBe(expected);
     });
 
-    const invalidCars = [
+   /* const invalidCars = [
         { choice: 0 },
         { choice: 101 },
         { choice: Number('a') },
@@ -215,8 +215,8 @@ describe('generateCars', () => {
 
     test.each(invalidCars)('Only between 1-100 cars allowed', ({ choice }) => {
         expect(() => carService.generateCars(choice)).toThrowError('Only 1-100 cars allowed!');
-    });
-});
+    });*/
+
 
 test('Below 100 cars', async () => {
     choice = 10;

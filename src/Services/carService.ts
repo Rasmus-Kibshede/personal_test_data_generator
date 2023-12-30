@@ -26,7 +26,7 @@ export const generateCars = async (choice: number) => {
         return failed(new Error('No cars generated.'))
     }
 
-    if (choice >= 100 || choice <= 1) {
+    if (choice > 100 || choice < 1) {
         return failed(new Error('Only 1-100 cars allowed!'));
     }
 
