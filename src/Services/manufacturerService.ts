@@ -86,16 +86,7 @@ const fetchVehicleModels = async (make: Make, year?: number, sort: string = 'id'
         const result = await response.data.data as Model[];
 
         if (result.length === 0)
-            result.push({
-                id: -1,
-                make_id: make.id,
-                name: 'No models found for this make and year',
-                make: {
-                    id: make.id,
-                    name: make.name
-
-                }
-            });
+            throw new Error('No vehicle data found');
 
         return result;
     } catch (error: any) {
