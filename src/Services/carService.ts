@@ -27,7 +27,7 @@ export const generateCars = (choice: number) => {
     }
 
     if(choice >= 100 || choice <= 1){
-        return failed(new Error('Only 100 cars allowed!'))
+        return failed(new Error('Only 1-100 cars allowed!'));
     }
     
     const cars: Car[] = [];
@@ -36,7 +36,7 @@ export const generateCars = (choice: number) => {
         const car = new Car(await generateManufacturer(), door, -1, generateChassis(door), 
         generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
         cars.push(car);
-        car.setVehicleId(cars.length)
+        car.setVehicleId(cars.length);
     });
     return success(cars);
 };
