@@ -42,7 +42,7 @@ export const generateCars = async (choice: number) => {
         };
         return success(cars);
     } catch (error) {
-        throw new Error('Only 1-100 cars allowed!');
+        throw error;
     }
 };
 
