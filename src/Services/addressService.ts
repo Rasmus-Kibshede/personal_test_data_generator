@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { AddressDTO } from '../Model/Address';
 import { getRandomAddress, getAddressByPostalCode } from '../Repositories/addressRepository';
-import { generaterandomNumber } from '../util/generateNumber';
+import { generateRandomNumber } from '../util/generateNumber';
 
 export const getAddress = async (postalCode: number) => {
   const address = await getAddressByPostalCode(postalCode);
@@ -23,7 +23,7 @@ export const setRandomAddress = async () => {
   const address: AddressDTO = {
     postalCode: getCityAndPostalCode.postalCode,
     city: getCityAndPostalCode.city,
-    street: await generateRandomStreetName(generaterandomNumber(4, 9), generaterandomNumber(2, 9)),
+    street: await generateRandomStreetName(generateRandomNumber(4, 9), generateRandomNumber(2, 9)),
     houseNumber: await generateHouseNumber()
   }
 

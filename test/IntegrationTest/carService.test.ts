@@ -9,12 +9,7 @@ import { Gearbox } from '../../src/Model/Gearbox';
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import { Registration } from '../../src/Model/Registration';
 import { faker, } from '@faker-js/faker';
-import { ApiResponse } from '../../src/util/errorHandler';
-
-interface Result {
-    success: boolean;
-    result?: ApiResponse;
-}
+import { Result } from '../../src/Model/Types/types';
 
 let car: Car;
 let choice: number;

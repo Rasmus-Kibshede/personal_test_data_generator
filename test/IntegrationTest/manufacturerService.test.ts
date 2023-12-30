@@ -3,7 +3,8 @@ import { Manufacturer } from '../../src/Model/Manufacturer';
 import * as manufacturerService from '../../src/Services/manufacturerService'
 
 let manufacturer: Manufacturer;
-let randomNumber: number;
+
+//I en PrepMappe/fil som vi kan hente ud. ect. Util til at starte med. 
 const manufacturers = [
     new Manufacturer(-1, 'Audi', 'A5', 2002), new Manufacturer(-1, 'BMW', 'X3', 2010),
     new Manufacturer(-1, 'Mercedes-Benz', 'C-Class', 2015), new Manufacturer(-1, 'Toyota', 'Camry', 2005),
@@ -33,8 +34,6 @@ jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() =>
 });
 
 /* ---------------------------------------- generateManufacturer ---------------------------------------- */
-//TODO SKal laves om i service laget så den retunere datasæt i stedet for vores Manufacturer object, så vi kan lave unittest på den. 
-//DUBLICATE af Unit Test. Hvor skal de være? 
 describe('generateManufacturer', () => {
 
     beforeEach(async () =>  {
@@ -223,18 +222,6 @@ describe('Year', () => {
     });
 });
 
-/* ----------------------------------------generateRandomNumber ---------------------------------------- */
-describe('generateRandomNumber', () => {
-
-    beforeEach(async () =>  {
-         randomNumber = manufacturerService.generateRandomNumber(1, 2);
-    });
-
-    test('Year is a valid integer', () => {
-        expect(Number.isInteger(randomNumber)).toBe(true);
-    });
-});
-
 /* ----------------------------------------fakeFetchManufacturer ---------------------------------------- */
 describe('fakeFetchManufacturer', () => {
 
@@ -242,7 +229,6 @@ describe('fakeFetchManufacturer', () => {
          manufacturer = manufacturerService.fakeFetchManufacturer();
     });
 
-    //KAN IKKE SAMMENLIGNES DA DET ER ET OBJECT
     test('Manufacturer is expected', () => {
         expect(manufacturers).toContainEqual(manufacturer);
     });
