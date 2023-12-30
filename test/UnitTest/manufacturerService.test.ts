@@ -55,7 +55,7 @@ describe('generateVehicleData', () => {
         expect(result.getMake().length).toBeGreaterThanOrEqual(3);
     });
 
-    test('Make less or equal to 9', async () => {
+    test('Make less or equal to 13', async () => {
         expect(result.getMake().length).toBeLessThanOrEqual(13);
     });
 
