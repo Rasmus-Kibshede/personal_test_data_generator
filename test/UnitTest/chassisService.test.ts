@@ -1,140 +1,199 @@
+import { faker } from '@faker-js/faker';
 import * as chassisService from '../../src/Services/chassisService'
+
+let color: string;
+let wheels: number;
+let capacity: any;
+
+const expectedColors = [
+  'Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange', 'Pink', 'Brown',
+  'Gray', 'Teal', 'Black', 'White'
+];
+const expectedCapacity = [2, 5]
+const excludedColors = ['Magenta', 'Cyan', 'Lime'];
 
 /* ---------------------------------------- generateColor ---------------------------------------- */
 describe('generateColor', () => {
-    test('Color is expected from list', () => {
-        const colors = [
-            'Red',
-            'Blue',
-            'Green',
-            'Yellow',
-            'Purple',
-            'Orange',
-            'Pink',
-            'Brown',
-            'Gray',
-            'Teal',
-            'Black',
-            'White'
-        ];
-        const generatedColor = chassisService.generateColor();
-        expect(colors).toContain(generatedColor);
-    });
 
-    test('Color is a string', () => {
-        const generatedColor = chassisService.generateColor();
-        expect(typeof generatedColor).toBe('string');
-    });
+  beforeEach(() => {
+    color = chassisService.generateColor();
+  });
 
-    test('Color is not an empty string', () => {
-        const generatedColor = chassisService.generateColor();
-        expect(generatedColor).not.toBe('');
-    });
+  test('Color is expected from list', () => {
+    expect(expectedColors).toContain(color);
+  });
 
-    test('Color is a string with the correct format', () => {
-        const generatedColor = chassisService.generateColor();
-        expect(/^[A-Z][a-z]+$/.test(generatedColor)).toBe(true);
-    });
+  test('Color is a string', () => {
+    expect(typeof color).toBe('string');
+  });
 
-    test('Color is not null or undefined', () => {
-        const result = chassisService.generateColor();
-        expect(result).not.toBeNull();
-        expect(result).not.toBeUndefined();
-    });
+  test('Color is not an empty string', () => {
+    expect(color).not.toBe('');
+  });
 
-    test('Color is not in the list of excluded colors', () => {
-        const excludedColors = ['Magenta', 'Cyan', 'Lime'];
-        const generatedColor = chassisService.generateColor();
-        expect(excludedColors.includes(generatedColor)).toBe(false);
-    });
+  test('Color is a string with the correct format', () => {
+    expect(/^[A-Z][a-z]+$/.test(color)).toBe(true);
+  });
 
-    test('Color has a valid length', () => {
-        const generatedColor = chassisService.generateColor();
-        expect(generatedColor.length).toBeGreaterThanOrEqual(3);
-        expect(generatedColor.length).toBeLessThanOrEqual(6);
-    });
+  test('Color is not null or undefined', () => {
+    expect(color).not.toBeNull();
+    expect(color).not.toBeUndefined();
+  });
 
-    test('Color starts with an uppercase letter', () => {
-        const generatedColor = chassisService.generateColor();
-        const firstLetter = generatedColor.charAt(0);
-        expect(firstLetter).toEqual(firstLetter.toUpperCase());
-    });
+  test('Color is not in the list of excluded colors', () => {
+    expect(excludedColors.includes(color)).toBe(false);
+  });
 
-    test('Color contains only alphabetic characters', () => {
-        const generatedColor = chassisService.generateColor();
-        expect(/^[a-zA-Z]+$/.test(generatedColor)).toBe(true);
-    });
+  test('Color has a valid lower length', () => {
+    expect(color.length).toBeGreaterThanOrEqual(3);
+  });
+
+  test('Color has a valid upper length', () => {
+    expect(color.length).toBeLessThanOrEqual(6);
+  });
+
+  test('Color not less then lower', () => {
+    expect(color.length).not.toBeLessThan(3);
+  });
+
+  test('Color not greater then upper', () => {
+    expect(color.length).not.toBeGreaterThan(6);
+  });
+
+  test('Color not 0', () => {
+    expect(color.length).not.toBe(0);
+  });
+
+  test('Color starts with an uppercase letter', () => {
+    const firstLetter = color.charAt(0);
+    expect(firstLetter).toEqual(color.charAt(0).toUpperCase());
+  });
+
+  test('Color contains only alphabetic characters', () => {
+    expect(/^[a-zA-Z]+$/.test(color)).toBe(true);
+  });
 });
 
 /* ---------------------------------------- generateCapacity ---------------------------------------- */
-
 describe('generateCapacity', () => {
-    test('Capacity is 2 for a 3-door car', () => {
-        const capacity = chassisService.generateCapacity(3);
-        expect(capacity).toBe(2);
-    });
 
-    test('Capacity is 5 for a car with a different number of doors', () => {
-        const capacity = chassisService.generateCapacity(4);
-        expect(capacity).toBe(5);
-    });
+  beforeEach(() => {
+    const choices = [3, 5]
+    capacity = chassisService.generateCapacity(choices[faker.number.int({ min: 0, max: choices.length - 1 })])
+  });
 
-    test('Capacity is a number', () => {
-        const capacity = chassisService.generateCapacity(3);
-        expect(typeof capacity).toBe('number');
-    });
+  const capacities = [{ door: 2, expected: 5 }, { door: 5, expected: 5 }, { door: 1, expected: 5 }, { door: 3, expected: 2 },
+  { door: 6, expected: 5 }, { door: 4, expected: 5 }];
 
-    test('Capacity is not undefined & not null', () => {
-        const capacity = chassisService.generateCapacity(4);
-        expect(capacity).not.toBeUndefined();
-        expect(capacity).not.toBeNull();
-    });
+  test.each(capacities)('Capacity is 2 or 5', ({ door, expected }) => {
+    const result = chassisService.generateCapacity(door);
+    expect(result).toBe(expected);
+  });
 
-    test('Capacity has a valid length', () => {
-        const generatedColor = chassisService.generateCapacity(4);
-        expect(generatedColor).toBeGreaterThan(2);
-        expect(generatedColor).toBeLessThanOrEqual(5);
-    });
+  test('Capacity is 2 or 5', () => {
+    expect(expectedCapacity).toContain(capacity);
+  });
 
-    test('Capacity is an integer', () => {
-        const capacity = chassisService.generateCapacity(4);
-        expect(Number.isInteger(capacity)).toBe(true);
-      });
+  test('Capacity is a number', () => {
+    expect(typeof capacity).toBe('number');
+  });
 
-      test('Capacity is a positive number', () => {
-        const result = chassisService.generateCapacity(3);
-        expect(result).toBeGreaterThan(0);
-      });
+  test('Capacity is an integer', () => {
+    expect(capacity % 1).toBe(0);
+  });
+
+  test('Capacity is not undefined', () => {
+    expect(capacity).toBeDefined()
+  });
+
+  test('Capacity is not null', () => {
+    expect(capacity).not.toBeNull();
+  });
+
+  test('Capacity has a valid range', () => {
+    expect(capacity).toBeGreaterThanOrEqual(2);
+
+  });
+
+  test('Capacity has a valid range', () => {
+    expect(capacity).toBeLessThanOrEqual(5);
+  });
+
+  test('Capacity is an integer', () => {
+    expect(Number.isInteger(capacity)).toBe(true);
+  });
+
+  test('Capacity is a positive number', () => {
+    expect(capacity).toBeGreaterThan(0);
+  });
+
+  test('Capacity is not 6 upper boundary', () => {
+    expect(capacity).not.toBe(6);
+  });
+
+  test('Capacity is less than 6 upper boundary', () => {
+    expect(capacity).toBeLessThan(6);
+  });
+
+  test('Capacity greater than 1 lower boundary', () => {
+    expect(capacity).toBeGreaterThan(1);
+  });
+
+  test('Capacity is not 1 lower boundary', () => {
+    expect(capacity).not.toBe(1);
+  });
 });
 
 
 /* ---------------------------------------- generateWheel ---------------------------------------- */
 
 describe('generateWheel', () => {
-    test('Wheel number always 4', () => {
-        const wheels = chassisService.generateWheel();
-        expect(wheels).toBe(4);
-      });
-    
-      test('Wheel number is a number', () => {
-        const wheels = chassisService.generateWheel();
-        expect(typeof wheels).toBe('number');
-      });
-    
-      test('Wheel is not undefined & not null', () => {
-        const capacity = chassisService.generateCapacity(4);
-        expect(capacity).not.toBeUndefined();
-        expect(capacity).not.toBeNull();
-    });
-    
-      test('Wheel number is positive', () => {
-        const wheels = chassisService.generateWheel();
-        expect(wheels).toBeGreaterThan(0);
-      });
 
-      test('Generated number of wheels is consistent across multiple calls', () => {
-        const wheelsArray = Array.from({ length: 100 }, chassisService.generateWheel);
-        const uniqueWheels = new Set(wheelsArray);
-        expect(uniqueWheels.size).toBe(1);
-      });
+  beforeEach(() => {
+    wheels = chassisService.generateWheel();
+  });
+
+  test('Wheel number always 4', () => {
+    expect(wheels).toBe(4);
+  });
+
+  test('Wheel number is a number', () => {
+    expect(typeof wheels).toBe('number');
+  });
+
+  test('Gear is an integer', () => {
+    expect(Number.isInteger(wheels)).toBe(true);
+  });
+
+  test('Wheels is not a floating-point number', () => {
+    expect(wheels % 1).toBe(0);
+  });
+
+  test('Wheels is not undefined', () => {
+    expect(wheels).toBeDefined()
+  });
+
+  test('Wheels is not null', () => {
+    expect(wheels).not.toBeNull();
+  });
+
+  test('Wheels number is positive', () => {
+    expect(wheels).toBeGreaterThan(0);
+  });
+
+  test('Wheels is less than 5 upper boundary', () => {
+    expect(wheels).toBeLessThan(5);
+  });
+
+  test('Wheels not 5 upper boundary', () => {
+    expect(wheels).not.toBe(5);
+  });
+
+  test('Wheels not 3 lower boundary', () => {
+    expect(wheels).not.toBe(3);
+  });
+
+  test('Wheels greater than 3 lower boundary', () => {
+    expect(wheels).toBeGreaterThan(3);
+  });
 });
