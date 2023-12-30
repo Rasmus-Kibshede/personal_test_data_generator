@@ -8,7 +8,7 @@ import { FuelStats } from '../../src/Model/FuelStats';
 import { Gearbox } from '../../src/Model/Gearbox';
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import { Registration } from '../../src/Model/Registration';
-import { faker,  } from '@faker-js/faker';
+import { faker, } from '@faker-js/faker';
 import { ApiResponse } from '../../src/util/errorHandler';
 
 interface Result {
@@ -50,7 +50,7 @@ jest.spyOn(carRepository, 'saveCar').mockImplementation(() => {
 /* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */
 jest.spyOn(carRepository, 'getCarById').mockImplementation(async (id: number) => {
     return Promise.resolve(new Car(await manufacturerService.generateManufacturer(), 4, id, new Chassis(4000, 'red', 4, 5), new FuelStats(4000, 50, 600),
-    new Registration(4000, 'test', 'test'), new Engine(4000, 'test', 600, 800, 'test'), new Gearbox(4000, 'test', 7, 'test')))
+        new Registration(4000, 'test', 'test'), new Engine(4000, 'test', 600, 800, 'test'), new Gearbox(4000, 'test', 7, 'test')))
 });
 //HER KAN VI MOCKE EN DER FEJLER!
 
@@ -63,21 +63,15 @@ jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() =>
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
 
-   /* beforeEach(async () => {
-        const result = await carService.generateCar();
-        if (result.success)
-            car = result.result.data as Car
-    });*/
-
     beforeEach(async () => {
         const test: Result = await carService.generateCar();
         car = test.result!.data as Car
-        });
+    });
 
-   /* test('car is an object',async () => {
+    test('car is an object', async () => {
         const result = await carService.generateCar();
         expect(result.success).toBe(true)
-    })*/
+    })
 
     test('car is an object', () => {
         expect(typeof car).toBe('object')
