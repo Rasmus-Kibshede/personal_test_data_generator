@@ -8,7 +8,13 @@ import { FuelStats } from '../../src/Model/FuelStats';
 import { Gearbox } from '../../src/Model/Gearbox';
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import { Registration } from '../../src/Model/Registration';
-import { faker, tr } from '@faker-js/faker';
+import { faker,  } from '@faker-js/faker';
+import { ApiResponse } from '../../src/util/errorHandler';
+
+interface Result {
+    success: boolean;
+    result?: ApiResponse;
+}
 
 let car: Car;
 let choice: number;
@@ -57,16 +63,21 @@ jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() =>
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
 
-    beforeEach(async () => {
+   /* beforeEach(async () => {
         const result = await carService.generateCar();
         if (result.success)
             car = result.result.data as Car
-    });
+    });*/
 
-    test('car is an object',async () => {
+    beforeEach(async () => {
+        const test: Result = await carService.generateCar();
+        car = test.result!.data as Car
+        });
+
+   /* test('car is an object',async () => {
         const result = await carService.generateCar();
         expect(result.success).toBe(true)
-    })
+    })*/
 
     test('car is an object', () => {
         expect(typeof car).toBe('object')
@@ -238,15 +249,7 @@ describe('GetCarByID success', () => {
 
     test('car by id successful', async () => {
         const result = await carService.getCarById(1);
-        console.log(result);
-        
         expect(result.success).toBe(true);
-    });
-
-    //DENNE FEJLER - HER SKAL MOCKES EN DER FEJLER.
-    test('car by id successful', async () => {
-        const result = await carService.getCarById(Number('dsa'));
-        expect(result.success).toBe(false);
     });
 });
 

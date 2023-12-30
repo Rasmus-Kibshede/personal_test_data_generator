@@ -46,7 +46,11 @@ describe('generateManufacturer', () => {
     });
 
     test('Vehicle data is of type Manufacturer', () => {
-        expect(manufacturer).toBeInstanceOf(Manufacturer)
+        expect(manufacturer).toBeInstanceOf(Manufacturer);
+    });
+
+    test('Vehicle data is of type Manufacturer', () => {
+        expect(manufacturers).toContainEqual(manufacturer);
     });
 });
 
