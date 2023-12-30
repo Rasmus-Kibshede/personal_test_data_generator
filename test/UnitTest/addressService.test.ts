@@ -69,6 +69,7 @@ describe('generateStreetName', () => {
     });
 
     const data = [3, 4, 6, 8, 9];
+
     test.each(data)('generates a street name of length %i', async (length) => {
       const name = await generateStreetName(length);
       expect(name).toHaveLength(length);
@@ -105,25 +106,56 @@ describe('generateStreetName', () => {
 
 describe('generateStreetVariation', () => {
   describe('testing valid data in generateStreetVariation', () => {
+
+    const data = [2, 3, 5, 6, 9];
+
+    test.each(data)('generates a street variation for valid length: %i', async (length) => {
+      await expect(generateStreetVariation(length)).resolves.not.toThrow();
+    });
+
     test('Generate a streetname that is not empty', async () => {
       const result = await generateStreetVariation(4);
       expect(result).not.toBe("");
     });
+
+    test('Testing streetVariation type', async () => {
+      const result = await generateStreetVariation(4);
+      expect(typeof result).toBe('string');
+    });
+
+    test('Greater or equal to 2', async () => {
+      const result = await generateStreetVariation(2);
+      expect(result.length).toBeGreaterThanOrEqual(2);
+    });
+
+    test('Less or equal to 9', async () => {
+      const result = await generateStreetVariation(2);
+      expect(result.length).toBeLessThanOrEqual(9);
+    });
   });
 
-  test('Testing streetVariation type', async () => {
-    const result = await generateStreetVariation(4);
-    expect(typeof result).toBe('string');
-  });
+  describe('testing invalid data in generateStreetVariation', () => {
 
-  test('Greater or equal to 2', async () => {
-    const result = await generateStreetVariation(2);
-    expect(result.length).toBeGreaterThanOrEqual(2);
-  });
+    const data = [
+      { length: 0, error: 'No street variation found with that length' },
+      { length: 1, error: 'No street variation found with that length' },
+      { length: 7, error: 'No street variation found with that length' },
+      { length: 8, error: 'No street variation found with that length' },
+      { length: 10, error: 'No street variation found with that length' },
+      { length: 11, error: 'No street variation found with that length' },
+      { length: 'a' as unknown as number, error: 'No street variation found with that length' },
+      { length: '&' as unknown as number, error: 'No street variation found with that length' },
+      { length: true as unknown as number, error: 'No street variation found with that length' },
+      { length: false as unknown as number, error: 'No street variation found with that length' },
+      { length: null as unknown as number, error: 'No street variation found with that length' },
+      { length: undefined as unknown as number, error: 'No street variation found with that length' },
+      { length: [] as unknown as number, error: 'No street variation found with that length' },
+      { length: {} as unknown as number, error: 'No street variation found with that length' },
+    ];
 
-  test('Less or equal to 9', async () => {
-    const result = await generateStreetVariation(2);
-    expect(result.length).toBeLessThanOrEqual(9);
+    test.each(data)('throws error for invalid length $length', async ({ length, error }) => {
+      await expect(generateStreetVariation(length)).rejects.toThrow(error);
+    });
   });
 });
 
