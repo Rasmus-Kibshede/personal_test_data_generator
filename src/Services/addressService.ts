@@ -51,7 +51,7 @@ export const getCityAndPostalCode = async () => {
 };
 
 export const generateRandomFloor = async () => {
-  const floor = Math.floor(Math.random() * 31).toString(); // Higest floor in Denmark is 30
+  const floor = generateRandomNumber(0, 30).toString(); // Higest floor in Denmark is 30
 
   if (floor == '0') {
     return ' st';
