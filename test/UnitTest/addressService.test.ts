@@ -88,14 +88,14 @@ describe('generateStreetName', () => {
       { length: 11, error: error },
       { length: -1, error: error },
       { length: 1.5, error: error },
-      { length: Number('a'), error: error },
-      { length: Number('&'), error: error },
-      { length: Number(true), error: error },
-      { length: Number(false), error: error },
-      { length: Number(null), error: error },
-      { length: Number(undefined), error: error },
-      { length: Number([]), error: error },
-      { length: Number({}), error: error },
+      { length: 'a' as unknown as number, error: error },
+      { length: '&' as unknown as number, error: error },
+      { length: true as unknown as number, error: error },
+      { length: false as unknown as number, error: error },
+      { length: null as unknown as number, error: error },
+      { length: undefined as unknown as number, error: error },
+      { length: [] as unknown as number, error: error },
+      { length: {} as unknown as number, error: error },
     ];
 
     test.each(data)('throws error for invalid length $length', async ({ length, error }) => {
