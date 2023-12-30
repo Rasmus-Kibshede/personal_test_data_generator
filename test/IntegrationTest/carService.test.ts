@@ -2,6 +2,7 @@ import 'dotenv/config'
 import { connection } from '../../src/Repositories/data-source';
 import { Car } from '../../src/Model/Vehicle';
 import * as carService from '../../src/Services/carService'
+import * as manufacturerService from '../../src/Services/manufacturerService'
 import { Chassis } from '../../src/Model/Chassis';
 import { Engine } from '../../src/Model/Engine';
 import { FuelStats } from '../../src/Model/FuelStats';
@@ -13,10 +14,20 @@ let car: Car;
 let cars: Car[];
 let choice: number;
 
-jest.spyOn(carService, 'saveCar').mockImplementation(() => {
-return Promise.resolve(new Car(new Manufacturer(2000, 'BMW', 'M3 series', 2000), 4, 2000, new Chassis(2000, 'red', 4, 5), new FuelStats(2000, 50, 600), 
+/* ---------------------------------------- MOCKING API CALL ---------------------------------------- */
+//TODO ADD MORE MANUFACTURES
+jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() => {
+    return Promise.resolve(new Manufacturer(2000, 'Audi', 'S7 quattro', 2010))
+    });
+
+ /* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */ 
+ //TODO ADD MORE VEHICLES  
+jest.spyOn(carService, 'saveCar').mockImplementation(async () => {
+return Promise.resolve(new Car(await manufacturerService.generateManufacturer(), 4, 2000, new Chassis(2000, 'red', 4, 5), new FuelStats(2000, 50, 600), 
 new Registration(2000, 'test', 'test'), new Engine(2000, 'test', 600, 800, 'test'), new Gearbox(2000, 'test', 7, 'test')))
 });
+
+
 
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
@@ -25,6 +36,7 @@ describe('generatecar', () => {
         const result = await carService.generateCar();
         if (result.success)
             car = result.result.data as Car
+        console.log(car);
     });
 
     test('car is an object', () => {
