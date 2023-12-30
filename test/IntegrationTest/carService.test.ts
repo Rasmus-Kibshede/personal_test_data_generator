@@ -9,7 +9,7 @@ import { Gearbox } from '../../src/Model/Gearbox';
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import { Registration } from '../../src/Model/Registration';
 import { faker, } from '@faker-js/faker';
-import { Result } from '../../src/Model/Types/types';
+import { Result, errorsInterface } from '../../src/Model/Types/types';
 import { manufacturers } from '../../src/util/testDataProvider';
 
 let car: Car;
@@ -199,25 +199,27 @@ test.each(generatedCars)('GenerateCars blackbox', async ({ choice, expected }) =
     cars = result.result?.data as Car[];
     expect(cars.length).toBe(expected);
 });
-const error = new Error('Only 1-100 cars allowed!')
-const invalidError = new Error('No cars generated.');
+const error = 'Only 1-100 cars allowed!';
+const invalidError = 'No cars generated.';
 
 const invalidCars = [
     { choice: 0, expected: error },
     { choice: -1, expected: error },
-    { choice: 101, expected: error  },
-    { choice: Number('a'), expected: error },
-    { choice: Number('&'), expected: error  },
-    { choice: Number(true), expected: error  },
-    { choice: Number(false), expected: error  },
-    { choice: Number(null), expected: error  },
-    { choice: Number(undefined), expected: error  },
-    { choice: Number([]), expected: error  },
-    { choice: Number({}), expected: error  },
+    { choice: 101, expected: error },
+    { choice: Number('a'), expected: invalidError },
+    { choice: Number('&'), expected: invalidError },
+    { choice: Number(false), expected: error },
+    { choice: Number(null), expected: error },
+    { choice: Number(undefined), expected: invalidError },
+    { choice: Number([]), expected: error },
+    { choice: Number({}), expected: invalidError },
 ];
 
-test.each(invalidCars)('Only between 1-100 cars allowed', ({ choice, expected }) => {
-    expect(() => carService.generateCars(choice)).toThrowError(expected);
+
+test.each(invalidCars)('Only between 1-100 cars allowed', async ({ choice, expected }) => {
+    const result = await carService.generateCars(choice) as errorsInterface;
+
+    expect(result.error.message).toBe(expected);
 });
 
 
