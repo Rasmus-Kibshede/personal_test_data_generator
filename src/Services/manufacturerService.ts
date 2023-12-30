@@ -2,48 +2,27 @@ import { faker } from "@faker-js/faker";
 import { Manufacturer } from "../Model/Manufacturer";
 import axios from "axios";
 
-export interface Model {
-    id: number
-    make_id: number
-    name: string
-    make: Make
-}
-
-export interface Make {
-    id: number
-    name: string
-}
-
 const usingApi = process.env.USNGAPI === 'true' || false;
 
 export const generateManufacturer = async () => {
+    const manufacturer = await fetchManufacturer();
 
-    const manufacturerData = await generateVehicleData();
-    // const manufacturer = new Manufacturer(-1, manufacturerData.getMake(), manufacturerData.getModel(), manufacturerData.getYear())
+    if (!manufacturer)
+        throw new Error('Failed to generate manufacturer.');
 
-    return manufacturerData;
+    return manufacturer;
 }
 
-export const generateVehicleData = async () => {
-    const year = generateRandomNumber(2000, 2024);
-    const models = usingApi ? await fetchVehicleData(year) : fakeFetchManufacturer();
-
-    if (!models)
-        throw new Error('No vehicle data found');
-
-    const model = models[generateRandomNumber(0, models.length)];
-
-    return new Manufacturer(-1, model.make.name, model.name, year);
-}
-
-const fetchVehicleData = async (year?: number) => {
-
+export const fetchManufacturer = async () => {
     const options = {
         method: 'GET',
-        url: 'https://car-api2.p.rapidapi.com/api/makes',
+        url: 'https://car-api2.p.rapidapi.com/api/bodies',
         params: {
+            sort: 'id',
+            verbose: 'yes',
             direction: 'asc',
-            sort: 'id'
+            year: generateRandomNumber(2015, 2020),
+            limit: '1'
         },
         headers: {
             'X-RapidAPI-Key': process.env.CAR_API_KEY,
@@ -53,46 +32,14 @@ const fetchVehicleData = async (year?: number) => {
 
     try {
         const response = await axios.request(options);
-        const result = await response.data.data as Make[];
 
-        const randomMake = result[generateRandomNumber(0, result.length)];
+        const result = response.data.data[0];
 
-        return await fetchVehicleModels(randomMake, year);
-    } catch (error: any) {
-        console.error(error.message);
+        return new Manufacturer(-1, result.make_model_trim.make_model.make.name, result.make_model_trim.make_model.name, result.make_model_trim.year);
+    } catch (error) {
+        console.error(error);
     }
-};
-
-const fetchVehicleModels = async (make: Make, year?: number, sort: string = 'id', sortDirection: string = 'asc') => {
-
-    const options = {
-        method: 'GET',
-        url: 'https://car-api2.p.rapidapi.com/api/models',
-        params: {
-            make: make.name,
-            sort: sort,
-            direction: sortDirection,
-            year: year ? year : '',
-            verbose: 'yes'
-        },
-        headers: {
-            'X-RapidAPI-Key': process.env.CAR_API_KEY,
-            'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
-        }
-    };
-
-    try {
-        const response = await axios.request(options);
-        const result = await response.data.data as Model[];
-
-        if (result.length === 0)
-            throw new Error('No vehicle data found');
-
-        return result;
-    } catch (error: any) {
-        console.error(error.message);
-    }
-};
+}
 
 const fakeFetchManufacturer = () => {
     return [
@@ -128,7 +75,7 @@ const fakeFetchManufacturer = () => {
 }
 
 const generateRandomNumber = (min: number, max: number) => {
-    return faker.number.int({ min: min, max: max - 1 });
+    return faker.number.int({ min: min, max: max });
 }
 
 // api: https://rapidapi.com/carapi/api/car-api2/
