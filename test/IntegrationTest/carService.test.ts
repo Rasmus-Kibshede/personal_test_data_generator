@@ -36,7 +36,6 @@ describe('generatecar', () => {
         const result = await carService.generateCar();
         if (result.success)
             car = result.result.data as Car
-        console.log(car);
     });
 
     test('car is an object', () => {
