@@ -54,7 +54,7 @@ export const generateRandomFloor = async () => {
   const floor = Math.floor(Math.random() * 31).toString(); // Higest floor in Denmark is 30
 
   if (floor == '0') {
-    return 'st';
+    return ' st';
   } else {
     return floor;
   }
@@ -64,11 +64,11 @@ export const generateRandomDoor = async () => {
   /* 40% th, 40% tv, 20% mf */
   const door = Math.floor(Math.random() * 15);
   if (door >= 0 && door <= 5) {
-    return 'th';
+    return ' th';
   } else if (door >= 6 && door <= 11) {
-    return 'tv';
+    return ' tv';
   } else {
-    return 'mf';
+    return ' mf';
   }
 };
 
@@ -97,7 +97,8 @@ export const generateStreetName = async (length: number) => {
   const streetNames: string[] = [
     'Larsens', 'Jensens', 'Andersens', 'Peters',
     'Nielsens', 'Henriks', 'Oles', 'Sørens',
-    'Mikkels', 'Kristians', 'Strand'
+    'Mikkels', 'Kristians', 'Strand', 'Sønder',
+    'Nørre', 'Vest', 'Øst', 'Nord',
   ];
 
   const names = streetNames.filter((streetName) => streetName.length === length);
@@ -105,8 +106,7 @@ export const generateStreetName = async (length: number) => {
   if (names.length === 0)
     throw new Error('No street name found with that length');
 
-
-    return names[generateRandomNumber(0, names.length -1)];
+  return names[generateRandomNumber(0, names.length -1)];
 };
 
 export const generateStreetVariation = async (length: number) => {
@@ -120,7 +120,7 @@ export const generateStreetVariation = async (length: number) => {
   const names = streetVariations.filter((streetVariations) => streetVariations.length === length);
 
   if (names.length === 0)
-    throw new Error('No street name found with that length');
+    throw new Error('No street variation was found. Please try again later');
 
-    return names[generateRandomNumber(0, names.length -1)];
+  return names[generateRandomNumber(0, names.length - 1 )];
 };
