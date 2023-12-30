@@ -199,22 +199,27 @@ test.each(generatedCars)('GenerateCars blackbox', async ({ choice, expected }) =
     cars = result.result?.data as Car[];
     expect(cars.length).toBe(expected);
 });
+const error = new Error('Only 1-100 cars allowed!')
+const invalidChoice = new Error('No cars generated.');
 
 const invalidCars = [
-    { choice: 0 },
-    { choice: 101 },
-    { choice: Number('a') },
-    { choice: Number('&') },
-    { choice: Number(true) },
-    { choice: Number(false) },
-    { choice: Number(null) },
-    { choice: Number(undefined) },
-    { choice: Number([]) },
-    { choice: Number({}) },
+    { choice: 0, expected: invalidChoice },
+    { choice: -1, expected: error },
+    { choice: 101, expected: error  },
+    { choice: Number('a'), expected: invalidChoice },
+    { choice: Number('&'), expected: invalidChoice  },
+    { choice: Number(true), expected: invalidChoice  },
+    { choice: Number(false), expected: invalidChoice  },
+    { choice: Number(null), expected: invalidChoice  },
+    { choice: Number(undefined), expected: invalidChoice  },
+    { choice: Number([]), expected: invalidChoice  },
+    { choice: Number({}), expected: invalidChoice  },
 ];
 
-test.each(invalidCars)('Only between 1-100 cars allowed', ({ choice }) => {
-    expect(() => carService.generateCars(choice)).toThrowError('Only 1-100 cars allowed!');
+test.each(invalidCars)('Only between 1-100 cars allowed', ({ choice, expected }) => {
+    console.log(expected);
+    
+    expect(() => carService.generateCars(choice)).toThrowError(expected);
 });
 
 
