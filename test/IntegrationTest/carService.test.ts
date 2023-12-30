@@ -2,6 +2,7 @@ import 'dotenv/config'
 import { connection } from '../../src/Repositories/data-source';
 import { Car } from '../../src/Model/Vehicle';
 import * as carService from '../../src/Services/carService'
+import * as manufacturerService from '../../src/Services/manufacturerService'
 import { Chassis } from '../../src/Model/Chassis';
 import { Engine } from '../../src/Model/Engine';
 import { FuelStats } from '../../src/Model/FuelStats';
@@ -13,14 +14,28 @@ let car: Car;
 let cars: Car[];
 let choice: number;
 
+/* ---------------------------------------- MOCKING API CALL ---------------------------------------- */
+//TODO ADD MORE MANUFACTURES
+jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() => {
+    return Promise.resolve(new Manufacturer(2000, 'Audi', 'S7 quattro', 2010))
+    });
+
+ /* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */ 
+ //TODO ADD MORE VEHICLES  
+jest.spyOn(carService, 'saveCar').mockImplementation(async () => {
+return Promise.resolve(new Car(await manufacturerService.generateManufacturer(), 4, 2000, new Chassis(2000, 'red', 4, 5), new FuelStats(2000, 50, 600), 
+new Registration(2000, 'test', 'test'), new Engine(2000, 'test', 600, 800, 'test'), new Gearbox(2000, 'test', 7, 'test')))
+});
+
+
 
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
 
     beforeEach(async () => {
         const result = await carService.generateCar();
-        if(result.success)
-        car = result.result.data as Car
+        if (result.success)
+            car = result.result.data as Car
     });
 
     test('car is an object', () => {
@@ -45,8 +60,8 @@ describe('generatecar', () => {
 
     test('Engine instanceOf Engine', () => {
         expect(car.getEngine()).toBeInstanceOf(Engine);
-    }); 
-    
+    });
+
     test('Fuel is an object', () => {
         expect(typeof car.getFuel()).toBe('object')
     })
@@ -168,16 +183,21 @@ describe('generatecar', () => {
 //FLERE TEST
 describe('generateCars', () => {
 
-    beforeEach(() => {
+    test('Below 100 cars', () => {
         choice = 10;
-        const result = carService.generateCars(10);
-        if (result.success)
-         cars = result.result.data as Car[]
-        
+        const result = carService.generateCars(choice);
+        expect(result.success).toBe(true);
     });
-    
-    test('Cars length same as choice', () => {
-        expect(cars.length).toBe(choice);
+
+    test('Above 100 cars', () => {
+        choice = 101;
+        const result = carService.generateCars(choice);
+        expect(result.success).toBe(false);
+    });
+
+    test('Choice not a num', () => {
+        const result = carService.generateCars(Number('abc'));
+        expect(result.success).toBe(false);
     });
 });
 
