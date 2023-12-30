@@ -53,8 +53,7 @@ export const generateDoor = () => {
     return doors[faker.number.int({ min: 0, max: doors.length - 1 })]
 };
 
-const saveCar = async (car: Car) => {
-    try {
+export const saveCar = async (car: Car) => {
         const ids = await carRepository.saveCar(car);
         car.getChassis().setChassisId(Number(ids?.chassisId));
         car.getFuel().setFuelStatsId(Number(ids?.fuelId));
@@ -64,8 +63,4 @@ const saveCar = async (car: Car) => {
         car.setVehicleId(Number(ids?.vehicleId));
         car.getManufacturer().setManufacturerId(Number(ids?.manufacturerId));
         return car;
-
-    } catch (error) {
-        return failed(error);
-    }
 };

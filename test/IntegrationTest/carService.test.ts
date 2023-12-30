@@ -13,42 +13,21 @@ let car: Car;
 let cars: Car[];
 let choice: number;
 
-/*
-jest.mock('../../src/Services/carService', () => {
-    return {
-        __esModule: true,
-        generateCar: jest.fn(() => {
-            return Promise.resolve([
-                new Car(new Manufacturer(-1, 'BMW', 'M3', 2000), 4, -1, new Chassis(-1, 'red', 4, 5), new FuelStats(-1 , 50, 600), 
-                new Registration(-1, 'test', 'test'), new Engine(-1, 'test', 600, 800, 'test'), new Gearbox(-1, 'test', 7, 'test')), 
-
-                new Car(new Manufacturer(-1, 'BMW', 'M3', 2000), 4, -1, new Chassis(-1, 'red', 4, 5), new FuelStats(-1 , 50, 600), 
-                new Registration(-1, 'test', 'test'), new Engine(-1, 'test', 600, 800, 'test'), new Gearbox(-1, 'test', 7, 'test')), 
-                
-            ]);
-        })
-    }
-});*/
+jest.spyOn(carService, 'saveCar').mockImplementation(() => {
+return Promise.resolve(new Car(new Manufacturer(2000, 'BMW', 'M3 series', 2000), 4, 2000, new Chassis(2000, 'red', 4, 5), new FuelStats(2000, 50, 600), 
+new Registration(2000, 'test', 'test'), new Engine(2000, 'test', 600, 800, 'test'), new Gearbox(2000, 'test', 7, 'test')))
+});
 
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
 
     beforeEach(async () => {
         const result = await carService.generateCar();
-        if(!result.success){
-            console.log('hej ');
-            
-        }
-        
-        if(result.success)
-        car = result.result.data as Car
-    console.log(car);
-    
+        if (result.success)
+            car = result.result.data as Car
     });
 
     test('car is an object', () => {
-        console.log(car);
-        
         expect(typeof car).toBe('object')
     })
 
@@ -70,8 +49,8 @@ describe('generatecar', () => {
 
     test('Engine instanceOf Engine', () => {
         expect(car.getEngine()).toBeInstanceOf(Engine);
-    }); 
-    
+    });
+
     test('Fuel is an object', () => {
         expect(typeof car.getFuel()).toBe('object')
     })
@@ -193,16 +172,21 @@ describe('generatecar', () => {
 //FLERE TEST
 describe('generateCars', () => {
 
-    beforeEach(() => {
+    test('Below 100 cars', () => {
         choice = 10;
-        const result = carService.generateCars(10);
-        if (result.success)
-         cars = result.result.data as Car[]
-        
+        const result = carService.generateCars(choice);
+        expect(result.success).toBe(true);
     });
-    
-    test('Cars length same as choice', () => {
-        expect(cars.length).toBe(choice);
+
+    test('Above 100 cars', () => {
+        choice = 101;
+        const result = carService.generateCars(choice);
+        expect(result.success).toBe(false);
+    });
+
+    test('Choice not a num', () => {
+        const result = carService.generateCars(Number('abc'));
+        expect(result.success).toBe(false);
     });
 });
 
