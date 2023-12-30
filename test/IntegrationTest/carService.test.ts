@@ -14,6 +14,7 @@ import { manufacturers } from '../../src/util/testDataProvider';
 
 let car: Car;
 let choice: number;
+let cars: Car[]
 
 /* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */
 jest.spyOn(carRepository, 'saveCar').mockImplementation(() => {
@@ -191,22 +192,47 @@ describe('generatecar', () => {
 //FLERE TEST
 describe('generateCars', () => {
 
-    test('Below 100 cars', () => {
-        choice = 10;
-        const result = carService.generateCars(choice);
-        expect(result.success).toBe(true);
+    const generatedCars = [{ choice: 1, expected: 1 }, { choice: 100, expected: 100 }, { choice: 50, expected: 50 }];
+
+    test.each(generatedCars)('GenerateCars blackbox', ({ choice, expected }) => {
+        const result: Result = carService.generateCars(choice);
+        cars = result.result?.data as Car[]
+        expect(cars.length).toBe(expected);
     });
 
-    test('Above 100 cars', () => {
-        choice = 101;
-        const result = carService.generateCars(choice);
-        expect(result.success).toBe(false);
-    });
+    const invalidCars = [
+        { choice: 0 },
+        { choice: 101 },
+        { choice: Number('a') },
+        { choice: Number('&') },
+        { choice: Number(true) },
+        { choice: Number(false) },
+        { choice: Number(null) },
+        { choice: Number(undefined) },
+        { choice: Number([]) },
+        { choice: Number({}) },
+    ];
 
-    test('Choice not a num', () => {
-        const result = carService.generateCars(Number('abc'));
-        expect(result.success).toBe(false);
+    test.each(invalidCars)('InvalidCapacity for door', ({ choice }) => {
+        expect(() => carService.generateCars(choice)).toThrowError('Only 1-100 cars allowed!');
     });
+});
+
+test('Below 100 cars', () => {
+    choice = 10;
+    const result = carService.generateCars(choice);
+    expect(result.success).toBe(true);
+});
+
+test('Above 100 cars', () => {
+    choice = 101;
+    const result = carService.generateCars(choice);
+    expect(result.success).toBe(false);
+});
+
+test('Choice not a num', () => {
+    const result = carService.generateCars(Number('abc'));
+    expect(result.success).toBe(false);
 });
 
 /* ---------------------------------------- Get Car by ID ---------------------------------------- */
