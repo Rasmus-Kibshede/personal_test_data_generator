@@ -1,11 +1,12 @@
 import { faker } from "@faker-js/faker";
 import { Manufacturer } from "../Model/Manufacturer";
 import axios from "axios";
-
-const usingApi = process.env.USNGAPI === 'true' || false;
+import { failed } from "../util/errorHandler";
 
 export const generateManufacturer = async () => {
-    const manufacturer = await fetchManufacturer();
+    const usingApi = process.env.USNGAPI === 'true' || false;
+
+    const manufacturer = usingApi ? await fetchManufacturer() : fakeFetchManufacturer();
 
     if (!manufacturer)
         throw new Error('Failed to generate manufacturer.');
@@ -19,6 +20,7 @@ export const fetchManufacturer = async () => {
         url: 'https://car-api2.p.rapidapi.com/api/bodies',
         params: {
             sort: 'id',
+            make_model_id: generateRandomNumber(1, 100),
             verbose: 'yes',
             direction: 'asc',
             year: generateRandomNumber(2015, 2020),
@@ -33,16 +35,23 @@ export const fetchManufacturer = async () => {
     try {
         const response = await axios.request(options);
 
-        const result = response.data.data[0];
-
-        return new Manufacturer(-1, result.make_model_trim.make_model.make.name, result.make_model_trim.make_model.name, result.make_model_trim.year);
+        return validateManufacturer(response.data.data);
     } catch (error) {
-        console.error(error);
+        failed(error);
     }
 }
 
+const validateManufacturer = async (result: any) => {
+    if (result.length === 0)
+        return fakeFetchManufacturer();
+
+    const vehicle = result[0];
+
+    return new Manufacturer(-1, vehicle.make_model_trim.make_model.make.name, vehicle.make_model_trim.make_model.name, vehicle.make_model_trim.year);
+}
+
 const fakeFetchManufacturer = () => {
-    return [
+    const manufacturers = [
         new Manufacturer(-1, 'Audi', 'A5', 2002),
         new Manufacturer(-1, 'BMW', 'X3', 2010),
         new Manufacturer(-1, 'Mercedes-Benz', 'C-Class', 2015),
@@ -82,9 +91,9 @@ const fakeFetchManufacturer = () => {
         new Manufacturer(-1, 'Mercedes-Benz', 'GLC', 2017),
         new Manufacturer(-1, 'Toyota', 'Highlander', 2006),
     ];
-    
-    
-    
+
+
+    return manufacturers[generateRandomNumber(0, manufacturers.length - 1)];
 }
 
 const generateRandomNumber = (min: number, max: number) => {
