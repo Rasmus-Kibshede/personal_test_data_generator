@@ -26,22 +26,26 @@ export const generateCars = (choice: number) => {
         return failed(new Error('No cars generated.'))
     }
 
-    if(choice >= 100){
-        return failed(new Error('Only 100 cars allowed!'))
+    if(choice >= 100 || choice <= 1){
+        return failed(new Error('Only 1-100 cars allowed!'));
     }
     
     const cars: Car[] = [];
     Array.from({ length: choice }, async () => {
         const door = generateDoor();
-        const car = new Car(await generateManufacturer(), door, -1, generateChassis(door), generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
+        const car = new Car(await generateManufacturer(), door, -1, generateChassis(door), 
+        generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
         cars.push(car);
-        car.setVehicleId(cars.length)
+        car.setVehicleId(cars.length);
     });
     return success(cars);
 };
 
 export const getCarById = async (id: number) => {
     try {
+        if(!id || typeof id !== 'number' ){
+            failed(new Error('Not a valid id'))
+        }
         return success(await carRepository.getCarById(id));
     } catch (error) {
         return failed(error)

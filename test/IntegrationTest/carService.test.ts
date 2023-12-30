@@ -1,42 +1,50 @@
-import 'dotenv/config'
-import { connection } from '../../src/Repositories/data-source';
 import { Car } from '../../src/Model/Vehicle';
 import * as carService from '../../src/Services/carService'
 import * as manufacturerService from '../../src/Services/manufacturerService'
+import * as carRepository from '../../src/Repositories/carRepository'
 import { Chassis } from '../../src/Model/Chassis';
 import { Engine } from '../../src/Model/Engine';
 import { FuelStats } from '../../src/Model/FuelStats';
 import { Gearbox } from '../../src/Model/Gearbox';
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import { Registration } from '../../src/Model/Registration';
+import { faker, } from '@faker-js/faker';
+import { Result } from '../../src/Model/Types/types';
+import { manufacturers } from '../../src/util/testDataProvider';
 
 let car: Car;
-let cars: Car[];
 let choice: number;
 
-/* ---------------------------------------- MOCKING API CALL ---------------------------------------- */
-//TODO ADD MORE MANUFACTURES
-jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() => {
-    return Promise.resolve(new Manufacturer(2000, 'Audi', 'S7 quattro', 2010))
-    });
-
- /* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */ 
- //TODO ADD MORE VEHICLES  
-jest.spyOn(carService, 'saveCar').mockImplementation(async () => {
-return Promise.resolve(new Car(await manufacturerService.generateManufacturer(), 4, 2000, new Chassis(2000, 'red', 4, 5), new FuelStats(2000, 50, 600), 
-new Registration(2000, 'test', 'test'), new Engine(2000, 'test', 600, 800, 'test'), new Gearbox(2000, 'test', 7, 'test')))
+/* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */
+jest.spyOn(carRepository, 'saveCar').mockImplementation(() => {
+    return Promise.resolve({ chassisId: 4000, fuelId: 4000, registrationId: 4000, engineId: 4000, gearboxId: 4000, vehicleId: 4000, manufacturerId: 4000 })
 });
 
+/* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */
+jest.spyOn(carRepository, 'getCarById').mockImplementation(async (id: number) => {
+    return Promise.resolve(new Car(await manufacturerService.generateManufacturer(), 4, id, new Chassis(4000, 'red', 4, 5), new FuelStats(4000, 50, 600),
+        new Registration(4000, 'test', 'test'), new Engine(4000, 'test', 600, 800, 'test'), new Gearbox(4000, 'test', 7, 'test')))
+});
+//HER KAN VI MOCKE EN DER FEJLER!
+
+/* ---------------------------------------- MOCKING API CALL ---------------------------------------- */
+jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() => {
+    return Promise.resolve(manufacturers[faker.number.int({ min: 0, max: manufacturers.length - 1 })])
+});
 
 
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
 
     beforeEach(async () => {
-        const result = await carService.generateCar();
-        if (result.success)
-            car = result.result.data as Car
+        const test: Result = await carService.generateCar();
+        car = test.result!.data as Car
     });
+
+    test('car is an object', async () => {
+        const result = await carService.generateCar();
+        expect(result.success).toBe(true)
+    })
 
     test('car is an object', () => {
         expect(typeof car).toBe('object')
@@ -203,6 +211,7 @@ describe('generateCars', () => {
 
 /* ---------------------------------------- Get Car by ID ---------------------------------------- */
 //FLERE TEST
+//SKAL Mockes
 describe('GetCarByID success', () => {
 
     test('car by id successful', async () => {
@@ -211,6 +220,12 @@ describe('GetCarByID success', () => {
     });
 });
 
-afterAll(() => {
-    connection.end();
+
+/* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */
+//HVIS DENNE MOCKES SÅ FÅR VI DEN SAMME BIL HVER GANG!
+/*jest.spyOn(carService, 'saveCar').mockImplementation(async () => {
+    return Promise.resolve(
+        new Car(await manufacturerService.generateManufacturer(), 4, 2000, new Chassis(2000, 'red', 4, 5), new FuelStats(2000, 50, 600),
+        new Registration(2000, 'test', 'test'), new Engine(2000, 'test', 600, 800, 'test'), new Gearbox(2000, 'test', 7, 'test')))
 });
+*/
