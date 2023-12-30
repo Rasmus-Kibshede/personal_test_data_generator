@@ -13,17 +13,42 @@ let car: Car;
 let cars: Car[];
 let choice: number;
 
+/*
+jest.mock('../../src/Services/carService', () => {
+    return {
+        __esModule: true,
+        generateCar: jest.fn(() => {
+            return Promise.resolve([
+                new Car(new Manufacturer(-1, 'BMW', 'M3', 2000), 4, -1, new Chassis(-1, 'red', 4, 5), new FuelStats(-1 , 50, 600), 
+                new Registration(-1, 'test', 'test'), new Engine(-1, 'test', 600, 800, 'test'), new Gearbox(-1, 'test', 7, 'test')), 
+
+                new Car(new Manufacturer(-1, 'BMW', 'M3', 2000), 4, -1, new Chassis(-1, 'red', 4, 5), new FuelStats(-1 , 50, 600), 
+                new Registration(-1, 'test', 'test'), new Engine(-1, 'test', 600, 800, 'test'), new Gearbox(-1, 'test', 7, 'test')), 
+                
+            ]);
+        })
+    }
+});*/
 
 /* ---------------------------------------- generatecar ---------------------------------------- */
 describe('generatecar', () => {
 
     beforeEach(async () => {
         const result = await carService.generateCar();
+        if(!result.success){
+            console.log('hej ');
+            
+        }
+        
         if(result.success)
         car = result.result.data as Car
+    console.log(car);
+    
     });
 
     test('car is an object', () => {
+        console.log(car);
+        
         expect(typeof car).toBe('object')
     })
 
