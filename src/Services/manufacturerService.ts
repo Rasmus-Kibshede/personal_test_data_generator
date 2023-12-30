@@ -42,12 +42,11 @@ export const fetchManufacturer = async () => {
     }
 };
 
-//Potential unit/Integrationtest
-const validateManufacturer = async (result: any) => {
-    if (result.length === 0)
+export const validateManufacturer = async (results: any[]) => {
+    if (results.length === 0)
         return fakeFetchManufacturer();
 
-    const vehicle = result[0];
+    const vehicle = results[0];
 
     return new Manufacturer(-1, vehicle.make_model_trim.make_model.make.name, vehicle.make_model_trim.make_model.name, vehicle.make_model_trim.year);
 };

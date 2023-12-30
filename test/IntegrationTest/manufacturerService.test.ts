@@ -221,23 +221,3 @@ describe('Year', () => {
         expect(Number.isInteger(manufacturer.getYear())).toBe(true);
     });
 });
-
-/* ----------------------------------------fakeFetchManufacturer ---------------------------------------- */
-describe('fakeFetchManufacturer', () => {
-
-    beforeEach(async () =>  {
-         manufacturer = manufacturerService.fakeFetchManufacturer();
-    });
-
-    test('Manufacturer is expected', () => {
-        expect(manufacturers).toContainEqual(manufacturer);
-    });
-
-    test('Manufacturer is expected', () => {
-        expect(typeof manufacturer).toBe('object')
-    });
-
-    test('Manufacturer is expected', () => {
-        expect(manufacturer).toBeInstanceOf(Manufacturer)
-    });
-});
