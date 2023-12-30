@@ -32,7 +32,6 @@ describe('generateManufacturer', () => {
 
 /* ---------------------------------------- generateManufacturer ID ---------------------------------------- */
 describe('ID', () => {
-    
     test('Manufacturer Id is not null', () => {
         expect(manufacturer.getManufacturerId()).not.toBeNull();
     });
