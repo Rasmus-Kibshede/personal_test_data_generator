@@ -106,7 +106,7 @@ export const generateStreetName = async (length: number) => {
     throw new Error('No street name found with that length');
 
 
-  return names[Math.floor(Math.random() * names.length)];
+    return names[generateRandomNumber(0, names.length -1)];
 };
 
 export const generateStreetVariation = async (length: number) => {
@@ -122,5 +122,5 @@ export const generateStreetVariation = async (length: number) => {
   if (names.length === 0)
     throw new Error('No street name found with that length');
 
-  return streetVariations[faker.number.int({ min: 0, max: streetVariations.length - 1 })];
+    return names[generateRandomNumber(0, names.length -1)];
 };
