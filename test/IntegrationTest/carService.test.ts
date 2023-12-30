@@ -46,7 +46,7 @@ jest.spyOn(carRepository, 'getCarById').mockImplementation(async (id: number) =>
     return Promise.resolve(new Car(await manufacturerService.generateManufacturer(), 4, id, new Chassis(4000, 'red', 4, 5), new FuelStats(4000, 50, 600),
     new Registration(4000, 'test', 'test'), new Engine(4000, 'test', 600, 800, 'test'), new Gearbox(4000, 'test', 7, 'test')))
 });
-
+//HER KAN VI MOCKE EN DER FEJLER!
 
 /* ---------------------------------------- MOCKING API CALL ---------------------------------------- */
 jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() => {
@@ -238,16 +238,16 @@ describe('GetCarByID success', () => {
 
     test('car by id successful', async () => {
         const result = await carService.getCarById(1);
+        console.log(result);
+        
         expect(result.success).toBe(true);
     });
 
-    //DENNE FEJLER - ALTID SUCCESS, HAR SAT DEN TIL TRUE, SKAL VÆRE FALSE
+    //DENNE FEJLER - HER SKAL MOCKES EN DER FEJLER.
     test('car by id successful', async () => {
         const result = await carService.getCarById(Number('dsa'));
-        expect(result.success).toBe(true);
+        expect(result.success).toBe(false);
     });
-
-
 });
 
 

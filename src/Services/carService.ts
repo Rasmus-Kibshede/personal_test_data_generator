@@ -42,6 +42,9 @@ export const generateCars = (choice: number) => {
 
 export const getCarById = async (id: number) => {
     try {
+        if(!id || typeof id !== 'number' ){
+            failed(new Error('Not a valid id'))
+        }
         return success(await carRepository.getCarById(id));
     } catch (error) {
         return failed(error)

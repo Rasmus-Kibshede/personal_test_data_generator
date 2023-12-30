@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import * as manufacturerService from '../../src/Services/manufacturerService'
 
@@ -24,6 +25,12 @@ const manufacturers = [
     new Manufacturer(-1, 'Audi', 'Q5', 2018), new Manufacturer(-1, 'BMW', 'X1', 2019),
     new Manufacturer(-1, 'Mercedes-Benz', 'GLC', 2017), new Manufacturer(-1, 'Toyota', 'Highlander', 2006),
 ];
+
+
+/* ---------------------------------------- MOCKING API CALL ---------------------------------------- */
+jest.spyOn(manufacturerService, 'generateManufacturer').mockImplementation(() => {
+    return Promise.resolve(manufacturers[faker.number.int({ min: 0, max: manufacturers.length - 1 })])
+});
 
 /* ---------------------------------------- generateManufacturer ---------------------------------------- */
 //TODO SKal laves om i service laget så den retunere datasæt i stedet for vores Manufacturer object, så vi kan lave unittest på den. 
