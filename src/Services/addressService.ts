@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { AddressDTO } from '../Model/Address';
 import { getRandomAddress, getAddressByPostalCode } from '../Repositories/addressRepository';
-import { generaterandomNumber } from '../util/generateNumber';
+import { generateRandomNumber } from '../util/generateNumber';
 
 export const getAddress = async (postalCode: number) => {
   const address = await getAddressByPostalCode(postalCode);
@@ -23,7 +23,7 @@ export const setRandomAddress = async () => {
   const address: AddressDTO = {
     postalCode: getCityAndPostalCode.postalCode,
     city: getCityAndPostalCode.city,
-    street: await generateRandomStreetName(generaterandomNumber(4, 9), generaterandomNumber(2, 9)),
+    street: await generateRandomStreetName(generateRandomNumber(4, 9), generateRandomNumber(2, 9)),
     houseNumber: await generateHouseNumber()
   }
 
@@ -106,7 +106,7 @@ export const generateStreetName = async (length: number) => {
   if (names.length === 0)
     throw new Error('No street name found with that length');
 
-  return names[Math.floor(Math.random() * names.length)];
+  return names[generateRandomNumber(0, names.length -1)];
 };
 
 export const generateStreetVariation = async (length: number) => {
@@ -122,5 +122,5 @@ export const generateStreetVariation = async (length: number) => {
   if (names.length === 0)
     throw new Error('No street variation was found. Please try again later');
 
-  return names[faker.number.int({ min: 0, max: names.length - 1})];
+  return names[generateRandomNumber(0, names.length - 1 )];
 };
