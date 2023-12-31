@@ -8,8 +8,7 @@ The topic, business idea, specifications, type of application (web, mobile, stan
 - [x] A frontend
 - [x] A backend
 - [x] A database	
-- [ ] A connection to an external, public API (could be something simple like a weather widget)
-	- We are using the sendgrid api.
+- [x] A connection to an external, public API (could be something simple like a weather widget)
 
 # Task list
 
@@ -31,10 +30,10 @@ The remaining members will conduct a formal review and generate a review documen
 ## Black-box test design. Black-box techniques will help identify test cases.
 #### Deliverables (all in a single pdf file):
 
-- [ ] Equivalence partitioning analysis
-- [ ] Boundary value analysis
-- [ ] Decision table(s) (only if relevant)
-- [ ] State transition diagram(s) and/or state transition table(s) (only if relevant)
+- [x] Equivalence partitioning analysis
+- [x] Boundary value analysis
+- [x] Decision table(s) (only if relevant)
+- [x] State transition diagram(s) and/or state transition table(s) (only if relevant)
 
 ## Static Testing Tools and White-box test design. 
 Use the static testing tool(s) of your choice (besides linters and IDE extensions) and document their contribution.
@@ -46,14 +45,14 @@ Use the static testing tool(s) of your choice (besides linters and IDE extension
 
 ## Unit testing and integration testing. Design and implement:
 
-- [ ] Unit tests        
-- [ ] Integration tests in code (unless you decide to mock all dependencies)
+- [x] Unit tests        
+- [x] Integration tests in code (unless you decide to mock all dependencies)
 
 Pay attention to the following:
 
-- [ ] Comprehensive assertions and test cases are expected
-- [ ] The test cases identified in the black-box design phase must serve as a starting point
-- [ ] Use parameterised tests/data providers
+- [x] Comprehensive assertions and test cases are expected
+- [x] The test cases identified in the black-box design phase must serve as a starting point
+- [x] Use parameterised tests/data providers
 
 #### Deliverables:
 - [ ] Source code of the application
@@ -77,3 +76,5 @@ The tests must be in code. Scripting tools like Selenium IDE are forbidden
 Implement load, stress, and spike testing on the application with a stress performance testing application (e.g., Apache JMeter).
 #### Deliverables
 - [x] Reports or screenshots documenting the tests.
+
+api: https://rapidapi.com/carapi/api/car-api2/

@@ -1,95 +1,196 @@
+import { Manufacturer } from '../../src/Model/Manufacturer';
 import * as manufacturerService from '../../src/Services/manufacturerService'
 
+let manufacturer: Manufacturer
+/* ---------------------------------------- fakeFetchManufacturer ---------------------------------------- */
+beforeEach(async () => {
+    manufacturer = manufacturerService.fakeFetchManufacturer();
+});
 
-/* ---------------------------------------- generateVehicleData ---------------------------------------- */
-
-describe('generateVehicleData', () => {
+describe('Manufacturer', () => {
 
     test('Vehicle data is an object', () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(typeof result).toBe('object');
+        expect(typeof manufacturer).toBe('object');
     });
 
-    test('Vehicle data has make property', () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result).toHaveProperty('make');
-        expect(typeof result.getMake()).toBe('string');
+    test('Vehicle data is of type Manufacturer', () => {
+        expect(manufacturer).toBeInstanceOf(Manufacturer);
     });
 
-    test('Vehicle data has model property', () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result).toHaveProperty('model');
-        expect(typeof result.getModel()).toBe('string');
+    test('Manufacturer Id is not null', () => {
+        expect(manufacturer).not.toBeNull();
     });
 
-    test('Vehicle data has year property', () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result).toHaveProperty('year');
-        expect(typeof result.getYear()).toBe('number');
+    test('Manufacturer Id is not undefined', () => {
+        expect(manufacturer).not.toBeUndefined();
+    });
+});
+
+/* ---------------------------------------- fakeFetchManufacturer ID ---------------------------------------- */
+describe('ID', () => {
+
+    test('Manufacturer has id', () => {
+        expect(manufacturer.getManufacturerId()).toBeDefined();
+        expect(manufacturer.getManufacturerId()).toBe(-1);
     });
 
-    test('Vehicle data has valid year', () => {
-        const result = manufacturerService.generateVehicleData();
+    test('Manufacturer Id is not null', () => {
+        expect(manufacturer.getManufacturerId()).not.toBeNull();
+    });
+
+    test('Manufacturer Id is not undefined', () => {
+        expect(manufacturer.getManufacturerId()).not.toBeUndefined();
+    });
+
+    test('Manufacturer Id is a valid integer', () => {
+        expect(Number.isInteger(manufacturer.getManufacturerId())).toBe(true);
+    });
+
+    test('Manufacturer Id is initialized to -1', () => {
+        expect(manufacturer.getManufacturerId()).toBe(-1);
+    });
+});
+
+/* ----------------------------------------fakeFetchManufacturer Make ---------------------------------------- */
+describe('Make', () => {
+
+    test('Make is a string with no leading or trailing whitespaces', () => {
+        expect(manufacturer.getMake().trim()).toEqual(manufacturer.getMake());
+    });
+
+    test('Make contains only alphanumeric characters', () => {
+        expect(manufacturer.getMake()).toMatch(/^[a-zA-Z0-9-]+$/);
+    });
+
+    test('Make data has make property', () => {
+        expect(manufacturer).toHaveProperty('make');
+        expect(typeof manufacturer.getMake()).toBe('string');
+    });
+
+    test('Make defined', () => {
+        expect(manufacturer.getMake()).toBeDefined();
+    });
+
+    test('Make non-empty', () => {
+        expect(manufacturer.getMake().trim()).not.toEqual('');
+    });
+
+    test('Make is a string with no leading or trailing whitespaces', () => {
+        expect(manufacturer.getMake().trim()).toEqual(manufacturer.getMake());
+    });
+
+    test('Make is not undefined', () => {
+        expect(manufacturer.getMake()).toBeDefined();
+    });
+
+    test('Make is not null', () => {
+        expect(manufacturer.getMake()).not.toBeNull();
+    });
+
+    test('Make greater or equal to 3', () => {
+        expect(manufacturer.getMake().length).toBeGreaterThanOrEqual(3);
+    });
+
+    test('Make less or equal to 13', () => {
+        expect(manufacturer.getMake().length).toBeLessThanOrEqual(13);
+    });
+
+    test('Make not equal 2', () => {
+        expect(manufacturer.getMake().length).not.toBe(2);
+    });
+
+    test('Make not equal 10', () => {
+        expect(manufacturer.getMake().length).not.toBe(14);
+    });
+});
+
+/* ----------------------------------------fakeFetchManufacturer Model ---------------------------------------- */
+describe('Model', () => {
+
+    test('Model is a string with no leading or trailing whitespaces', () => {
+        expect(manufacturer.getModel().trim()).toEqual(manufacturer.getModel());
+    });
+
+    test('Model contains only alphanumeric characters', () => {
+        expect(manufacturer.getModel()).toMatch(/^[a-zA-Z0-9\s-]+$/);
+    });
+
+    test('Model property', () => {
+        expect(manufacturer).toHaveProperty('model');
+        expect(typeof manufacturer.getModel()).toBe('string');
+    });
+
+    test('Model non-empty', () => {
+        expect(manufacturer.getModel().trim()).not.toEqual('');
+    });
+
+    test('Model non-empty', () => {
+        expect(manufacturer.getModel()).toBeDefined();
+    });
+
+    test('Model is a string with no leading or trailing whitespaces', () => {
+        expect(manufacturer.getModel().trim()).toEqual(manufacturer.getModel());
+    });
+
+    test('Model greater or equal to 2', () => {
+        expect(manufacturer.getModel().length).toBeGreaterThanOrEqual(2);
+    });
+
+    test('Model less or equal to 14', () => {
+        expect(manufacturer.getModel().length).toBeLessThanOrEqual(14);
+    });
+
+    test('Model not equal 1', () => {
+        expect(manufacturer.getModel().length).not.toBe(1)
+    });
+
+    test('Model not equal 8', () => {
+        expect(manufacturer.getModel().length).not.toBe(15);
+    });
+
+    test('Model is a string', () => {
+        expect(typeof manufacturer.getModel()).toBe('string');
+    });
+
+    test('Model is not undefined', () => {
+        expect(manufacturer.getModel()).toBeDefined();
+    });
+
+    test('Model is not null', () => {
+        expect(manufacturer.getModel()).not.toBeNull();
+    });
+});
+
+
+/* ----------------------------------------fakeFetchManufacturer Year ---------------------------------------- */
+describe('Year', () => {
+
+    test('Manufacturer have property', () => {
+        expect(manufacturer).toHaveProperty('year');
+    });
+
+    test('Year to be number', () => {
+        expect(typeof manufacturer.getYear()).toBe('number');
+    });
+
+    test('valid year upper', () => {
         const currentYear = new Date().getFullYear();
-        expect(result.getYear()).toBeGreaterThanOrEqual(2000);
-        expect(result.getYear()).toBeLessThanOrEqual(currentYear);
+        expect(manufacturer.getYear()).toBeLessThanOrEqual(currentYear);
     });
 
-    test('Vehicle make is in the expected list', () => {
-        const result = manufacturerService.generateVehicleData();
-        const expectedMakes = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla', 'BMW', 'Mercedes-Benz', 'Audi', 'Nissan', 'Hyundai'];
-        expect(expectedMakes).toContain(result.getMake());
+    test('valid year lower', () => {
+        expect(manufacturer.getYear()).toBeGreaterThanOrEqual(2000);
     });
 
-    test('Vehicle model is in expected list', () => {
-        const result = manufacturerService.generateVehicleData();
-        const expextedModels = ['Camry', 'Accord', 'Mustang', 'Malibu', 'Model 3', 'X5', 'C-Class', 'A4', 'Altima', 'Elantra'];
-        expect(expextedModels).toContain(result.getModel());
+    test('Year is not undefined', () => {
+        expect(manufacturer.getYear()).toBeDefined();
     });
 
-    test('Vehicle data model is a string', () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(typeof result.getModel()).toBe('string');
+    test('Year is not null', () => {
+        expect(manufacturer.getYear()).not.toBeNull();
     });
 
-    test('Vehicle data make is not null or undefined', () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result.getMake()).not.toBeNull();
-        expect(result.getMake()).not.toBeUndefined();
+    test('Year is a valid integer', () => {
+        expect(Number.isInteger(manufacturer.getYear())).toBe(true);
     });
-
-    test('Vehicle data model is not null or undefined', () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result.getModel()).not.toBeNull();
-        expect(result.getModel()).not.toBeUndefined();
-    });
-
-    test('Vehicle data does not have duplicate models', () => {
-        const models = new Set();
-        for (let i = 0; i < 100; i++) {
-            const result = manufacturerService.generateVehicleData();
-            models.add(result.getModel());
-        }
-        expect(models.size).toBe(10);
-    });
-
-    test('Make greater or equal to 3', async () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result.getMake().length).toBeGreaterThanOrEqual(3);
-      });
-    
-      test('Make less or equal to 9', async () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result.getMake().length).toBeLessThanOrEqual(13);
-      });
-
-      test('Model greater or equal to 2', async () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result.getModel().length).toBeGreaterThanOrEqual(2);
-      });
-    
-      test('Model less or equal to 7', async () => {
-        const result = manufacturerService.generateVehicleData();
-        expect(result.getModel().length).toBeLessThanOrEqual(7);
-      });
 });

@@ -1,25 +1,56 @@
-import { faker } from "@faker-js/faker";
 import { Manufacturer } from "../Model/Manufacturer";
+import axios from "axios";
+import { failed } from "../util/errorHandler";
+import { generateRandomNumber } from "../util/generateNumber";
+import { manufacturers } from '../../src/util/testDataProvider';
 
-export const generateManufacturer = () => {
-    const manufacturerData = generateVehicleData();
-    const manufacturer = new Manufacturer(-1, manufacturerData.getMake(), manufacturerData.getModel(), manufacturerData.getYear())
+export const generateManufacturer = async () => {
+    const usingApi = process.env.USNGAPI === 'true' || false;
+
+    const manufacturer = usingApi ? await fetchManufacturer() : fakeFetchManufacturer();
+
+    if (!manufacturer)
+        throw new Error('Failed to generate manufacturer.');
 
     return manufacturer;
-}
+};
 
-export const generateVehicleData = () => {
-    const data = [
-        new Manufacturer(-1, 'Toyota', 'Camry', 2022),
-        new Manufacturer(-1, 'Honda', 'Accord', 2021),
-        new Manufacturer(-1, 'Ford', 'Mustang', 2023),
-        new Manufacturer(-1, 'Chevrolet', 'Malibu', 2022),
-        new Manufacturer(-1, 'Tesla', 'Model 3', 2021),
-        new Manufacturer(-1, 'BMW', 'X5', 2023),
-        new Manufacturer(-1, 'Mercedes-Benz', 'C-Class', 2022),
-        new Manufacturer(-1, 'Audi', 'A4', 2023),
-        new Manufacturer(-1, 'Nissan', 'Altima', 2022),
-        new Manufacturer(-1, 'Hyundai', 'Elantra', 2021),
-    ];
-    return data[faker.number.int({ min: 0, max: data.length - 1 })]
-}
+export const fetchManufacturer = async () => {
+    const options = {
+        method: 'GET',
+        url: 'https://car-api2.p.rapidapi.com/api/bodies',
+        params: {
+            sort: 'id',
+            make_model_id: generateRandomNumber(1, 100),
+            verbose: 'yes',
+            direction: 'asc',
+            year: generateRandomNumber(2015, 2020),
+            limit: '1'
+        },
+        headers: {
+            'X-RapidAPI-Key': process.env.CAR_API_KEY,
+            'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
+        }
+    };
+
+    try {
+        const response = await axios.request(options);
+
+        return validateManufacturer(response.data.data);
+    } catch (error) {
+        failed(error);
+    }
+};
+
+export const validateManufacturer = async (results: any[]) => {
+    if (results.length === 0)
+        return fakeFetchManufacturer();
+
+    const vehicle = results[0];
+
+    return new Manufacturer(-1, vehicle.make_model_trim.make_model.make.name, vehicle.make_model_trim.make_model.name, vehicle.make_model_trim.year);
+};
+
+export const fakeFetchManufacturer = () => {
+    return manufacturers[generateRandomNumber(0, manufacturers.length - 1)];
+};

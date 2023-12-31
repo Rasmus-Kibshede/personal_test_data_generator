@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS gearbox (
     gearbox_id INT AUTO_INCREMENT PRIMARY KEY,
     type VARCHAR(255) NOT NULL,
     gears INT NOT NULL,
-    drive_train VARCHAR(255) CHECK (drive_train IN ('AWD', '4WD', 'FrontWD', 'RearWD')) NOT NULL
+    drive_train VARCHAR(255) CHECK (drive_train IN ('AWD', '4WD', 'Front wheel drive', 'Rear wheel drive')) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS vehicle (
