@@ -9,11 +9,12 @@ import { Gearbox } from '../../src/Model/Gearbox';
 import { Manufacturer } from '../../src/Model/Manufacturer';
 import { Registration } from '../../src/Model/Registration';
 import { faker, } from '@faker-js/faker';
-import { Result } from '../../src/Model/Types/types';
+import { Result, errorsInterface } from '../../src/Model/Types/types';
 import { manufacturers } from '../../src/util/testDataProvider';
 
 let car: Car;
 let choice: number;
+let cars: Car[]
 
 /* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */
 jest.spyOn(carRepository, 'saveCar').mockImplementation(() => {
@@ -189,24 +190,54 @@ describe('generatecar', () => {
 
 /* ---------------------------------------- generateCars ---------------------------------------- */
 //FLERE TEST
-describe('generateCars', () => {
+describe('generateCars', () => { });
 
-    test('Below 100 cars', () => {
-        choice = 10;
-        const result = carService.generateCars(choice);
-        expect(result.success).toBe(true);
-    });
+const generatedCars = [{ choice: 1, expected: 1 }, { choice: 100, expected: 100 }, { choice: 50, expected: 50 }];
 
-    test('Above 100 cars', () => {
-        choice = 101;
-        const result = carService.generateCars(choice);
-        expect(result.success).toBe(false);
-    });
+test.each(generatedCars)('GenerateCars blackbox', async ({ choice, expected }) => {
+    const result: Result = await carService.generateCars(choice);
+    cars = result.result?.data as Car[];
+    expect(cars.length).toBe(expected);
+});
+const error = 'Only 1-100 cars allowed!';
+const invalidError = 'No cars generated.';
 
-    test('Choice not a num', () => {
-        const result = carService.generateCars(Number('abc'));
-        expect(result.success).toBe(false);
-    });
+const invalidCars = [
+    { choice: 0, expected: error },
+    { choice: -1, expected: error },
+    { choice: 101, expected: error },
+    { choice: Number('a'), expected: invalidError },
+    { choice: Number('&'), expected: invalidError },
+    { choice: Number(false), expected: error },
+    { choice: Number(null), expected: error },
+    { choice: Number(undefined), expected: invalidError },
+    { choice: Number([]), expected: error },
+    { choice: Number({}), expected: invalidError },
+];
+
+
+test.each(invalidCars)('Only between 1-100 cars allowed', async ({ choice, expected }) => {
+    const result = await carService.generateCars(choice) as errorsInterface;
+
+    expect(result.error.message).toBe(expected);
+});
+
+
+test('Below 100 cars', async () => {
+    choice = 10;
+    const result = await carService.generateCars(choice);
+    expect(result.success).toBe(true);
+});
+
+test('Above 100 cars', async () => {
+    choice = 101;
+    const result = await carService.generateCars(choice);
+    expect(result.success).toBe(false);
+});
+
+test('Choice not a num', async () => {
+    const result = await carService.generateCars(Number('abc'));
+    expect(result.success).toBe(false);
 });
 
 /* ---------------------------------------- Get Car by ID ---------------------------------------- */

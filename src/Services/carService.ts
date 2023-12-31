@@ -22,25 +22,28 @@ export const generateCar = async () => {
 };
 
 export const generateCars = async (choice: number) => {
-    if (!choice) {
-        return failed(new Error('No cars generated.'))
+    try {
+
+        if (choice > 100 || choice < 1) {
+            throw new Error('Only 1-100 cars allowed!');
+        }
+
+        if (!choice) {
+            throw new Error('No cars generated.');
+        }
+        const cars: Car[] = [];
+
+        for (let index = 0; index < choice; index++) {
+            const door = generateDoor();
+            const car = new Car(await generateManufacturer(), door, -1, generateChassis(door),
+                generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
+            car.setVehicleId(cars.length);
+            cars.push(car);
+        };
+        return success(cars);
+    } catch (error) {
+        return failed(error);
     }
-
-    if (choice >= 100 || choice <= 1) {
-        return failed(new Error('Only 1-100 cars allowed!'));
-    }
-
-    const cars: Car[] = [];
-
-    for (let index = 0; index < choice; index++) {
-        const door = generateDoor();
-        const car = new Car(await generateManufacturer(), door, -1, generateChassis(door),
-            generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
-        car.setVehicleId(cars.length);
-        cars.push(car);
-    }
-
-    return success(cars);
 };
 
 export const getCarById = async (id: number) => {

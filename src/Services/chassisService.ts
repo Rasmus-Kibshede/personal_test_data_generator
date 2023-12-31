@@ -22,15 +22,18 @@ export const generateColor = () => {
         'White'
     ];
 
-    return colors[faker.number.int({ min: 0, max: colors.length -1 })]
+    return colors[faker.number.int({ min: 0, max: colors.length - 1 })]
 };
 
 export const generateCapacity = (door: number) => {
-    if (door === 3) {
-        return 2
-    } else {
-        return 5
-    }
+    switch (door) {
+        case 3:
+            return 2;
+        case 5:
+            return 5;
+        default:
+            throw new Error('Invalid amount of doors')
+    };
 };
 
 export const generateWheel = () => {

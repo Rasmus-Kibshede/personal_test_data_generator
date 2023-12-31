@@ -82,66 +82,83 @@ describe('generateCapacity', () => {
     capacity = chassisService.generateCapacity(choices[faker.number.int({ min: 0, max: choices.length - 1 })])
   });
 
-  const capacities = [{ door: 2, expected: 5 }, { door: 5, expected: 5 }, { door: 1, expected: 5 }, { door: 3, expected: 2 },
-  { door: 6, expected: 5 }, { door: 4, expected: 5 }];
+  const capacities = [{ door: 5, expected: 5 }, { door: 3, expected: 2 }];
 
   test.each(capacities)('Capacity is 2 or 5', ({ door, expected }) => {
     const result = chassisService.generateCapacity(door);
     expect(result).toBe(expected);
   });
 
-  test('Capacity is 2 or 5', () => {
-    expect(expectedCapacity).toContain(capacity);
-  });
+  const invalidCapacities = [
+    { door: 2 },
+    { door: 4 },
+    { door: 6 },
+    { door: Number('a') },
+    { door: Number('&') },
+    { door: Number(true) },
+    { door: Number(false) },
+    { door: Number(null) },
+    { door: Number(undefined) },
+    { door: Number([]) },
+    { door: Number({}) },
+  ];
 
-  test('Capacity is a number', () => {
-    expect(typeof capacity).toBe('number');
+  test.each(invalidCapacities)('InvalidCapacity for door', ({ door }) => {
+    expect(() => chassisService.generateCapacity(door)).toThrowError('Invalid amount of doors');
   });
+});
 
-  test('Capacity is an integer', () => {
-    expect(capacity % 1).toBe(0);
-  });
+test('Capacity is 2 or 5', () => {
+  expect(expectedCapacity).toContain(capacity);
+});
 
-  test('Capacity is not undefined', () => {
-    expect(capacity).toBeDefined()
-  });
+test('Capacity is a number', () => {
+  expect(typeof capacity).toBe('number');
+});
 
-  test('Capacity is not null', () => {
-    expect(capacity).not.toBeNull();
-  });
+test('Capacity is an integer', () => {
+  expect(capacity % 1).toBe(0);
+});
 
-  test('Capacity has a valid range', () => {
-    expect(capacity).toBeGreaterThanOrEqual(2);
+test('Capacity is not undefined', () => {
+  expect(capacity).toBeDefined()
+});
 
-  });
+test('Capacity is not null', () => {
+  expect(capacity).not.toBeNull();
+});
 
-  test('Capacity has a valid range', () => {
-    expect(capacity).toBeLessThanOrEqual(5);
-  });
+test('Capacity has a valid range', () => {
+  expect(capacity).toBeGreaterThanOrEqual(2);
 
-  test('Capacity is an integer', () => {
-    expect(Number.isInteger(capacity)).toBe(true);
-  });
+});
 
-  test('Capacity is a positive number', () => {
-    expect(capacity).toBeGreaterThan(0);
-  });
+test('Capacity has a valid range', () => {
+  expect(capacity).toBeLessThanOrEqual(5);
+});
 
-  test('Capacity is not 6 upper boundary', () => {
-    expect(capacity).not.toBe(6);
-  });
+test('Capacity is an integer', () => {
+  expect(Number.isInteger(capacity)).toBe(true);
+});
 
-  test('Capacity is less than 6 upper boundary', () => {
-    expect(capacity).toBeLessThan(6);
-  });
+test('Capacity is a positive number', () => {
+  expect(capacity).toBeGreaterThan(0);
+});
 
-  test('Capacity greater than 1 lower boundary', () => {
-    expect(capacity).toBeGreaterThan(1);
-  });
+test('Capacity is not 6 upper boundary', () => {
+  expect(capacity).not.toBe(6);
+});
 
-  test('Capacity is not 1 lower boundary', () => {
-    expect(capacity).not.toBe(1);
-  });
+test('Capacity is less than 6 upper boundary', () => {
+  expect(capacity).toBeLessThan(6);
+});
+
+test('Capacity greater than 1 lower boundary', () => {
+  expect(capacity).toBeGreaterThan(1);
+});
+
+test('Capacity is not 1 lower boundary', () => {
+  expect(capacity).not.toBe(1);
 });
 
 
