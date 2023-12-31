@@ -189,7 +189,6 @@ describe('generatecar', () => {
 });
 
 /* ---------------------------------------- generateCars ---------------------------------------- */
-//FLERE TEST
 describe('generateCars', () => { });
 
 const generatedCars = [{ choice: 1, expected: 1 }, { choice: 100, expected: 100 }, { choice: 50, expected: 50 }];
@@ -241,8 +240,6 @@ test('Choice not a num', async () => {
 });
 
 /* ---------------------------------------- Get Car by ID ---------------------------------------- */
-//FLERE TEST
-//SKAL Mockes
 describe('GetCarByID success', () => {
 
     test('car by id successful', async () => {
@@ -250,13 +247,3 @@ describe('GetCarByID success', () => {
         expect(result.success).toBe(true);
     });
 });
-
-
-/* ---------------------------------------- MOCKING DB CALL ---------------------------------------- */
-//HVIS DENNE MOCKES SÅ FÅR VI DEN SAMME BIL HVER GANG!
-/*jest.spyOn(carService, 'saveCar').mockImplementation(async () => {
-    return Promise.resolve(
-        new Car(await manufacturerService.generateManufacturer(), 4, 2000, new Chassis(2000, 'red', 4, 5), new FuelStats(2000, 50, 600),
-        new Registration(2000, 'test', 'test'), new Engine(2000, 'test', 600, 800, 'test'), new Gearbox(2000, 'test', 7, 'test')))
-});
-*/

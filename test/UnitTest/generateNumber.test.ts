@@ -5,8 +5,6 @@ let randomNumber: number;
 
 /* ----------------------------------------generateRandomNumber ---------------------------------------- */
 describe('generateRandomNumber', () => {
-  //PARAMETERIZED TEST HERE????
-
     beforeEach(async () =>  {
          randomNumber = generateRandomNumber(1, 2);
     });

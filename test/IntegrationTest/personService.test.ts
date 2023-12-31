@@ -11,7 +11,6 @@ jest.mock('../../src/Repositories/fileHandler', () => {
     return {
         __esModule: true,
         getAllPersonsFromFile: jest.fn(() => {
-            //Denne kaldes ikke.
             return Promise.resolve([
                 {
                     name: 'Annemette P.',
@@ -25,7 +24,6 @@ jest.mock('../../src/Repositories/fileHandler', () => {
                 }
             ]);
         }).mockImplementationOnce(() => {
-            //Denne kaldes første gang BeforeAll kører. 
             return Promise.resolve([
                 {
                     name: 'Annemette P.',
@@ -44,7 +42,6 @@ jest.mock('../../src/Repositories/fileHandler', () => {
                 }
             ]);
         }).mockImplementationOnce(() => {
-            //Denne kaldes anden gang beforeAll kører - nu inde i describe block. Bruges ikke pt
             return Promise.resolve([
                 {
                     name: 'Anneme9tte P.',
@@ -56,16 +53,6 @@ jest.mock('../../src/Repositories/fileHandler', () => {
                     surname: 'Kj2ær',
                     gender: 'maale'
                 },
-                /*{
-                    name: 'LucÅs M.',
-                    surname: 'Kj2ær',
-                    gender: 'mal10e'
-                },
-                {
-                    name: 'TestSæt T. O',
-                    surname: 'To',
-                    gender: 'malse'
-                }*/
             ]);
         })
     };
