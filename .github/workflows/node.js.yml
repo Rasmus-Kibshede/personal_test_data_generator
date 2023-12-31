@@ -20,6 +20,8 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_DATABASE: ${{ secrets.DB_DATABASE }}
       DB_PORT: ${{ secrets.DB_PORT }}
+      CAR_API_KEY: ${{ secrets.CAR_API_KEY }}
+      USNGAPI: ${{ secrets.USNGAPI }}
 
     strategy:
       matrix:
