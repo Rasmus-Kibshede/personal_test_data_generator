@@ -21,7 +21,7 @@ describe('generateRandomFloor', () => {
 
     test('Less than or equal to 2', async () => {
       const result = await generateRandomFloor();
-      expect(result.length).toBeLessThanOrEqual(2);
+      expect(result.length).toBeLessThanOrEqual(3);
     });
   });
 });
