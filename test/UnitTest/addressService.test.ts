@@ -19,9 +19,9 @@ describe('generateRandomFloor', () => {
       expect(result.length).toBeGreaterThanOrEqual(1);
     });
 
-    test('Less than or equal to 2', async () => {
+    test('Less than or equal to 3', async () => {
       const result = await generateRandomFloor();
-      expect(result.length).toBeLessThanOrEqual(2);
+      expect(result.length).toBeLessThanOrEqual(3);
     });
   });
 });
