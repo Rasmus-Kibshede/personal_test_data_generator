@@ -35,7 +35,7 @@ export const generateCars = async (choice: number) => {
 
         for (let index = 0; index < choice; index++) {
             const door = generateDoor();
-            const car = new Car(await generateManufacturer(), door, -1, generateChassis(door),
+            const car = new Car(await generateManufacturer, door, -1, generateChassis(door),
                 generateFuelStats(), generateRegistration(), generateEngine(), generateGearbox());
             car.setVehicleId(cars.length);
             cars.push(car);

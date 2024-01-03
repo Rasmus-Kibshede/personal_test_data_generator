@@ -198,6 +198,8 @@ test.each(generatedCars)('GenerateCars blackbox', async ({ choice, expected }) =
     cars = result.result?.data as Car[];
     expect(cars.length).toBe(expected);
 });
+
+
 const error = 'Only 1-100 cars allowed!';
 const invalidError = 'No cars generated.';
 
@@ -214,10 +216,8 @@ const invalidCars = [
     { choice: Number({}), expected: invalidError },
 ];
 
-
 test.each(invalidCars)('Only between 1-100 cars allowed', async ({ choice, expected }) => {
     const result = await carService.generateCars(choice) as errorsInterface;
-
     expect(result.error.message).toBe(expected);
 });
 
